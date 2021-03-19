@@ -1,0 +1,22 @@
+{
+  "name": "react-native-popover-example",
+  "displayName": "Popover Example",
+  "expo": {
+    "name": "react-native-popover-example",
+    "slug": "react-native-popover-example",
+    "description": "Example app for react-native-popover",
+    "privacy": "public",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
