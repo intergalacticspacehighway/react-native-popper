@@ -28,15 +28,19 @@ const Popover = (props: IPopoverProps) => {
     shouldOverlapWithTrigger: props.shouldOverlapWithTrigger,
   });
 
-  const childArray = React.Children.toArray(props.children);
+  let arrowElement: any;
+  let contentElement: any;
 
-  let arrowElement = childArray.find((child) => {
-    if (React.isValidElement(child)) {
-      //@ts-ignore
-      return child.type.name === 'PopoverArrow';
+  React.Children.forEach(props.children, (child) => {
+    //@ts-ignore
+    if (child.type.name === 'PopoverContent') {
+      contentElement = child;
     }
-    return null;
-  }) as React.ReactElement;
+    //@ts-ignore
+    if (child.type.name === 'PopoverArrow') {
+      arrowElement = child;
+    }
+  });
 
   // Use default ArrowSVG if no custom arrow is used but <Popover.Arrow /> is present
   if (arrowElement && !arrowElement.props.children) {
@@ -50,19 +54,10 @@ const Popover = (props: IPopoverProps) => {
     );
   }
 
-  const contentElement = childArray.find((child) => {
-    if (React.isValidElement(child)) {
-      //@ts-ignore
-      return child.type.name === 'PopoverContent';
-    }
-    return null;
-  }) as React.ReactElement;
-
   return (
     <View
       ref={overlayRef}
       collapsable={false}
-      pointerEvents="box-only"
       style={[
         overlayProps.style,
         { opacity: rendered ? 1 : 0, position: 'absolute' },
