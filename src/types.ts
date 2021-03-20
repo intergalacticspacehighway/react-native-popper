@@ -2,7 +2,7 @@ import type { RefObject } from 'react';
 
 export type IPopoverArrowProps = {
   height?: number;
-  width?: number;
+  aspectRatio?: number;
   children?: React.ReactNode;
   color?: string;
 };
@@ -10,6 +10,8 @@ export type IPopoverArrowProps = {
 export type IPopoverArrowImplProps = {
   placement?: string;
   arrowProps: IArrowProps;
+  aspectRatio: number;
+  height: number;
 } & IPopoverArrowProps;
 
 export type IArrowProps = {
@@ -36,11 +38,12 @@ export type IPopoverProps = {
     | 'right bottom'
     | 'left top'
     | 'left bottom';
+  onClose?: () => void;
 };
 
 export type IPopoverContentImpl = {
   arrowHeight: number;
-  arrowWidth: number;
+  arrowAspectRatio: number;
   placement?: string;
   arrowProps: IArrowProps;
   children: any;

@@ -12,7 +12,8 @@ import type {
   IArrowStyles,
 } from '../types';
 
-const [defaultArrowHeight, defaultArrowWidth] = [5, 10];
+const defaultArrowHeight = 5;
+const defaultArrowAspectRatio = 1030 / 638;
 
 const Popover = (props: IPopoverProps) => {
   const overlayRef = React.useRef(null);
@@ -25,11 +26,14 @@ const Popover = (props: IPopoverProps) => {
     offset: props.offset,
     placement: props.placement,
     containerPadding: 0,
+    onClose: props.onClose,
     shouldOverlapWithTrigger: props.shouldOverlapWithTrigger,
   });
 
   let arrowElement: any;
   let contentElement: any;
+  let arrowHeight = 0;
+  let arrowAspectRatio = 0;
 
   React.Children.forEach(props.children, (child) => {
     //@ts-ignore
@@ -42,16 +46,26 @@ const Popover = (props: IPopoverProps) => {
     }
   });
 
-  // Use default ArrowSVG if no custom arrow is used but <Popover.Arrow /> is present
-  if (arrowElement && !arrowElement.props.children) {
-    arrowElement = (
-      <PopoverArrow
-        height={arrowElement.props.height ?? defaultArrowHeight}
-        width={arrowElement.props.width ?? defaultArrowWidth}
-      >
-        <ArrowSVG color={arrowElement.props.color || '#000'} />
-      </PopoverArrow>
-    );
+  if (arrowElement) {
+    arrowHeight = defaultArrowHeight;
+    arrowAspectRatio = defaultArrowAspectRatio;
+    // No custom Arrow Icon passed
+    if (!arrowElement.props.children) {
+      arrowHeight = arrowElement.props.height ?? defaultArrowHeight;
+      arrowElement = (
+        <PopoverArrow
+          height={arrowHeight}
+          aspectRatio={defaultArrowAspectRatio}
+        >
+          <ArrowSVG color={arrowElement.props.color || '#000'} />
+        </PopoverArrow>
+      );
+    }
+    // Custom Arrow
+    else {
+      arrowHeight = arrowElement.props.height;
+      arrowAspectRatio = arrowElement.props.aspectRatio;
+    }
   }
 
   return (
@@ -66,12 +80,8 @@ const Popover = (props: IPopoverProps) => {
       {contentElement && (
         <PopoverContentImpl
           children={contentElement.props.children}
-          arrowHeight={
-            arrowElement ? arrowElement.props.height ?? defaultArrowHeight : 0
-          }
-          arrowWidth={
-            arrowElement ? arrowElement.props.width ?? defaultArrowWidth : 0
-          }
+          arrowHeight={arrowHeight}
+          arrowAspectRatio={arrowAspectRatio}
           placement={placement}
           arrowProps={arrowProps}
         />
@@ -79,8 +89,8 @@ const Popover = (props: IPopoverProps) => {
       {arrowElement && (
         <PopoverArrowImpl
           children={arrowElement.props.children}
-          height={arrowElement.props.height ?? defaultArrowHeight}
-          width={arrowElement.props.width ?? defaultArrowWidth}
+          height={arrowHeight}
+          aspectRatio={arrowAspectRatio}
           arrowProps={arrowProps}
           placement={placement}
         />
@@ -100,15 +110,16 @@ const PopoverArrow = ({ children }: IPopoverArrowProps) => {
 // This is an internal implmentation of PopoverContent
 const PopoverContentImpl = (props: IPopoverContentImpl) => {
   const { placement } = props;
+  let arrowWidth = props.arrowAspectRatio * props.arrowHeight;
 
   const scrollContainerStyle = React.useMemo(
     () =>
       getScrollContentStyle({
         placement,
         arrowHeight: props.arrowHeight,
-        arrowWidth: props.arrowWidth,
+        arrowWidth,
       }),
-    [props.arrowHeight, props.arrowWidth, placement]
+    [props.arrowHeight, arrowWidth, placement]
   );
 
   return (
@@ -122,10 +133,11 @@ const PopoverContentImpl = (props: IPopoverContentImpl) => {
 const PopoverArrowImpl = ({
   children,
   height,
-  width,
+  aspectRatio,
   arrowProps,
   placement,
 }: IPopoverArrowImplProps) => {
+  let width = aspectRatio * height;
   const additionalStyles = React.useMemo(
     () => getArrowStyles({ placement, height, width }),
     [height, width, placement]
@@ -179,7 +191,6 @@ const getArrowStyles = (props: IArrowStyles) => {
 const getScrollContentStyle = ({
   placement,
   arrowHeight,
-  arrowWidth,
 }: IScrollContentStyle) => {
   if (placement === 'top') {
     return { marginBottom: arrowHeight };
@@ -190,11 +201,11 @@ const getScrollContentStyle = ({
   }
 
   if (placement === 'left') {
-    return { marginRight: arrowWidth };
+    return { marginRight: arrowHeight };
   }
 
   if (placement === 'right') {
-    return { marginLeft: arrowWidth };
+    return { marginLeft: arrowHeight };
   }
 
   return {};
@@ -205,8 +216,11 @@ const ArrowSVG = ({ color }: { color: string }) => {
     <Svg
       viewBox="0 0 1030 638"
       aria-labelledby="bfsi-ant-caret-up-title"
-      id="si-ant-caret-up"
       fill={color}
+      // SVGs are focusable in rn-svg!
+      // https://github.com/react-native-svg/react-native-svg/issues/1471
+      //@ts-ignore
+      tabIndex="-1"
     >
       <Path d="M1017 570L541 12Q530 0 515 0t-26 12L13 570q-16 19-7 43.5T39 638h952q24 0 33-24.5t-7-43.5z"></Path>
     </Svg>
