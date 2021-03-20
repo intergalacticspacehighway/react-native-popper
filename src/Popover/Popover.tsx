@@ -1,6 +1,7 @@
 import React from 'react';
 import { useOverlayPosition } from '@react-native-aria/overlays';
 import { ScrollView, View } from 'react-native';
+import { Svg, Path } from 'react-native-svg';
 import type {
   IPopoverArrowImplProps,
   IPopoverArrowProps,
@@ -10,6 +11,8 @@ import type {
   IScrollContentStyle,
   IArrowStyles,
 } from '../types';
+
+const [defaultArrowHeight, defaultArrowWidth] = [5, 10];
 
 const Popover = (props: IPopoverProps) => {
   const overlayRef = React.useRef(null);
@@ -22,17 +25,30 @@ const Popover = (props: IPopoverProps) => {
     offset: props.offset,
     placement: props.placement,
     containerPadding: 0,
+    shouldOverlapWithTrigger: props.shouldOverlapWithTrigger,
   });
 
   const childArray = React.Children.toArray(props.children);
 
-  const arrowElement = childArray.find((child) => {
+  let arrowElement = childArray.find((child) => {
     if (React.isValidElement(child)) {
       //@ts-ignore
       return child.type.name === 'PopoverArrow';
     }
     return null;
   }) as React.ReactElement;
+
+  // Use default ArrowSVG if no custom arrow is used but <Popover.Arrow /> is present
+  if (arrowElement && !arrowElement.props.children) {
+    arrowElement = (
+      <PopoverArrow
+        height={arrowElement.props.height ?? defaultArrowHeight}
+        width={arrowElement.props.width ?? defaultArrowWidth}
+      >
+        <ArrowSVG color={arrowElement.props.color || '#000'} />
+      </PopoverArrow>
+    );
+  }
 
   const contentElement = childArray.find((child) => {
     if (React.isValidElement(child)) {
@@ -45,6 +61,8 @@ const Popover = (props: IPopoverProps) => {
   return (
     <View
       ref={overlayRef}
+      collapsable={false}
+      pointerEvents="box-only"
       style={[
         overlayProps.style,
         { opacity: rendered ? 1 : 0, position: 'absolute' },
@@ -53,8 +71,12 @@ const Popover = (props: IPopoverProps) => {
       {contentElement && (
         <PopoverContentImpl
           children={contentElement.props.children}
-          arrowHeight={arrowElement ? arrowElement.props.height : 0}
-          arrowWidth={arrowElement ? arrowElement.props.width : 0}
+          arrowHeight={
+            arrowElement ? arrowElement.props.height ?? defaultArrowHeight : 0
+          }
+          arrowWidth={
+            arrowElement ? arrowElement.props.width ?? defaultArrowWidth : 0
+          }
           placement={placement}
           arrowProps={arrowProps}
         />
@@ -62,8 +84,8 @@ const Popover = (props: IPopoverProps) => {
       {arrowElement && (
         <PopoverArrowImpl
           children={arrowElement.props.children}
-          height={arrowElement.props.height}
-          width={arrowElement.props.width}
+          height={arrowElement.props.height ?? defaultArrowHeight}
+          width={arrowElement.props.width ?? defaultArrowWidth}
           arrowProps={arrowProps}
           placement={placement}
         />
@@ -101,7 +123,7 @@ const PopoverContentImpl = (props: IPopoverContentImpl) => {
   );
 };
 
-// This is an internal implmentation of PopoverContent
+// This is an internal implementation of PopoverArrow
 const PopoverArrowImpl = ({
   children,
   height,
@@ -127,28 +149,30 @@ const getArrowStyles = (props: IArrowStyles) => {
     position: 'absolute',
     height: props.height,
     width: props.width,
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
-  if (props.placement === 'top') {
+  if (props.placement === 'top' && props.width) {
     additionalStyles.transform.push({ translateX: -props.width / 2 });
     additionalStyles.transform.push({ rotate: '180deg' });
     additionalStyles.bottom = 0;
   }
 
-  if (props.placement === 'bottom') {
+  // No rotation is needed in bottom as arrow is already pointing top!
+  // additionalStyles.transform.push({ rotate: '-180deg' });
+  if (props.placement === 'bottom' && props.width) {
     additionalStyles.transform.push({ translateX: -props.width / 2 });
-    // No rotation in bottom as arrow is already bottom rotated!
-    // additionalStyles.transform.push({ rotate: '180deg' });
     additionalStyles.top = 0;
   }
 
-  if (props.placement === 'left') {
+  if (props.placement === 'left' && props.height) {
     additionalStyles.transform.push({ translateY: -props.height / 2 });
     additionalStyles.transform.push({ rotate: '90deg' });
     additionalStyles.right = 0;
   }
 
-  if (props.placement === 'right') {
+  if (props.placement === 'right' && props.height) {
     additionalStyles.transform.push({ translateY: -props.height / 2 });
     additionalStyles.transform.push({ rotate: '-90deg' });
     additionalStyles.left = 0;
@@ -179,6 +203,19 @@ const getScrollContentStyle = ({
   }
 
   return {};
+};
+
+const ArrowSVG = ({ color }: { color: string }) => {
+  return (
+    <Svg
+      viewBox="0 0 1030 638"
+      aria-labelledby="bfsi-ant-caret-up-title"
+      id="si-ant-caret-up"
+      fill={color}
+    >
+      <Path d="M1017 570L541 12Q530 0 515 0t-26 12L13 570q-16 19-7 43.5T39 638h952q24 0 33-24.5t-7-43.5z"></Path>
+    </Svg>
+  );
 };
 
 Popover.Arrow = PopoverArrow;

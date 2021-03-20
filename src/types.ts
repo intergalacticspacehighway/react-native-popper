@@ -1,9 +1,10 @@
 import type { RefObject } from 'react';
 
 export type IPopoverArrowProps = {
-  height: number;
-  width: number;
-  children: React.ReactNode;
+  height?: number;
+  width?: number;
+  children?: React.ReactNode;
+  color?: string;
 };
 
 export type IPopoverArrowImplProps = {
@@ -51,8 +52,8 @@ export type IPopoverContent = {
 
 export type IArrowStyles = {
   placement?: string;
-  height: number;
-  width: number;
+  height?: number;
+  width?: number;
 };
 
 export type IScrollContentStyle = {

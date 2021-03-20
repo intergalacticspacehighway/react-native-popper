@@ -7,10 +7,6 @@ import {
 } from 'react-native-popover';
 import { AntDesign } from '@expo/vector-icons';
 
-const MyArrow = () => {
-  return <AntDesign name="caretup" color="black" />;
-};
-
 export default function App() {
   const [visible, setVisible] = React.useState(false);
   const triggerRef = React.useRef<any>(null);
@@ -27,8 +23,8 @@ export default function App() {
       {visible && (
         <OverlayContainer>
           <Popover triggerRef={triggerRef} placement="bottom">
-            <Popover.Arrow height={10} width={5}>
-              <MyArrow />
+            <Popover.Arrow height={10} width={10}>
+              <AntDesign name="caretup" color="black" />
             </Popover.Arrow>
             <Popover.Content>
               <View style={styles.popover}>

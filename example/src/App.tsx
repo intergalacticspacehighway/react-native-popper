@@ -22,6 +22,7 @@ export default function App() {
       {visible && (
         <OverlayContainer>
           <Popover triggerRef={triggerRef}>
+            <Popover.Arrow />
             <Popover.Content>
               <View style={styles.popover}>
                 <Text>Hello from popover</Text>
