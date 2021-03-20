@@ -28,15 +28,9 @@ export default function App() {
 
       {visible && (
         <OverlayContainer>
-          <Popover
-            triggerRef={triggerRef}
-            isVisible={visible}
-            placement="right top"
-          >
+          <Popover triggerRef={triggerRef} isVisible={visible}>
             <Arrow as={MyArrow}></Arrow>
-            <View style={styles.popover}>
-              <Text>Hello from popover</Text>
-            </View>
+            <Text>Hello from popover</Text>
           </Popover>
         </OverlayContainer>
       )}
@@ -49,11 +43,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  popover: {
-    padding: 10,
-    borderWidth: 2,
-    borderColor: 'blue',
-    marginLeft: 15,
   },
 });
