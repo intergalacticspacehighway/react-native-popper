@@ -4,10 +4,7 @@ import {
   OverlayProvider,
   OverlayContainer,
   Popover,
-  Arrow,
-  // OverlayBackdrop,
 } from 'react-native-popover';
-
 import { AntDesign } from '@expo/vector-icons';
 
 const MyArrow = () => {
@@ -29,11 +26,7 @@ export default function App() {
 
       {visible && (
         <OverlayContainer>
-          <Popover
-            triggerRef={triggerRef}
-            isVisible={visible}
-            placement="bottom"
-          >
+          <Popover triggerRef={triggerRef} placement="bottom">
             <Popover.Arrow height={10} width={5}>
               <MyArrow />
             </Popover.Arrow>

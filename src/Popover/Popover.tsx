@@ -1,43 +1,24 @@
 import React from 'react';
-import type { RefObject } from 'react';
 import { useOverlayPosition } from '@react-native-aria/overlays';
 import { ScrollView, View } from 'react-native';
+import type {
+  IPopoverArrowImplProps,
+  IPopoverArrowProps,
+  IPopoverProps,
+  IPopoverContent,
+  IPopoverContentImpl,
+  IScrollContentStyle,
+  IArrowStyles,
+} from '../types';
 
-type IArrowProps = {
-  style: Object;
-};
-
-type IPopoverProps = {
-  isVisible: boolean;
-  triggerRef: RefObject<any>;
-  shouldFlip?: boolean;
-  crossOffset?: number;
-  offset?: number;
-  shouldOverlapWithTrigger?: boolean;
-  children: React.ReactNode;
-  placement?:
-    | 'top'
-    | 'bottom'
-    | 'left'
-    | 'right'
-    | 'top left'
-    | 'top right'
-    | 'bottom left'
-    | 'bottom right'
-    | 'right top'
-    | 'right bottom'
-    | 'left top'
-    | 'left bottom';
-};
-
-export const Popover = (props: IPopoverProps) => {
+const Popover = (props: IPopoverProps) => {
   const overlayRef = React.useRef(null);
   const { overlayProps, rendered, arrowProps, placement } = useOverlayPosition({
     targetRef: props.triggerRef,
     overlayRef,
     shouldFlip: props.shouldFlip,
     crossOffset: props.crossOffset,
-    isOpen: props.isVisible,
+    isOpen: true,
     offset: props.offset,
     placement: props.placement,
     containerPadding: 0,
@@ -46,11 +27,19 @@ export const Popover = (props: IPopoverProps) => {
   const childArray = React.Children.toArray(props.children);
 
   const arrowElement = childArray.find((child) => {
-    return child.type.name === 'PopoverArrow';
+    if (React.isValidElement(child)) {
+      //@ts-ignore
+      return child.type.name === 'PopoverArrow';
+    }
+    return null;
   }) as React.ReactElement;
 
   const contentElement = childArray.find((child) => {
-    return child.type.name === 'PopoverContent';
+    if (React.isValidElement(child)) {
+      //@ts-ignore
+      return child.type.name === 'PopoverContent';
+    }
+    return null;
   }) as React.ReactElement;
 
   return (
@@ -61,13 +50,15 @@ export const Popover = (props: IPopoverProps) => {
         { opacity: rendered ? 1 : 0, position: 'absolute' },
       ]}
     >
-      <PopoverContentImpl
-        children={contentElement.props.children}
-        arrowHeight={arrowElement ? arrowElement.props.height : 0}
-        arrowWidth={arrowElement ? arrowElement.props.width : 0}
-        placement={placement}
-        arrowProps={arrowProps}
-      />
+      {contentElement && (
+        <PopoverContentImpl
+          children={contentElement.props.children}
+          arrowHeight={arrowElement ? arrowElement.props.height : 0}
+          arrowWidth={arrowElement ? arrowElement.props.width : 0}
+          placement={placement}
+          arrowProps={arrowProps}
+        />
+      )}
       {arrowElement && (
         <PopoverArrowImpl
           children={arrowElement.props.children}
@@ -81,20 +72,12 @@ export const Popover = (props: IPopoverProps) => {
   );
 };
 
-type IPopoverContent = {
-  children: React.FC;
+const PopoverContent = ({ children }: IPopoverContent) => {
+  return <>{children}</>;
 };
 
-const PopoverContent = (props: IPopoverContent) => {
-  return props.children;
-};
-
-type IPopoverContentImpl = {
-  arrowHeight: number;
-  arrowWidth: number;
-  placement?: string;
-  arrowProps: IArrowProps;
-  children: any;
+const PopoverArrow = ({ children }: IPopoverArrowProps) => {
+  return <>{children}</>;
 };
 
 // This is an internal implmentation of PopoverContent
@@ -118,22 +101,8 @@ const PopoverContentImpl = (props: IPopoverContentImpl) => {
   );
 };
 
-type IPopoverArrowProps = {
-  height: number;
-  width: number;
-  children: React.FC;
-};
-
-export const PopoverArrow = ({ children }: IPopoverArrowProps) => {
-  return children;
-};
-
-type IPopoverArrowImplProps = {
-  placement?: string;
-  arrowProps: IArrowProps;
-} & IPopoverArrowProps;
-
-export const PopoverArrowImpl = ({
+// This is an internal implmentation of PopoverContent
+const PopoverArrowImpl = ({
   children,
   height,
   width,
@@ -212,17 +181,7 @@ const getScrollContentStyle = ({
   return {};
 };
 
-type IArrowStyles = {
-  placement: string;
-  height: number;
-  width: number;
-};
-
-type IScrollContentStyle = {
-  placement?: string;
-  arrowHeight: number;
-  arrowWidth: number;
-};
-
 Popover.Arrow = PopoverArrow;
 Popover.Content = PopoverContent;
+
+export { Popover };
