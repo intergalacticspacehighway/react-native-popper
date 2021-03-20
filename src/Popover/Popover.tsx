@@ -24,9 +24,11 @@ type IPopoverProps = {
     | 'right bottom'
     | 'left top'
     | 'left bottom';
-};
 
-const PopoverContext = React.createContext(null);
+  arrowComponent: React.FC;
+  arrowHeight: number;
+  arrowWidth: number;
+};
 
 export const Popover = (props: IPopoverProps) => {
   const overlayRef = React.useRef(null);
@@ -41,45 +43,126 @@ export const Popover = (props: IPopoverProps) => {
     containerPadding: 0,
   });
 
-  console.log('arrow ', arrowProps, overlayProps, placement);
+  const ArrowComponent = props.arrowComponent;
 
-  return (
-    <PopoverContext.Provider value={{ arrowProps, placement }}>
-      <View
-        ref={overlayRef}
-        style={[
-          overlayProps.style,
-          { opacity: rendered ? 1 : 0, position: 'absolute' },
-        ]}
-      >
-        <ScrollView>{props.children}</ScrollView>
-      </View>
-    </PopoverContext.Provider>
+  const scrollContainerStyle = React.useMemo(
+    () =>
+      getScrollContentStyle({
+        placement,
+        arrowHeight: props.arrowHeight,
+        arrowWidth: props.arrowWidth,
+      }),
+    [props.arrowHeight, props.arrowWidth, placement]
   );
-};
-
-export const Arrow = (props: any) => {
-  console.log('arrow props ', props);
-  const { arrowProps, placement } = React.useContext(PopoverContext);
-
-  let transform: any = [];
-  if (placement === 'right') {
-    transform.push({ translateY: -12 });
-    transform.push({ rotate: '-90deg' });
-  }
-
-  const CustomArrow = props.as;
 
   return (
     <View
+      ref={overlayRef}
       style={[
-        arrowProps.style,
-        { position: 'absolute' },
-        { transform: transform },
+        overlayProps.style,
+        { opacity: rendered ? 1 : 0, position: 'absolute' },
       ]}
-      collapsable={false}
     >
-      <CustomArrow />
+      <ScrollView contentContainerStyle={scrollContainerStyle}>
+        {props.children}
+      </ScrollView>
+      <Arrow
+        placement={placement}
+        arrowProps={arrowProps}
+        height={props.arrowHeight}
+        width={props.arrowWidth}
+      >
+        <ArrowComponent />
+      </Arrow>
     </View>
   );
+};
+
+export const Arrow = ({
+  placement,
+  arrowProps,
+  children,
+  height,
+  width,
+}: any) => {
+  const additionalStyles = React.useMemo(
+    () => getArrowStyles({ placement, height, width }),
+    [height, width, placement]
+  );
+
+  return (
+    <View style={[arrowProps.style, additionalStyles]} collapsable={false}>
+      {children}
+    </View>
+  );
+};
+
+const getArrowStyles = (props: IArrowStyles) => {
+  let additionalStyles: any = {
+    transform: [],
+    position: 'absolute',
+  };
+
+  if (props.placement === 'top') {
+    additionalStyles.transform.push({ translateX: -props.width / 2 });
+    additionalStyles.transform.push({ rotate: '180deg' });
+    additionalStyles.bottom = 0;
+  }
+
+  if (props.placement === 'bottom') {
+    additionalStyles.transform.push({ translateX: -props.width / 2 });
+    // No rotation in bottom as arrow is already bottom rotated!
+    // additionalStyles.transform.push({ rotate: '180deg' });
+    additionalStyles.top = 0;
+  }
+
+  if (props.placement === 'left') {
+    additionalStyles.transform.push({ translateY: -props.height / 2 });
+    additionalStyles.transform.push({ rotate: '90deg' });
+    additionalStyles.right = 0;
+  }
+
+  if (props.placement === 'right') {
+    additionalStyles.transform.push({ translateY: -props.height / 2 });
+    additionalStyles.transform.push({ rotate: '-90deg' });
+    additionalStyles.left = 0;
+  }
+
+  return additionalStyles;
+};
+
+const getScrollContentStyle = ({
+  placement,
+  arrowHeight,
+  arrowWidth,
+}: IScrollContentStyle) => {
+  if (placement === 'top') {
+    return { marginBottom: arrowHeight };
+  }
+
+  if (placement === 'bottom') {
+    return { marginTop: arrowHeight };
+  }
+
+  if (placement === 'left') {
+    return { marginRight: arrowWidth };
+  }
+
+  if (placement === 'right') {
+    return { marginLeft: arrowWidth };
+  }
+
+  return {};
+};
+
+type IArrowStyles = {
+  placement: string;
+  height: number;
+  width: number;
+};
+
+type IScrollContentStyle = {
+  placement?: string;
+  arrowHeight: number;
+  arrowWidth: number;
 };

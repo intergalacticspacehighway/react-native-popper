@@ -4,13 +4,13 @@ import {
   OverlayProvider,
   OverlayContainer,
   Popover,
-  Arrow,
+  // OverlayBackdrop,
 } from 'react-native-popover';
 
 import { AntDesign } from '@expo/vector-icons';
 
 const MyArrow = () => {
-  return <AntDesign name="caretup" size={24} color="black" />;
+  return <AntDesign name="caretup" size={16} color="black" />;
 };
 
 export default function App() {
@@ -28,12 +28,15 @@ export default function App() {
 
       {visible && (
         <OverlayContainer>
+          {/* <OverlayBackdrop onPress={toggleVisible} /> */}
           <Popover
             triggerRef={triggerRef}
             isVisible={visible}
-            placement="right top"
+            placement="bottom"
+            arrowHeight={10}
+            arrowWidth={10}
+            arrowComponent={() => <MyArrow />}
           >
-            <Arrow as={MyArrow}></Arrow>
             <View style={styles.popover}>
               <Text>Hello from popover</Text>
             </View>
@@ -54,6 +57,5 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 2,
     borderColor: 'blue',
-    marginLeft: 15,
   },
 });
