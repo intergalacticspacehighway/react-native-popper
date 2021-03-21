@@ -23,7 +23,7 @@ export default function App() {
     <>
       <View style={styles.wrapper}>
         <Pressable ref={triggerRef} onPress={toggleVisible}>
-          <Text>Hey there</Text>
+          <Text>Press me</Text>
         </Pressable>
       </View>
 

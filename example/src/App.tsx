@@ -29,6 +29,7 @@ export default function App() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 5,
+                  borderWidth: selected === item.name ? 4 : 0,
                 }}
               >
                 <Text>{item.name}</Text>
