@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import {
-  OverlayProvider,
-  OverlayContainer,
-  Popover,
-} from 'react-native-popover';
+import { OverlayProvider, Popover } from 'react-native-popover';
 
 export default function App() {
   const [visible, setVisible] = React.useState(false);
@@ -20,16 +16,15 @@ export default function App() {
       </View>
 
       {visible && (
-        <OverlayContainer>
-          <Popover triggerRef={triggerRef}>
-            <Popover.Arrow />
-            <Popover.Content>
-              <View style={styles.popover}>
-                <Text>Hello from popover</Text>
-              </View>
-            </Popover.Content>
-          </Popover>
-        </OverlayContainer>
+        <Popover triggerRef={triggerRef}>
+          <Popover.Backdrop onPress={toggleVisible}></Popover.Backdrop>
+          <Popover.Arrow />
+          <Popover.Content>
+            <View style={styles.popover}>
+              <Text>Hello from popover</Text>
+            </View>
+          </Popover.Content>
+        </Popover>
       )}
     </OverlayProvider>
   );

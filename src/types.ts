@@ -25,6 +25,7 @@ export type IPopoverProps = {
   offset?: number;
   shouldOverlapWithTrigger?: boolean;
   children: React.ReactNode;
+  isKeyboardDismissable?: boolean;
   placement?:
     | 'top'
     | 'bottom'

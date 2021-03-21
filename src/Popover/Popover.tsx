@@ -1,6 +1,7 @@
 import React from 'react';
 import { useOverlayPosition } from '@react-native-aria/overlays';
-import { ScrollView, View } from 'react-native';
+import { OverlayContainer } from '../Overlay';
+import { ScrollView, View, Platform, Modal } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
 import type {
   IPopoverArrowImplProps,
@@ -11,6 +12,8 @@ import type {
   IScrollContentStyle,
   IArrowStyles,
 } from '../types';
+import { useElementByType, useKeyboardDismissable } from '../hooks';
+import { OverlayBackdrop } from '../Overlay/Backdrop';
 
 const defaultArrowHeight = 5;
 const defaultArrowAspectRatio = 1030 / 638;
@@ -30,20 +33,15 @@ const Popover = (props: IPopoverProps) => {
     shouldOverlapWithTrigger: props.shouldOverlapWithTrigger,
   });
 
-  let arrowElement: any;
-  let contentElement: any;
+  let arrowElement: any = useElementByType(props.children, 'PopoverArrow');
+  let contentElement: any = useElementByType(props.children, 'PopoverContent');
+
   let arrowHeight = 0;
   let arrowAspectRatio = 0;
 
-  React.Children.forEach(props.children, (child) => {
-    //@ts-ignore
-    if (child.type.name === 'PopoverContent') {
-      contentElement = child;
-    }
-    //@ts-ignore
-    if (child.type.name === 'PopoverArrow') {
-      arrowElement = child;
-    }
+  useKeyboardDismissable({
+    enabled: props.isKeyboardDismissable ?? true,
+    onClose: props.onClose ? props.onClose : () => {},
   });
 
   if (arrowElement) {
@@ -227,7 +225,41 @@ const ArrowSVG = ({ color }: { color: string }) => {
   );
 };
 
-Popover.Arrow = PopoverArrow;
-Popover.Content = PopoverContent;
+// This component just uses original Popover by wrapping it with OverlayContainer, to make sure it gets rendered in OverlayProvider
+const PopoverWithOverlayContainer = (props: IPopoverProps) => {
+  let overlayBackdrop = useElementByType(props.children, 'OverlayBackdrop');
 
-export { Popover };
+  let OverlayWrapper: any = ({ children }: any) => (
+    <Modal
+      visible
+      transparent
+      // Closes popover on Back press on Android and iOS
+      onRequestClose={props.onClose}
+      // Closes popover on accessibility gesture
+      onAccessibilityEscape={props.onClose}
+    >
+      {overlayBackdrop}
+      {children}
+    </Modal>
+  );
+
+  if (Platform.OS === 'web') {
+    OverlayWrapper = OverlayContainer;
+  }
+
+  return (
+    <OverlayWrapper>
+      {overlayBackdrop}
+      <Popover {...props} />
+    </OverlayWrapper>
+  );
+};
+
+PopoverWithOverlayContainer.Arrow = PopoverArrow;
+PopoverWithOverlayContainer.Content = PopoverContent;
+PopoverWithOverlayContainer.Backdrop = OverlayBackdrop;
+
+export { PopoverWithOverlayContainer as Popover };
+export { Popover as PlainPopover };
+export { PopoverContent };
+export { PopoverArrow };

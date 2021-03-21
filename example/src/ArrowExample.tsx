@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import {
-  OverlayProvider,
-  OverlayContainer,
-  Popover,
-} from 'react-native-popover';
+import { OverlayProvider, Popover } from 'react-native-popover';
 import Svg, { Path } from 'react-native-svg';
 
 const MySVGIcon = () => {
@@ -32,18 +28,16 @@ export default function App() {
       </View>
 
       {visible && (
-        <OverlayContainer>
-          <Popover triggerRef={triggerRef} placement="left">
-            <Popover.Arrow height={12} aspectRatio={1}>
-              <MySVGIcon />
-            </Popover.Arrow>
-            <Popover.Content>
-              <View style={styles.popover}>
-                <Text>Hello from popover</Text>
-              </View>
-            </Popover.Content>
-          </Popover>
-        </OverlayContainer>
+        <Popover triggerRef={triggerRef} placement="left">
+          <Popover.Arrow height={12} aspectRatio={1}>
+            <MySVGIcon />
+          </Popover.Arrow>
+          <Popover.Content>
+            <View style={styles.popover}>
+              <Text>Hello from popover</Text>
+            </View>
+          </Popover.Content>
+        </Popover>
       )}
     </OverlayProvider>
   );
