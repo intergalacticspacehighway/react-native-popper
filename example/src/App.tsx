@@ -1,44 +1,45 @@
 import * as React from 'react';
-import { StyleSheet, Pressable, Text, View } from 'react-native';
-import { OverlayProvider, Popover } from 'react-native-popover';
+import { Pressable, Text, View, ScrollView } from 'react-native';
+import { OverlayProvider } from 'react-native-popover';
+import * as Examples from './examples';
+
+let ExamplesArray = Object.keys(Examples).map((key: any) => {
+  return {
+    name: key,
+  };
+});
 
 export default function App() {
-  const [visible, setVisible] = React.useState(false);
-  const triggerRef = React.useRef<any>(null);
-  const toggleVisible = () => setVisible(!visible);
+  const [selected, setSelected] = React.useState(ExamplesArray[0].name);
+  //@ts-ignore
+  let SelectedExample = Examples[selected];
 
   return (
     <OverlayProvider>
-      <View style={styles.wrapper}>
-        <Pressable ref={triggerRef} onPress={toggleVisible}>
-          <Text>Hey there</Text>
-        </Pressable>
+      <View style={{ flex: 1.5, marginTop: 40 }}>
+        <ScrollView horizontal>
+          {ExamplesArray.map((item) => {
+            return (
+              <Pressable
+                onPress={() => setSelected(item.name)}
+                style={{
+                  marginHorizontal: 10,
+                  paddingHorizontal: 10,
+                  backgroundColor: '#F9A8D4',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 5,
+                }}
+              >
+                <Text>{item.name}</Text>
+              </Pressable>
+            );
+          })}
+        </ScrollView>
       </View>
-
-      {visible && (
-        <Popover triggerRef={triggerRef}>
-          <Popover.Backdrop onPress={toggleVisible} />
-          <Popover.Arrow />
-          <Popover.Content>
-            <View style={styles.popover}>
-              <Text>Hello from popover</Text>
-            </View>
-          </Popover.Content>
-        </Popover>
-      )}
+      <View style={{ flex: 20 }}>
+        <SelectedExample />
+      </View>
     </OverlayProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  popover: {
-    padding: 10,
-    borderWidth: 2,
-    borderColor: 'blue',
-  },
-});

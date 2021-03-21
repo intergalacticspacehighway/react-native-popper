@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import { OverlayProvider, Tooltip } from 'react-native-popover';
+import { Popover } from 'react-native-popover';
 
 export default function App() {
   const [visible, setVisible] = React.useState(false);
@@ -8,7 +8,7 @@ export default function App() {
   const toggleVisible = () => setVisible(!visible);
 
   return (
-    <OverlayProvider>
+    <>
       <View style={styles.wrapper}>
         <Pressable ref={triggerRef} onPress={toggleVisible}>
           <Text>Hey there</Text>
@@ -16,16 +16,15 @@ export default function App() {
       </View>
 
       {visible && (
-        <Tooltip triggerRef={triggerRef}>
-          <Tooltip.Arrow />
-          <Tooltip.Content>
-            <View style={styles.tooltip}>
-              <Text>Hello from Tooltip</Text>
+        <Popover triggerRef={triggerRef} onClose={toggleVisible}>
+          <Popover.Content>
+            <View style={styles.popover}>
+              <Text>Hello from popover</Text>
             </View>
-          </Tooltip.Content>
-        </Tooltip>
+          </Popover.Content>
+        </Popover>
       )}
-    </OverlayProvider>
+    </>
   );
 }
 
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  tooltip: {
+  popover: {
     padding: 10,
     borderWidth: 2,
     borderColor: 'blue',

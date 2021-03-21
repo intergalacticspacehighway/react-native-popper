@@ -1,16 +1,12 @@
 import React from 'react';
-import { OverlayProvider, Popover } from 'react-native-popover';
+import { Popover } from 'react-native-popover';
 import { View, Text, StyleSheet, Animated, Pressable } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 
 export default function App() {
-  return (
-    <OverlayProvider>
-      <ContextPopover />
-    </OverlayProvider>
-  );
+  return <ContextPopover />;
 }
 
 function ContextPopover() {
@@ -27,8 +23,8 @@ function ContextPopover() {
         <MaterialIcons name="more-vert" size={18} color="#374151" />
       </Pressable>
       {open && (
-        <Popover triggerRef={ref} placement="top">
-          <Popover.Arrow height={8} color="#D1D5DB" />
+        <Popover triggerRef={ref}>
+          {/* <Popover.Arrow height={8} color="#D1D5DB" /> */}
           <Popover.Content>
             <OverlayView onClose={() => setOpen(!open)} />
           </Popover.Content>
