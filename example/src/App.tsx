@@ -17,7 +17,7 @@ export default function App() {
 
       {visible && (
         <Popover triggerRef={triggerRef}>
-          <Popover.Backdrop onPress={toggleVisible}></Popover.Backdrop>
+          <Popover.Backdrop onPress={toggleVisible} />
           <Popover.Arrow />
           <Popover.Content>
             <View style={styles.popover}>
