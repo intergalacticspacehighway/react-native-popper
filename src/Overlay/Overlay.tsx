@@ -10,7 +10,7 @@ export function Overlay(props: IOverlayProps) {
     children,
     closeOnOutsideClick = true,
     onClose,
-    mode = 'single',
+    mode = 'popover',
   } = props;
 
   const handleClose = React.useCallback(() => {
@@ -27,7 +27,7 @@ export function Overlay(props: IOverlayProps) {
     </Modal>
   );
 
-  if (mode === 'multiple') {
+  if (mode === 'tooltip') {
     Parent = ({ children }: any) => (
       <OverlayContainer>{children}</OverlayContainer>
     );
@@ -35,7 +35,11 @@ export function Overlay(props: IOverlayProps) {
 
   return (
     <Parent>
-      <OverlayBackdrop onPress={handleClose} disabled={!closeOnOutsideClick} />
+      <OverlayBackdrop
+        onPress={handleClose}
+        disabled={!closeOnOutsideClick}
+        onAccessibilityEscape={handleClose}
+      />
       {children}
     </Parent>
   );

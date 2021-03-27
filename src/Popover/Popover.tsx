@@ -255,6 +255,7 @@ const PopoverWithOverlayContainer = (props: IPopoverProps) => {
         closeOnOutsideClick={props.closeOnOutsideClick}
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
+        mode={props.mode}
       >
         <PopoverImpl {...props} onClose={handleClose} triggerRef={triggerRef} />
       </Overlay>

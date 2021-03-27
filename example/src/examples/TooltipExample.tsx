@@ -15,7 +15,7 @@ export default function App() {
         </Pressable>
       </View>
 
-      <Popover trigger={triggerRef} isOpen={visible}>
+      <Popover mode="tooltip" trigger={triggerRef} isOpen={visible}>
         <Popover.Arrow />
         <Popover.Content>
           <View style={styles.Popover}>

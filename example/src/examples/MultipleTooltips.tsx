@@ -78,6 +78,7 @@ export default function App() {
             onChange={toggleVisible}
             //@ts-ignore
             placement={p}
+            mode="tooltip"
           >
             <Popover.Arrow />
             <Popover.Content>
@@ -97,6 +98,7 @@ export default function App() {
               onChange={toggleVisible}
               //@ts-ignore
               placement={p}
+              mode="tooltip"
             >
               <Popover.Arrow />
               <Popover.Content>
@@ -117,6 +119,7 @@ export default function App() {
             onChange={toggleVisible}
             //@ts-ignore
             placement={p}
+            mode="tooltip"
           >
             <Popover.Arrow />
             <Popover.Content>
@@ -136,6 +139,7 @@ export default function App() {
             onChange={toggleVisible}
             //@ts-ignore
             placement={p}
+            mode="tooltip"
           >
             <Popover.Arrow />
             <Popover.Content>
@@ -155,6 +159,7 @@ export default function App() {
             placement={'top'}
             isOpen={visible}
             shouldOverlapWithTrigger
+            mode="tooltip"
           >
             <Popover.Content>
               <View style={styles.Popover}>
