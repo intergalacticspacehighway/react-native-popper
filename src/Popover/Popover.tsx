@@ -11,13 +11,13 @@ import type {
   IPopoverContent,
 } from '../types';
 import { Overlay } from '../Overlay/Overlay';
-import { useControllableState, useElementByType } from '../hooks';
+import { useControllableState, useElementByType, usePopover } from '../hooks';
 
 const defaultArrowHeight = 10;
 const defaultArrowWidth = 16;
 
 const PopoverImpl = (
-  props: IPopoverProps & { triggerRef: any; onClose: any }
+  props: IPopoverProps & { triggerRef: any; onClose: any; contentProps: any }
 ) => {
   const overlayRef = React.useRef(null);
 
@@ -65,7 +65,7 @@ const PopoverImpl = (
           arrowHeight={arrowHeight}
           arrowWidth={arrowWidth}
           placement={placement}
-          arrowProps={arrowProps}
+          {...props.contentProps}
         />
       )}
       {arrowElement && (
@@ -82,23 +82,26 @@ const PopoverImpl = (
 };
 
 // This is an internal implmentation of PopoverContent
-const PopoverContentImpl = (props: IPopoverContentImpl) => {
-  const { placement } = props;
-  let arrowWidth = props.arrowWidth;
-
+const PopoverContentImpl = ({
+  arrowWidth,
+  placement,
+  arrowHeight,
+  children,
+  ...rest
+}: IPopoverContentImpl) => {
   const scrollContainerStyle = React.useMemo(
     () =>
       getScrollContentStyle({
         placement,
-        arrowHeight: props.arrowHeight,
+        arrowHeight: arrowHeight,
         arrowWidth,
       }),
-    [props.arrowHeight, arrowWidth, placement]
+    [arrowHeight, arrowWidth, placement]
   );
 
   return (
-    <ScrollView contentContainerStyle={scrollContainerStyle}>
-      {props.children}
+    <ScrollView contentContainerStyle={scrollContainerStyle} {...rest}>
+      {children}
     </ScrollView>
   );
 };
@@ -246,6 +249,13 @@ const PopoverWithOverlayContainer = (props: IPopoverProps) => {
       `Popover: Invalid 'trigger' prop received, please pass a valid ReactElement or a Ref`
     );
   }
+  const { mode = 'popover' } = props;
+
+  const { triggerProps, contentProps } = usePopover({ isOpen, mode });
+
+  if (triggerElem) {
+    triggerElem = React.cloneElement(triggerElem, { ...triggerProps });
+  }
 
   return (
     <>
@@ -255,9 +265,14 @@ const PopoverWithOverlayContainer = (props: IPopoverProps) => {
         closeOnOutsideClick={props.closeOnOutsideClick}
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
-        mode={props.mode}
+        mode={mode}
       >
-        <PopoverImpl {...props} onClose={handleClose} triggerRef={triggerRef} />
+        <PopoverImpl
+          {...props}
+          onClose={handleClose}
+          triggerRef={triggerRef}
+          contentProps={contentProps}
+        />
       </Overlay>
     </>
   );

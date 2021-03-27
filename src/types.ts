@@ -21,7 +21,7 @@ export type IArrowProps = {
 };
 
 // Tooltip is rendered in Non RN modal which won't shift accessibilityFocus
-type OverlayType = 'popover' | 'tooltip';
+export type OverlayType = 'popover' | 'tooltip';
 
 export type IPopoverProps = {
   mode?: OverlayType;
@@ -55,7 +55,6 @@ export type IPopoverContentImpl = {
   arrowHeight: number;
   arrowWidth: number;
   placement?: string;
-  arrowProps: IArrowProps;
   children: any;
 };
 

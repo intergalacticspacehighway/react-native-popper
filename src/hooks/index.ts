@@ -1,5 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
+import type { OverlayType } from '../types';
+
+let idCounter = 0;
+
+const generateId = (prefix: string) => {
+  idCounter++;
+  return 'react-native-headless-popover-' + prefix + '-' + idCounter;
+};
 
 type IParams = {
   enabled?: boolean;
@@ -84,3 +92,40 @@ export function useControllableState<T>(props: UseControllableStateProps<T>) {
 
   return [value, updateValue] as [T, React.Dispatch<React.SetStateAction<T>>];
 }
+
+type IUsePopover = {
+  isOpen: boolean;
+  mode: OverlayType;
+};
+
+export const usePopover = (props: IUsePopover) => {
+  const triggerId = React.useRef(generateId('trigger')).current;
+  const contentId = React.useRef(generateId('content')).current;
+  const { isOpen, mode } = props;
+
+  let triggerProps: any = {
+    nativeID: triggerId,
+    accessibilityRole: 'button',
+  };
+
+  let contentProps: any = {
+    nativeID: contentId,
+  };
+
+  if (mode === 'tooltip') {
+    triggerProps['aria-describedby'] = isOpen ? contentId : undefined;
+    contentProps.accessibilityRole = 'tooltip';
+  }
+
+  if (mode === 'popover') {
+    triggerProps['aria-expanded'] = !!isOpen;
+    triggerProps['aria-haspopup'] = true;
+    triggerProps['aria-controls'] = isOpen ? contentId : undefined;
+    contentProps.accessibilityRole = 'dialog';
+  }
+
+  return {
+    triggerProps,
+    contentProps,
+  };
+};
