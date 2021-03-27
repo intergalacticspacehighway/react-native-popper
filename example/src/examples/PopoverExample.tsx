@@ -2,8 +2,6 @@ import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import { Popover } from 'react-native-popover';
 export default function App() {
-  const [visible, setVisible] = React.useState(false);
-
   return (
     <View style={styles.wrapper}>
       <Popover
@@ -12,11 +10,9 @@ export default function App() {
             <Text>Press me</Text>
           </Pressable>
         }
-        onOpenChange={setVisible}
-        isOpen={visible}
       >
         <Popover.Content>
-          <Popover.Arrow></Popover.Arrow>
+          <Popover.Arrow color="#D1D5DB"></Popover.Arrow>
           <View style={styles.popover}>
             <Text>Hello from popover</Text>
           </View>

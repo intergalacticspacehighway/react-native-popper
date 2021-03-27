@@ -173,6 +173,15 @@ const PopperArrow = ({
     [triangleStyle, additionalStyles, arrowProps.style, rest.style]
   );
 
+  // Passed a custom Arrow, don't apply triangle style
+  if (rest.children) {
+    return (
+      <View style={[additionalStyles, arrowProps.style, rest.style]}>
+        {rest.children}
+      </View>
+    );
+  }
+
   return <View style={arrowStyles}></View>;
 };
 

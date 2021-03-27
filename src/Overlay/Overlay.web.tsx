@@ -45,7 +45,6 @@ export function Overlay(props: IOverlayProps): any {
   );
 
   // Tooltips don't shift focus or add a backdrop
-  console.log('mann ', mode);
   if (mode === 'tooltip') {
     Parent = ({ children }: any) => children;
   }

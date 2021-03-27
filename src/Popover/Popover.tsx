@@ -5,8 +5,7 @@ import { useControllableState, usePopover } from '../hooks';
 import { composeEventHandlers } from '../utils';
 import { Popper } from '../Popper/Popper';
 
-// This component just uses original Popover by wrapping it with OverlayContainer, to make sure it gets rendered in OverlayProvider
-const PopoverWithOverlayContainer = (props: IPopoverProps) => {
+const Popover = (props: IPopoverProps) => {
   let triggerRef = React.useRef<any>(null);
 
   const [isOpen, setIsOpen] = useControllableState({
@@ -49,6 +48,7 @@ const PopoverWithOverlayContainer = (props: IPopoverProps) => {
       `Popover: Invalid 'trigger' prop received, please pass a valid ReactElement or a Ref`
     );
   }
+
   const { mode = 'popover' } = props;
 
   const { triggerProps, contentProps } = usePopover({ isOpen, mode });
@@ -78,7 +78,7 @@ const PopoverWithOverlayContainer = (props: IPopoverProps) => {
   );
 };
 
-PopoverWithOverlayContainer.Content = Popper.Content;
-PopoverWithOverlayContainer.Arrow = Popper.Arrow;
+Popover.Content = Popper.Content;
+Popover.Arrow = Popper.Arrow;
 
-export { PopoverWithOverlayContainer as Popover };
+export { Popover as Popover };

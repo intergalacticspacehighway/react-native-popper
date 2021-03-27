@@ -5,23 +5,59 @@ import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 
-export default function App() {
-  return <ContextPopover />;
-}
+export default function ContextPopover() {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const fadeAnim = React.useRef(new Animated.Value(0)).current;
 
-function ContextPopover() {
+  React.useEffect(() => {
+    if (isOpen) {
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        useNativeDriver: true,
+        duration: 250,
+      }).start();
+    }
+  }, [isOpen, fadeAnim]);
+
+  const handleClose = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      useNativeDriver: true,
+      duration: 250,
+    }).start(() => {
+      setIsOpen(false);
+    });
+  };
+
+  const animatedStyle = {
+    opacity: fadeAnim,
+  };
+
   return (
     <View style={styles.wrapper}>
       <Popover
+        isOpen={isOpen}
+        placement="bottom left"
+        onOpenChange={(val) => {
+          // Open request
+          if (val) {
+            setIsOpen(true);
+          }
+          // Close request
+          else {
+            handleClose();
+          }
+        }}
         trigger={
           <Pressable>
-            <MaterialIcons name="more-vert" size={18} color="#374151" />
+            <MaterialIcons name="more-vert" size={36} color="#374151" />
           </Pressable>
         }
       >
-        {/* <Popover.Arrow height={8} color="#D1D5DB" /> */}
         <Popover.Content>
-          <OverlayView />
+          <Animated.View style={[styles.popoverWrapper, animatedStyle]}>
+            <OverlayView onClose={handleClose} />
+          </Animated.View>
         </Popover.Content>
       </Popover>
     </View>
@@ -29,22 +65,8 @@ function ContextPopover() {
 }
 
 const OverlayView = ({ onClose }: any) => {
-  const fadeAnim = React.useRef(new Animated.Value(0)).current;
-
-  React.useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      useNativeDriver: true,
-      duration: 150,
-    }).start();
-  }, [fadeAnim]);
-
-  const animatedStyle = {
-    opacity: fadeAnim,
-  };
-
   return (
-    <Animated.View style={[styles.popoverWrapper, animatedStyle]}>
+    <>
       {commands.map((c) => {
         return (
           <View key={c.name} style={{ marginVertical: 8, padding: 10 }}>
@@ -58,7 +80,7 @@ const OverlayView = ({ onClose }: any) => {
           </View>
         );
       })}
-    </Animated.View>
+    </>
   );
 };
 const styles = StyleSheet.create({

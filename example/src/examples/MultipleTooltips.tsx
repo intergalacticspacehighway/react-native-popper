@@ -56,6 +56,7 @@ export default function App() {
           <Popover
             isOpen={visible}
             trigger={trigger}
+            key={p}
             onOpenChange={setVisible}
             //@ts-ignore
             placement={p}
@@ -76,6 +77,7 @@ export default function App() {
           <Popover
             isOpen={visible}
             trigger={trigger3}
+            key={p}
             onOpenChange={toggleVisible}
             //@ts-ignore
             placement={p}
@@ -96,6 +98,7 @@ export default function App() {
             <Popover
               isOpen={visible}
               trigger={trigger4}
+              key={p}
               onOpenChange={toggleVisible}
               //@ts-ignore
               placement={p}
@@ -117,6 +120,7 @@ export default function App() {
           <Popover
             isOpen={visible}
             trigger={trigger5}
+            key={p}
             onOpenChange={toggleVisible}
             //@ts-ignore
             placement={p}
@@ -137,6 +141,7 @@ export default function App() {
           <Popover
             isOpen={visible}
             trigger={trigger2}
+            key={p}
             onOpenChange={toggleVisible}
             //@ts-ignore
             placement={p}
@@ -156,6 +161,7 @@ export default function App() {
         return (
           <Popover
             trigger={trigger6}
+            key={p}
             onOpenChange={toggleVisible}
             placement={'top'}
             isOpen={visible}
