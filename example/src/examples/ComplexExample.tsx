@@ -8,7 +8,6 @@ import { Fontisto } from '@expo/vector-icons';
 export default function ContextPopover() {
   const [isOpen, setIsOpen] = React.useState(false);
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
-
   React.useEffect(() => {
     if (isOpen) {
       Animated.timing(fadeAnim, {
@@ -23,20 +22,29 @@ export default function ContextPopover() {
     Animated.timing(fadeAnim, {
       toValue: 0,
       useNativeDriver: true,
-      duration: 250,
+      duration: 150,
     }).start(() => {
+      // Set state when animation ends
       setIsOpen(false);
     });
   };
 
-  const animatedStyle = {
+  const animatedStyle: any = {
     opacity: fadeAnim,
+    transform: [
+      { translateX: -80 },
+      { translateY: -90 },
+      { scale: fadeAnim },
+      { translateX: 80 },
+      { translateY: 90 },
+    ],
   };
 
   return (
     <View style={styles.wrapper}>
       <Popover
         isOpen={isOpen}
+        mode="tooltip"
         placement="bottom left"
         onOpenChange={(val) => {
           // Open request
