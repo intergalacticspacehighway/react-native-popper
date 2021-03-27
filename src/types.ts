@@ -1,8 +1,9 @@
-import type { RefObject } from 'react';
+import type { ReactElement, RefObject } from 'react';
+import type { ViewStyle } from 'react-native';
 
 export type IPopoverArrowProps = {
   height?: number;
-  aspectRatio?: number;
+  width?: number;
   children?: React.ReactNode;
   color?: string;
 };
@@ -10,8 +11,9 @@ export type IPopoverArrowProps = {
 export type IPopoverArrowImplProps = {
   placement?: string;
   arrowProps: IArrowProps;
-  aspectRatio: number;
+  width: number;
   height: number;
+  style: ViewStyle;
 } & IPopoverArrowProps;
 
 export type IArrowProps = {
@@ -19,13 +21,17 @@ export type IArrowProps = {
 };
 
 export type IPopoverProps = {
-  triggerRef: RefObject<any>;
+  defaultIsOpen?: boolean;
+  isOpen?: boolean;
   shouldFlip?: boolean;
   crossOffset?: number;
   offset?: number;
   shouldOverlapWithTrigger?: boolean;
   children: React.ReactNode;
   isKeyboardDismissable?: boolean;
+  onChange?: (value: boolean) => void;
+  closeOnOutsideClick?: boolean;
+  trigger: ReactElement | RefObject<any>;
   placement?:
     | 'top'
     | 'bottom'
@@ -39,12 +45,11 @@ export type IPopoverProps = {
     | 'right bottom'
     | 'left top'
     | 'left bottom';
-  onClose?: () => void;
 };
 
 export type IPopoverContentImpl = {
   arrowHeight: number;
-  arrowAspectRatio: number;
+  arrowWidth: number;
   placement?: string;
   arrowProps: IArrowProps;
   children: any;
@@ -64,4 +69,16 @@ export type IScrollContentStyle = {
   placement?: string;
   arrowHeight: number;
   arrowWidth: number;
+};
+
+export type IOverlayProps = {
+  mode?: 'single' | 'multiple';
+  isOpen: boolean;
+  children: any;
+  onClose: any;
+  closeOnOutsideClick?: boolean;
+  isKeyboardDismissable?: boolean;
+  autoFocus?: boolean;
+  restoreFocus?: boolean;
+  trapFocus?: boolean;
 };

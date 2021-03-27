@@ -1592,6 +1592,17 @@
   dependencies:
     "@octokit/openapi-types" "^5.3.2"
 
+"@react-aria/focus@^3.2.3":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@react-aria/focus/-/focus-3.2.4.tgz#86c4fbde51a7cae414407b2d421fb5b311cd62f5"
+  integrity sha512-qoJoUDSriI7RCRq3L7yDOPtFZfquyjLA9d2pOJzvMx1F6dEqfNCaycyIg9lHykHXXhShgrXwfpyGTXoSUQpmtw==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/interactions" "^3.3.4"
+    "@react-aria/utils" "^3.7.0"
+    "@react-types/shared" "^3.5.0"
+    clsx "^1.1.1"
+
 "@react-aria/i18n@^3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@react-aria/i18n/-/i18n-3.3.0.tgz#7f92ae81f6536b19b17b89c0991ddb6c10f2512a"
@@ -1612,6 +1623,15 @@
     "@babel/runtime" "^7.6.2"
     "@react-aria/utils" "^3.6.0"
     "@react-types/shared" "^3.4.0"
+
+"@react-aria/interactions@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@react-aria/interactions/-/interactions-3.3.4.tgz#a5b3a87f886cf0f4e28cbd13fbe02c7efb4f1e2e"
+  integrity sha512-WzT9aIRWvLZvZvuwNKKUkZzeomZgIrquAtwgRYGWbjSbrYPOT9B3w/GBEWZDYUG0c1K8NkIEAxTX0e+QI+tqAA==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/utils" "^3.7.0"
+    "@react-types/shared" "^3.5.0"
 
 "@react-aria/overlays@^3.6.0":
   version "3.6.1"
@@ -1646,6 +1666,17 @@
     "@react-types/shared" "^3.4.0"
     clsx "^1.1.1"
 
+"@react-aria/utils@^3.7.0":
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/utils/-/utils-3.7.0.tgz#0aab1f682e9f1781cfadd2dd1ef9494bfaca0cbf"
+  integrity sha512-sMCdX0eF+4B05I+SX9V/NzI1/fD45vabi0dNyJhbSu2xNI82VIYgPcMBDjGU83NJSnjY969R3/JbbLjBrtKUgA==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/ssr" "^3.0.1"
+    "@react-stately/utils" "^3.2.0"
+    "@react-types/shared" "^3.5.0"
+    clsx "^1.1.1"
+
 "@react-aria/visually-hidden@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@react-aria/visually-hidden/-/visually-hidden-3.2.1.tgz#c022c562346140a473242448045add59269a74fd"
@@ -1655,6 +1686,13 @@
     "@react-aria/interactions" "^3.2.1"
     "@react-aria/utils" "^3.3.0"
     clsx "^1.1.1"
+
+"@react-native-aria/focus@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@react-native-aria/focus/-/focus-0.2.4.tgz#9402eb5c7913f9ce933e1d6582007ec730680a59"
+  integrity sha512-W/6yU9r896TZ8Z9+7FdWpnAFvurabu6oBVtCCrz8fEUeLaPhUFJXLm/aZmPcF30lYED157ICkx9xJBdGihJZzw==
+  dependencies:
+    "@react-aria/focus" "^3.2.3"
 
 "@react-native-aria/overlays@^0.2.8":
   version "0.2.8"
@@ -1844,6 +1882,11 @@
   resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.4.0.tgz#a7cbf8c676b4b3b7b687bcdc8e44828c34d115f4"
   integrity sha512-qYuL9JdIVC5JQmUgmurtm4JZQrg6IUy8wrMbaqNbt1e85Zg7A6ff1ffFrZ5IIgc1LDxYC7BB9KtL/bCgnjqrng==
 
+"@react-types/shared@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.5.0.tgz#dbc90e8fe711967e66d6f3ce0e17d34b24bd6283"
+  integrity sha512-997Me7AegwJOI10ye/Q5ds6fT+VBc6XcsXYzPqOD+HIbyL1kUQNDF/VoO37ib7KEH8jXH9aceoX9blz3Q1QcpA==
+
 "@release-it/conventional-changelog@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@release-it/conventional-changelog/-/conventional-changelog-2.0.1.tgz#bdd52ad3ecc0d6e39d637592d6ea2bd6d28e5ecb"
@@ -2028,6 +2071,13 @@
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/react-dom@^17.0.3":
+  version "17.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.3.tgz#7fdf37b8af9d6d40127137865bb3fff8871d7ee1"
+  integrity sha512-4NnJbCeWE+8YBzupn/YrJxZ8VnjcJq5iR1laqQ1vkpQgBiA7bwk0Rp24fxsdNinzJY2U+HHS4dJJDPdoMjdJ7w==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-native@^0.63.52":
   version "0.63.52"
@@ -8008,6 +8058,15 @@ react-devtools-core@^4.6.0:
     shell-quote "^1.6.1"
     ws "^7"
 
+react-dom@^17.0.2:
+  version "17.0.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
+  integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    scheduler "^0.20.2"
+
 react-is@^16.12.0, react-is@^16.8.1, react-is@^16.8.4:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -8594,6 +8653,14 @@ scheduler@0.19.1:
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
   integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+
+scheduler@^0.20.2:
+  version "0.20.2"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.20.2.tgz#4baee39436e34aa93b4874bddcbf0fe8b8b50e91"
+  integrity sha512-2eWfGgAqqWFGqtdMmcL5zCMK1U8KlXv8SQFGglL3CEtd0aDVDWgeF/YoCmvln55m5zSk3J/20hTaSBeSObsQDQ==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"

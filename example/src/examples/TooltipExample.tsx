@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import { Tooltip } from 'react-native-popover';
+import { Popover } from 'react-native-popover';
 
 export default function App() {
   const [visible, setVisible] = React.useState(false);
@@ -15,16 +15,14 @@ export default function App() {
         </Pressable>
       </View>
 
-      {visible && (
-        <Tooltip triggerRef={triggerRef}>
-          <Tooltip.Arrow />
-          <Tooltip.Content>
-            <View style={styles.tooltip}>
-              <Text>Hello from Tooltip</Text>
-            </View>
-          </Tooltip.Content>
-        </Tooltip>
-      )}
+      <Popover trigger={triggerRef} isOpen={visible}>
+        <Popover.Arrow />
+        <Popover.Content>
+          <View style={styles.Popover}>
+            <Text>Hello from Popover</Text>
+          </View>
+        </Popover.Content>
+      </Popover>
     </>
   );
 }
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  tooltip: {
+  Popover: {
     padding: 10,
     borderWidth: 2,
     borderColor: 'blue',

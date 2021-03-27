@@ -22,14 +22,12 @@ function ContextPopover() {
       >
         <MaterialIcons name="more-vert" size={18} color="#374151" />
       </Pressable>
-      {open && (
-        <Popover triggerRef={ref}>
-          {/* <Popover.Arrow height={8} color="#D1D5DB" /> */}
-          <Popover.Content>
-            <OverlayView onClose={() => setOpen(!open)} />
-          </Popover.Content>
-        </Popover>
-      )}
+      <Popover trigger={ref} isOpen={open} onChange={setOpen}>
+        {/* <Popover.Arrow height={8} color="#D1D5DB" /> */}
+        <Popover.Content>
+          <OverlayView onClose={() => setOpen(!open)} />
+        </Popover.Content>
+      </Popover>
     </View>
   );
 }

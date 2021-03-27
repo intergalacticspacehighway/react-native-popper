@@ -21,6 +21,7 @@ export default function App() {
           {ExamplesArray.map((item) => {
             return (
               <Pressable
+                key={item.name}
                 onPress={() => setSelected(item.name)}
                 style={{
                   marginHorizontal: 10,

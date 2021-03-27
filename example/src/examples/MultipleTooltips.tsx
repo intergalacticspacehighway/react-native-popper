@@ -1,164 +1,167 @@
-//@ts-nocheck
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import { Tooltip } from 'react-native-popover';
+import { Popover } from 'react-native-popover';
 
 export default function App() {
   const [visible, setVisible] = React.useState(true);
-  const triggerRef = React.useRef<any>(null);
   const toggleVisible = () => setVisible(!visible);
-  const triggerRef2 = React.useRef<any>(null);
-  const triggerRef3 = React.useRef<any>(null);
-  const triggerRef4 = React.useRef<any>(null);
-  const triggerRef5 = React.useRef<any>(null);
-  const triggerRef6 = React.useRef<any>(null);
+  const trigger = React.useRef<any>(null);
+  const trigger2 = React.useRef<any>(null);
+  const trigger3 = React.useRef<any>(null);
+  const trigger4 = React.useRef<any>(null);
+  const trigger5 = React.useRef<any>(null);
+  const trigger6 = React.useRef<any>(null);
 
   return (
     <>
       <View style={{ flexDirection: 'row', marginTop: 50 }}>
         <View style={styles.wrapper}>
-          <Pressable ref={triggerRef} onPress={toggleVisible}>
+          <Pressable ref={trigger} onPress={toggleVisible}>
             <Text>Trigger</Text>
           </Pressable>
         </View>
         <View style={styles.wrapper}>
-          <Pressable ref={triggerRef2} onPress={toggleVisible}>
+          <Pressable ref={trigger2} onPress={toggleVisible}>
             <Text>Trigger</Text>
           </Pressable>
         </View>
       </View>
 
       <View style={styles.wrapper}>
-        <Pressable ref={triggerRef3} onPress={toggleVisible}>
+        <Pressable ref={trigger3} onPress={toggleVisible}>
           <Text>Trigger</Text>
         </Pressable>
       </View>
 
       <View style={styles.wrapper}>
-        <Pressable ref={triggerRef4} onPress={toggleVisible}>
+        <Pressable ref={trigger4} onPress={toggleVisible}>
           <Text>Trigger</Text>
         </Pressable>
       </View>
 
       <View style={styles.wrapper}>
-        <Pressable ref={triggerRef5} onPress={toggleVisible}>
+        <Pressable ref={trigger5} onPress={toggleVisible}>
           <Text>Trigger</Text>
         </Pressable>
       </View>
 
       <View style={styles.wrapper}>
-        <Pressable ref={triggerRef6} onPress={toggleVisible}>
+        <Pressable ref={trigger6} onPress={toggleVisible}>
           <Text>Trigger</Text>
         </Pressable>
       </View>
 
       {['top', 'left', 'right', 'bottom'].map((p) => {
         return (
-          visible && (
-            <Tooltip triggerRef={triggerRef} placement={p}>
-              <Tooltip.Arrow />
-              <Tooltip.Content>
-                <View style={styles.Tooltip}>
-                  <Text>{p}</Text>
-                </View>
-              </Tooltip.Content>
-            </Tooltip>
-          )
+          <Popover
+            isOpen={visible}
+            trigger={trigger}
+            onChange={setVisible}
+            //@ts-ignore
+            placement={p}
+          >
+            <Popover.Arrow />
+            <Popover.Content>
+              <View style={styles.Popover}>
+                <Text>{p}</Text>
+              </View>
+            </Popover.Content>
+          </Popover>
         );
       })}
 
       {['top right', 'bottom right'].map((p) => {
         return (
-          visible && (
-            <Tooltip
-              triggerRef={triggerRef3}
-              onClose={toggleVisible}
-              placement={p}
-            >
-              <Tooltip.Arrow />
-              <Tooltip.Content>
-                <View style={styles.Tooltip}>
-                  <Text>{p}</Text>
-                </View>
-              </Tooltip.Content>
-            </Tooltip>
-          )
+          <Popover
+            isOpen={visible}
+            trigger={trigger3}
+            onChange={toggleVisible}
+            //@ts-ignore
+            placement={p}
+          >
+            <Popover.Arrow />
+            <Popover.Content>
+              <View style={styles.Popover}>
+                <Text>{p}</Text>
+              </View>
+            </Popover.Content>
+          </Popover>
         );
       })}
-
       {['right bottom', 'left bottom'].map((p) => {
         return (
           visible && (
-            <Tooltip
-              triggerRef={triggerRef4}
-              onClose={toggleVisible}
+            <Popover
+              isOpen={visible}
+              trigger={trigger4}
+              onChange={toggleVisible}
+              //@ts-ignore
               placement={p}
             >
-              <Tooltip.Arrow />
-              <Tooltip.Content>
-                <View style={styles.Tooltip}>
+              <Popover.Arrow />
+              <Popover.Content>
+                <View style={styles.Popover}>
                   <Text>{p}</Text>
                 </View>
-              </Tooltip.Content>
-            </Tooltip>
+              </Popover.Content>
+            </Popover>
           )
         );
       })}
 
       {['right top', 'left top'].map((p) => {
         return (
-          visible && (
-            <Tooltip
-              triggerRef={triggerRef5}
-              onClose={toggleVisible}
-              placement={p}
-            >
-              <Tooltip.Arrow />
-              <Tooltip.Content>
-                <View style={styles.Tooltip}>
-                  <Text>{p}</Text>
-                </View>
-              </Tooltip.Content>
-            </Tooltip>
-          )
+          <Popover
+            isOpen={visible}
+            trigger={trigger5}
+            onChange={toggleVisible}
+            //@ts-ignore
+            placement={p}
+          >
+            <Popover.Arrow />
+            <Popover.Content>
+              <View style={styles.Popover}>
+                <Text>{p}</Text>
+              </View>
+            </Popover.Content>
+          </Popover>
         );
       })}
 
       {['top left', 'bottom left'].map((p) => {
         return (
-          visible && (
-            <Tooltip
-              triggerRef={triggerRef2}
-              onClose={toggleVisible}
-              placement={p}
-            >
-              <Tooltip.Arrow />
-              <Tooltip.Content>
-                <View style={styles.Tooltip}>
-                  <Text>{p}</Text>
-                </View>
-              </Tooltip.Content>
-            </Tooltip>
-          )
+          <Popover
+            isOpen={visible}
+            trigger={trigger2}
+            onChange={toggleVisible}
+            //@ts-ignore
+            placement={p}
+          >
+            <Popover.Arrow />
+            <Popover.Content>
+              <View style={styles.Popover}>
+                <Text>{p}</Text>
+              </View>
+            </Popover.Content>
+          </Popover>
         );
       })}
 
       {['Top - overlap with trigger'].map((p) => {
         return (
-          visible && (
-            <Tooltip
-              triggerRef={triggerRef6}
-              onClose={toggleVisible}
-              placement={'top'}
-              shouldOverlapWithTrigger
-            >
-              <Tooltip.Content>
-                <View style={styles.Tooltip}>
-                  <Text>{p}</Text>
-                </View>
-              </Tooltip.Content>
-            </Tooltip>
-          )
+          <Popover
+            trigger={trigger6}
+            onChange={toggleVisible}
+            placement={'top'}
+            isOpen={visible}
+            shouldOverlapWithTrigger
+          >
+            <Popover.Content>
+              <View style={styles.Popover}>
+                <Text>{p}</Text>
+              </View>
+            </Popover.Content>
+          </Popover>
         );
       })}
     </>
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  Tooltip: {
+  Popover: {
     padding: 10,
     borderWidth: 2,
     borderColor: 'blue',
