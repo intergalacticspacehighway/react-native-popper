@@ -5,18 +5,22 @@ import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 
-export default function ContextPopover() {
-  const [isOpen, setIsOpen] = React.useState(false);
+const useFadeAndScaleAnimation = ({
+  onOpen,
+  onClose,
+}: {
+  onOpen: any;
+  onClose: any;
+}) => {
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    if (isOpen) {
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        useNativeDriver: true,
-        duration: 250,
-      }).start();
-    }
-  }, [isOpen, fadeAnim]);
+  const handleOpen = () => {
+    onOpen();
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      useNativeDriver: true,
+      duration: 250,
+    }).start();
+  };
 
   const handleClose = () => {
     Animated.timing(fadeAnim, {
@@ -24,8 +28,7 @@ export default function ContextPopover() {
       useNativeDriver: true,
       duration: 150,
     }).start(() => {
-      // Set state when animation ends
-      setIsOpen(false);
+      onClose();
     });
   };
 
@@ -40,16 +43,26 @@ export default function ContextPopover() {
     ],
   };
 
+  return { handleOpen, handleClose, animatedStyle };
+};
+
+export default function ContextPopover() {
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const { handleOpen, handleClose, animatedStyle } = useFadeAndScaleAnimation({
+    onClose: () => setIsOpen(false),
+    onOpen: () => setIsOpen(true),
+  });
+
   return (
     <View style={styles.wrapper}>
       <Popover
         isOpen={isOpen}
-        mode="tooltip"
         placement="bottom left"
         onOpenChange={(val) => {
           // Open request
           if (val) {
-            setIsOpen(true);
+            handleOpen();
           }
           // Close request
           else {
