@@ -33,7 +33,7 @@ export type IPopoverProps = {
   shouldOverlapWithTrigger?: boolean;
   children: React.ReactNode;
   isKeyboardDismissable?: boolean;
-  onChange?: (value: boolean) => void;
+  onOpenChange?: (value: boolean) => void;
   closeOnOutsideClick?: boolean;
   trigger: ReactElement | RefObject<any>;
   placement?:

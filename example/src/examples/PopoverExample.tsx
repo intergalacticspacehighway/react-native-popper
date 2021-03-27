@@ -12,7 +12,7 @@ export default function App() {
             <Text>Press me</Text>
           </Pressable>
         }
-        onChange={setVisible}
+        onOpenChange={setVisible}
         isOpen={visible}
       >
         <Popover.Content>

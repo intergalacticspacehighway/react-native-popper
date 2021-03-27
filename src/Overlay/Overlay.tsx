@@ -23,24 +23,21 @@ export function Overlay(props: IOverlayProps) {
 
   let Parent = ({ children }: any) => (
     <Modal visible={true} transparent>
-      {children}
-    </Modal>
-  );
-
-  if (mode === 'tooltip') {
-    Parent = ({ children }: any) => (
-      <OverlayContainer>{children}</OverlayContainer>
-    );
-  }
-
-  return (
-    <Parent>
       <OverlayBackdrop
         onPress={handleClose}
         disabled={!closeOnOutsideClick}
         onAccessibilityEscape={handleClose}
       />
       {children}
-    </Parent>
+    </Modal>
   );
+
+  // Tooltips don't shift accessibility focus
+  if (mode === 'tooltip') {
+    Parent = ({ children }: any) => (
+      <OverlayContainer>{children}</OverlayContainer>
+    );
+  }
+
+  return <Parent>{children}</Parent>;
 }

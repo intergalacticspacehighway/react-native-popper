@@ -12,6 +12,7 @@ import type {
 } from '../types';
 import { Overlay } from '../Overlay/Overlay';
 import { useControllableState, useElementByType, usePopover } from '../hooks';
+import { composeEventHandlers } from '../utils';
 
 const defaultArrowHeight = 10;
 const defaultArrowWidth = 16;
@@ -212,7 +213,7 @@ const PopoverWithOverlayContainer = (props: IPopoverProps) => {
   const [isOpen, setIsOpen] = useControllableState({
     defaultValue: props.defaultIsOpen,
     value: props.isOpen,
-    onChange: props.onChange,
+    onChange: props.onOpenChange,
   });
 
   const handleOpen = () => {
@@ -242,7 +243,7 @@ const PopoverWithOverlayContainer = (props: IPopoverProps) => {
   else if (React.isValidElement(props.trigger)) {
     triggerElem = React.cloneElement(props.trigger, {
       ref: triggerRef,
-      onPress: toggle,
+      onPress: composeEventHandlers(props.trigger.props.onPress, toggle),
     });
   } else {
     console.warn(
