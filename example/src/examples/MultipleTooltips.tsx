@@ -61,8 +61,8 @@ export default function App() {
             placement={p}
             mode="tooltip"
           >
-            <Popover.Arrow />
             <Popover.Content>
+              <Popover.Arrow />
               <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
@@ -81,8 +81,8 @@ export default function App() {
             placement={p}
             mode="tooltip"
           >
-            <Popover.Arrow />
             <Popover.Content>
+              <Popover.Arrow />
               <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
@@ -101,8 +101,8 @@ export default function App() {
               placement={p}
               mode="tooltip"
             >
-              <Popover.Arrow />
               <Popover.Content>
+                <Popover.Arrow />
                 <View style={styles.Popover}>
                   <Text>{p}</Text>
                 </View>
@@ -122,8 +122,8 @@ export default function App() {
             placement={p}
             mode="tooltip"
           >
-            <Popover.Arrow />
             <Popover.Content>
+              <Popover.Arrow />
               <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
@@ -142,8 +142,8 @@ export default function App() {
             placement={p}
             mode="tooltip"
           >
-            <Popover.Arrow />
             <Popover.Content>
+              <Popover.Arrow />
               <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>

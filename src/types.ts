@@ -6,6 +6,7 @@ export type IPopoverArrowProps = {
   width?: number;
   children?: React.ReactNode;
   color?: string;
+  style?: ViewStyle;
 };
 
 export type IPopoverArrowImplProps = {

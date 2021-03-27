@@ -13,8 +13,8 @@ export default function App() {
         }
         placement="left"
       >
-        <Popover.Arrow height={15} width={20} color="pink"></Popover.Arrow>
         <Popover.Content>
+          <Popover.Arrow height={25} width={30} color="pink"></Popover.Arrow>
           <View style={styles.popover}>
             <Text>Hello from popover</Text>
           </View>

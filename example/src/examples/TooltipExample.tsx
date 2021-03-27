@@ -8,14 +8,15 @@ export default function App() {
       <View style={styles.wrapper}>
         <Popover
           mode="tooltip"
+          placement="right"
           trigger={
             <Pressable>
               <Text>Press me</Text>
             </Pressable>
           }
         >
-          <Popover.Arrow />
           <Popover.Content>
+            <Popover.Arrow />
             <View style={styles.Popover}>
               <Text>Hello from Popover</Text>
             </View>

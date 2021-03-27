@@ -16,6 +16,7 @@ export default function App() {
         isOpen={visible}
       >
         <Popover.Content>
+          <Popover.Arrow></Popover.Arrow>
           <View style={styles.popover}>
             <Text>Hello from popover</Text>
           </View>
