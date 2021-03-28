@@ -15,7 +15,11 @@ export function OverlayBackdrop({ style, ...rest }: IOverlayCloseButtonProps) {
     <Pressable
       accessible={false}
       focusable={false}
-      style={StyleSheet.flatten([defaultStyles.wrapper, style])}
+      style={StyleSheet.flatten([
+        defaultStyles.wrapper,
+        style,
+        { backgroundColor: '#000', opacity: 0.5 },
+      ])}
       {...rest}
     />
   );

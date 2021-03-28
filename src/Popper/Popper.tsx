@@ -121,16 +121,9 @@ const PopperContent = ({
   );
 
   return (
-    <View
-      ref={overlayRef}
-      collapsable={false}
-      style={[overlayStyle.overlay, style]}
-      {...rest}
-    >
+    <View ref={overlayRef} collapsable={false} style={overlayStyle.overlay}>
       {arrowElement}
-      <ScrollView contentContainerStyle={scrollContainerStyle} {...rest}>
-        {restElements}
-      </ScrollView>
+      <View style={scrollContainerStyle}>{restElements}</View>
     </View>
   );
 };
