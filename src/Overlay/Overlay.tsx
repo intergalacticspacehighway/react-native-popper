@@ -4,6 +4,7 @@ import type { IOverlayProps } from '../types';
 import { OverlayContainer } from './index';
 import { OverlayContext } from './context';
 
+// This is iOS/Android only implementation. Refer Overlay.web.tsx for Web implementation
 export function Overlay(props: IOverlayProps) {
   const { isOpen, children, onClose, mode = 'popover' } = props;
 

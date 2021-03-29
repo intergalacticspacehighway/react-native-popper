@@ -28,13 +28,12 @@ export type IPopoverProps = {
   mode?: OverlayType;
   defaultIsOpen?: boolean;
   isOpen?: boolean;
+  onOpenChange?: (value: boolean) => void;
   shouldFlip?: boolean;
   crossOffset?: number;
   offset?: number;
-  shouldOverlapWithTrigger?: boolean;
   children: React.ReactNode;
-  isKeyboardDismissable?: boolean;
-  onOpenChange?: (value: boolean) => void;
+  shouldOverlapWithTrigger?: boolean;
   trigger: ReactElement | RefObject<any>;
   placement?:
     | 'top'
@@ -49,6 +48,12 @@ export type IPopoverProps = {
     | 'right bottom'
     | 'left top'
     | 'left bottom';
+
+  // Web only
+  isKeyboardDismissable?: boolean;
+  autoFocus?: boolean;
+  trapFocus?: boolean;
+  restoreFocus?: boolean;
 };
 
 export type IPopoverContentImpl = {

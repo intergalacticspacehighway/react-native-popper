@@ -65,6 +65,9 @@ const Popover = (props: IPopoverProps) => {
         isOpen={isOpen}
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
+        trapFocus={props.trapFocus}
+        restoreFocus={props.restoreFocus}
+        autoFocus={props.autoFocus}
         mode={mode}
       >
         <Popper

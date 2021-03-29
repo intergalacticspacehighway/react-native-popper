@@ -2,9 +2,12 @@ import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import { Popover } from 'react-native-popover';
 export default function App() {
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
     <View style={styles.wrapper}>
       <Popover
+        isOpen={isOpen}
+        onOpenChange={setIsOpen}
         trigger={
           <Pressable>
             <Text>Press me</Text>
