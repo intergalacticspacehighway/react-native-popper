@@ -15,14 +15,14 @@ export default function IOSPopoverExample() {
           </Pressable>
         }
       >
-        <Popover.Backdrop style={{ backgroundColor: '#000', opacity: 0.5 }} />
+        <Popover.Backdrop style={{ backgroundColor: '#000', opacity: 0.3 }} />
         <Popover.Content>
           <Popover.Arrow
             height={12}
             width={24}
             color="#fff"
             style={{ borderBottomWidth: 16 }}
-          ></Popover.Arrow>
+          />
           <MyPopoverView />
         </Popover.Content>
       </Popover>

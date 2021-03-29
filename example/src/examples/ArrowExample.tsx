@@ -24,7 +24,9 @@ export default function App() {
           </Pressable>
         }
         placement="left"
+        defaultIsOpen
       >
+        <Popover.Backdrop />
         <Popover.Content>
           <Popover.Arrow height={20} width={30}>
             <MySVGIcon />

@@ -13,8 +13,20 @@ const useFadeAndScaleAnimation = ({
   onClose: any;
 }) => {
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
+  const [animatedStyle, setAnimatedStyle] = React.useState<any>({});
+
   const handleOpen = () => {
     onOpen();
+    setAnimatedStyle({
+      opacity: fadeAnim,
+      transform: [
+        { translateX: -80 },
+        { translateY: -90 },
+        { scale: fadeAnim },
+        { translateX: 80 },
+        { translateY: 90 },
+      ],
+    });
     Animated.timing(fadeAnim, {
       toValue: 1,
       useNativeDriver: true,
@@ -23,6 +35,9 @@ const useFadeAndScaleAnimation = ({
   };
 
   const handleClose = () => {
+    setAnimatedStyle({
+      opacity: fadeAnim,
+    });
     Animated.timing(fadeAnim, {
       toValue: 0,
       useNativeDriver: true,
@@ -30,17 +45,6 @@ const useFadeAndScaleAnimation = ({
     }).start(() => {
       onClose();
     });
-  };
-
-  const animatedStyle: any = {
-    opacity: fadeAnim,
-    transform: [
-      { translateX: -80 },
-      { translateY: -90 },
-      { scale: fadeAnim },
-      { translateX: 80 },
-      { translateY: 90 },
-    ],
   };
 
   return { handleOpen, handleClose, animatedStyle };

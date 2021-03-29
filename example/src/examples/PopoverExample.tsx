@@ -10,6 +10,7 @@ export default function App() {
             <Text>Press me</Text>
           </Pressable>
         }
+        defaultIsOpen
       >
         <Popover.Content>
           <Popover.Arrow color="#D1D5DB"></Popover.Arrow>
