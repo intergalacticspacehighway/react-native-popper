@@ -1,12 +1,6 @@
 import React from 'react';
 import { useOverlayPosition } from '@react-native-aria/overlays';
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  ViewProps,
-  ViewStyle,
-} from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import type {
   IPopoverProps,
   IScrollContentStyle,
@@ -33,11 +27,7 @@ const Popper = (
   return <PopperProvider {...props}>{props.children}</PopperProvider>;
 };
 
-const PopperContent = ({
-  children,
-  style,
-  ...rest
-}: ViewProps & { children: any }) => {
+const PopperContent = ({ children }: { children: any }) => {
   const {
     triggerRef,
     shouldFlip,
@@ -98,7 +88,7 @@ const PopperContent = ({
     }
   }
 
-  const scrollContainerStyle = React.useMemo(
+  const containerStyle = React.useMemo(
     () =>
       getScrollContentStyle({
         placement,
@@ -123,7 +113,7 @@ const PopperContent = ({
   return (
     <View ref={overlayRef} collapsable={false} style={overlayStyle.overlay}>
       {arrowElement}
-      <View style={scrollContainerStyle}>{restElements}</View>
+      <View style={containerStyle}>{restElements}</View>
     </View>
   );
 };

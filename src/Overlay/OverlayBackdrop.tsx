@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Pressable, Platform, PressableProps } from 'react-native';
+import { OverlayContext } from './context';
 
 type IOverlayCloseButtonProps = PressableProps;
 
@@ -11,15 +12,14 @@ const defaultStyles = StyleSheet.create({
 });
 
 export function OverlayBackdrop({ style, ...rest }: IOverlayCloseButtonProps) {
+  const { onClose } = React.useContext(OverlayContext);
+
   return (
     <Pressable
       accessible={false}
       focusable={false}
-      style={StyleSheet.flatten([
-        defaultStyles.wrapper,
-        style,
-        { backgroundColor: '#000', opacity: 0.5 },
-      ])}
+      style={StyleSheet.flatten([defaultStyles.wrapper, style])}
+      onPress={onClose}
       {...rest}
     />
   );

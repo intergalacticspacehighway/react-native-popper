@@ -35,7 +35,6 @@ export type IPopoverProps = {
   children: React.ReactNode;
   isKeyboardDismissable?: boolean;
   onOpenChange?: (value: boolean) => void;
-  closeOnOutsideClick?: boolean;
   trigger: ReactElement | RefObject<any>;
   placement?:
     | 'top'
@@ -80,7 +79,6 @@ export type IOverlayProps = {
   isOpen: boolean;
   children: any;
   onClose: any;
-  closeOnOutsideClick?: boolean;
   isKeyboardDismissable?: boolean;
   autoFocus?: boolean;
   restoreFocus?: boolean;

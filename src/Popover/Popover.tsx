@@ -4,6 +4,7 @@ import { Overlay } from '../Overlay/Overlay';
 import { useControllableState, usePopover } from '../hooks';
 import { composeEventHandlers } from '../utils';
 import { Popper } from '../Popper/Popper';
+import { OverlayBackdrop } from '../Overlay/OverlayBackdrop';
 
 const Popover = (props: IPopoverProps) => {
   let triggerRef = React.useRef<any>(null);
@@ -62,7 +63,6 @@ const Popover = (props: IPopoverProps) => {
       {triggerElem}
       <Overlay
         isOpen={isOpen}
-        closeOnOutsideClick={props.closeOnOutsideClick}
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
         mode={mode}
@@ -80,5 +80,6 @@ const Popover = (props: IPopoverProps) => {
 
 Popover.Content = Popper.Content;
 Popover.Arrow = Popper.Arrow;
+Popover.Backdrop = OverlayBackdrop;
 
 export { Popover as Popover };
