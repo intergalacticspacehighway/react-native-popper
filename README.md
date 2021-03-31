@@ -112,7 +112,8 @@ const [isOpen, setIsOpen] = React.useState(false);
 
 
 #### OverlayProvider
-- When using mode="tooltip", we use custom Portal so it doesn't shift accessibility focus when opened. To use this Portal, we need to wrap the app with OverlayProvider.
+- When using mode="tooltip", we use custom Portal to prevent shifting accessibility focus when opened. 
+To use this Portal, we need to wrap the app with OverlayProvider.
 
 ```
 import { OverlayProvider } from 'react-native-popper';
@@ -149,17 +150,19 @@ Phew, That's it!
 cd examples
 <!--  Install dependencies -->
 yarn
-<!-- run on web -->
+<!-- web -->
 yarn web
-<!-- run on iOS -->
+<!-- iOS -->
 yarn iOS
-<!-- run on Android -->
+<!-- Android -->
 yarn android
 ```
 ### <a name="mode"/>Mode
-- Wrap the entire app with OverlayProvider
-- mode prop accepts "popover" and "tooltip" values. Tooltips don't shift or trap focus when mounted on web. Also, when mode="popover", it uses RN's built-in Modal on mobile instead of using a custom Portal since it automatically shifts accessibility focus to first element.
-- I am still figuring out if we can use a single Portal component and achieve the same.
+- mode prop accepts "popover" and "tooltip" values. Defaults to popover.
+- When set to popover, it uses RN's built in Modal so accessibility focus shift to first element when openend. This doesn't happen with custom Portals. 
+- RN's built in modal doesn't support multiple popups at once. It does but they need to be nested. If you need multiple popup support without nesting use mode="tooltip" instead.
+- To use mode="tooltip", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
+- I am still figuring out if we can make this simple.
 
 
 ### Tradeoffs
