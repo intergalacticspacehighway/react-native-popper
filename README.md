@@ -23,11 +23,11 @@ yard add react-native-popper
 npm i react-native-popper
 ```
 
-### Import
+## Import
 
 import { Popover } from "react-native-popper"
 
-### Usage
+## Usage
 
 1. Uncontrolled
 
@@ -67,9 +67,9 @@ const [isOpen, setIsOpen] = React.useState(false);
 </Popover>
 ```
 
-### API
+## API
 
-#### Popover
+### Popover
 
 | Prop                             | Type                          | Default   | Description                                                                                                                                      |
 | -------------------------------- | ----------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -90,13 +90,13 @@ const [isOpen, setIsOpen] = React.useState(false);
 | trapFocus (Web only)             | boolean                       | true      | Traps focus into the opened popover                                                                                                              |
 | restoreFocus (Web only)          | boolean                       | true      | Restores focus to the triggered element                                                                                                          |
 
-#### Popover.Backdrop
+### Popover.Backdrop
 
 - Renders a Pressable component. Useful to add click outside to close functionality.
 
 - Accepts all [Pressable Props](https://reactnative.dev/docs/pressable#props).
 
-#### Popover.Content
+### Popover.Content
 
 - Pass the popover content as children here.
 
@@ -111,7 +111,7 @@ const [isOpen, setIsOpen] = React.useState(false);
 | children | ReactNode | No       | -       | Supply custom Arrow. Make sure the arrow is pointing upward. ▲ |
 
 
-#### OverlayProvider
+### OverlayProvider
 - When using mode="tooltip", we use custom Portal to prevent shifting accessibility focus when opened. 
 To use this Portal, we need to wrap the app with OverlayProvider.
 
@@ -125,7 +125,7 @@ function App() {
 ```
 
 Phew, That's it!
-### Examples
+## Examples
 - Checkout examples directory. It has a lot of examples including animations.
 ```
 cd examples
@@ -138,20 +138,20 @@ yarn iOS
 // Android
 yarn android
 ```
-### <a name="mode"/>Mode
+## <a name="mode"/>Mode
 - Mode prop accepts `popover` and `tooltip` values. Defaults to `popover`.
 - When set to `popover`, it uses RN's built-in Modal which shifts accessibility focus to the first element when opened. 
 - RN's built in modal doesn't support multiple popups at once. It does but they need to be nested. If you need multiple popup support without nesting use mode="tooltip" instead.
 - To use mode="tooltip", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
 - I am still figuring out if we can make this simple.
 
-### Tradeoffs
+## Tradeoffs
 
 - I am still figuring out how to support fully configurable entry/exit animation configs.
 - However, I'll be adding some common animation examples which one can copy paste and tweak as needed.
 
 
-### Known issues
+## Known issues
 
 - When on="hover" is passed and Backdrop is used, it may lead to flickers as Backdrop hijacks pointer events. To mitigate this, either set pointerEvents= "none" on backdrop or remove backdrop completely. I am looking how to handle this in a more simple way.
 
