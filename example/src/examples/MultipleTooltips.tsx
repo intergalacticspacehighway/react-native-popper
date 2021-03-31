@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import { Popover } from 'react-native-popover';
+import { Popover } from 'react-native-popper';
 
 export default function App() {
   const [visible, setVisible] = React.useState(true);

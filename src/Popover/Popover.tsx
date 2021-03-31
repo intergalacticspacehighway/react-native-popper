@@ -1,8 +1,7 @@
 import React from 'react';
 import type { IPopoverProps } from '../types';
 import { Overlay } from '../Overlay/Overlay';
-import { useControllableState, usePopover } from '../hooks';
-import { composeEventHandlers } from '../utils';
+import { useControllableState, useOn, usePopover } from '../hooks';
 import { Popper } from '../Popper/Popper';
 import { OverlayBackdrop } from '../Overlay/OverlayBackdrop';
 
@@ -23,14 +22,6 @@ const Popover = (props: IPopoverProps) => {
     setIsOpen(false);
   };
 
-  const toggle = () => {
-    if (isOpen) {
-      handleClose();
-    } else {
-      handleOpen();
-    }
-  };
-
   let triggerElem = null;
 
   // Received a trigger ref
@@ -40,9 +31,19 @@ const Popover = (props: IPopoverProps) => {
   }
   // Received a trigger element
   else if (React.isValidElement(props.trigger)) {
+    const triggerExistingProps = props.trigger.props;
+    // Trigger won't be changes in rerenders, so this seems safe
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const handlers = useOn({
+      on: props.on,
+      onClose: handleClose,
+      onOpen: handleOpen,
+      ...triggerExistingProps,
+    });
+
     triggerElem = React.cloneElement(props.trigger, {
       ref: triggerRef,
-      onPress: composeEventHandlers(props.trigger.props.onPress, toggle),
+      ...handlers,
     });
   } else {
     console.warn(
@@ -58,6 +59,16 @@ const Popover = (props: IPopoverProps) => {
     triggerElem = React.cloneElement(triggerElem, { ...triggerProps });
   }
 
+  const isHoverTriggerEvent = props.on === 'hover';
+
+  let focusProps = React.useMemo(() => {
+    return {
+      trapFocus: !isHoverTriggerEvent,
+      autoFocus: !isHoverTriggerEvent,
+      restoreFocus: !isHoverTriggerEvent,
+    };
+  }, [isHoverTriggerEvent]);
+
   return (
     <>
       {triggerElem}
@@ -65,10 +76,8 @@ const Popover = (props: IPopoverProps) => {
         isOpen={isOpen}
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
-        trapFocus={props.trapFocus}
-        restoreFocus={props.restoreFocus}
-        autoFocus={props.autoFocus}
         mode={mode}
+        {...focusProps}
       >
         <Popper
           {...props}

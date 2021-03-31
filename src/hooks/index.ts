@@ -1,12 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
+import { composeEventHandlers } from '../utils';
 import type { OverlayType } from '../types';
 
 let idCounter = 0;
 
 const generateId = (prefix: string) => {
   idCounter++;
-  return 'react-native-headless-popover-' + prefix + '-' + idCounter;
+  return 'react-native-popper-' + prefix + '-' + idCounter;
 };
 
 type IParams = {
@@ -128,4 +129,126 @@ export const usePopover = (props: IUsePopover) => {
     triggerProps,
     contentProps,
   };
+};
+
+// export const useHoverOrFocus = () => {
+//   const [isFocused, setIsFocused] = React.useState(false);
+//   const [isHovered, setIsHovered] = React.useState(false);
+//   const onHoverIn = React.useCallback(() => {
+//     setIsHovered(true);
+//   }, [setIsHovered]);
+
+//   const onHoverOut = React.useCallback(() => {
+//     setIsHovered(false);
+//   }, [setIsHovered]);
+
+//   const onFocus = React.useCallback(() => {
+//     setIsFocused(true);
+//   }, [setIsFocused]);
+
+//   const onBlur = React.useCallback(() => {
+//     setIsFocused(false);
+//   }, [setIsFocused]);
+
+//   return {
+//     triggerProps: {
+//       onHoverIn,
+//       onHoverOut,
+//       onFocus,
+//       onBlur,
+//     },
+//     isHovered,
+//     isFocused,
+//   };
+// };
+
+// type IUseHoverTrigger = {
+//   onOpen: () => void;
+//   onClose: () => void;
+//   hoverTimeout?: number;
+//   isOpen: boolean;
+// };
+
+// export const useHoverTrigger = (props: IUseHoverTrigger) => {
+//   const { triggerProps, isHovered, isFocused } = useHoverOrFocus();
+//   let hoverTimeoutHandler = React.useRef<any>(null);
+//   const { onOpen, onClose, isOpen, hoverTimeout = 0 } = props;
+
+//   React.useEffect(() => {
+//     // Immediately open popover on focus.
+//     if (isFocused) {
+//       props.onOpen();
+//     } else if (!isHovered) {
+//       // Immediately close on blur
+//       onClose();
+//     }
+//   }, [isFocused]);
+
+//   React.useEffect(() => {
+//     if (isHovered) {
+//       hoverTimeoutHandler.current = setTimeout(() => {
+//         onOpen();
+//       }, hoverTimeout);
+//     } else {
+//       if (isOpen) {
+//         onClose();
+//       }
+//       // Immediately close on blur
+//       clearTimeout(hoverTimeoutHandler.current);
+//     }
+//   }, [isHovered]);
+
+//   return {
+//     triggerProps,
+//   };
+// };
+
+type IOnProps = {
+  on?: 'press' | 'longPress' | 'hover';
+  onHoverIn?: () => void;
+  onHoverOut?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onPress?: () => void;
+  onLongPress?: () => void;
+  onOpen: () => void;
+  onClose: () => void;
+};
+
+export const useOn = (props: IOnProps) => {
+  const { on = 'press', onOpen, onClose } = props;
+  if (on === 'press') {
+    return {
+      onPress: composeEventHandlers(props.onPress, () => {
+        onOpen();
+      }),
+    };
+  }
+
+  if (on === 'longPress') {
+    return {
+      onLongPress: composeEventHandlers(props.onLongPress, () => {
+        onOpen();
+      }),
+    };
+  }
+
+  if (on === 'hover') {
+    return {
+      onHoverIn: composeEventHandlers(props.onHoverIn, () => {
+        onOpen();
+      }),
+      onHoverOut: composeEventHandlers(props.onHoverOut, () => {
+        onClose();
+      }),
+      onFocus: composeEventHandlers(props.onFocus, () => {
+        onOpen();
+      }),
+      onBlur: composeEventHandlers(props.onBlur, () => {
+        onClose();
+      }),
+    };
+  }
+
+  return {};
 };

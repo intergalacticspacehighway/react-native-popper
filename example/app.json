@@ -1,10 +1,10 @@
 {
-  "name": "react-native-popover-example",
+  "name": "react-native-popper-example",
   "displayName": "Popover Example",
   "expo": {
-    "name": "react-native-popover-example",
-    "slug": "react-native-popover-example",
-    "description": "Example app for react-native-popover",
+    "name": "react-native-popper-example",
+    "slug": "react-native-popper-example",
+    "description": "Example app for react-native-popper",
     "privacy": "public",
     "version": "1.0.0",
     "platforms": [

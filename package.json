@@ -1,5 +1,5 @@
 {
-  "name": "react-native-popover",
+  "name": "react-native-popper",
   "version": "0.1.0",
   "description": "Headless popovers",
   "main": "lib/commonjs/index",
@@ -13,7 +13,7 @@
     "android",
     "ios",
     "cpp",
-    "react-native-popover.podspec",
+    "react-native-popper.podspec",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",
@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/intergalacticspacehighway/react-native-popover",
+  "repository": "https://github.com/intergalacticspacehighway/react-native-popper",
   "author": "nishan <nishanbende@gmail.com> (https://github.com/intergalacticspacehighway)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/intergalacticspacehighway/react-native-popover/issues"
+    "url": "https://github.com/intergalacticspacehighway/react-native-popper/issues"
   },
-  "homepage": "https://github.com/intergalacticspacehighway/react-native-popover#readme",
+  "homepage": "https://github.com/intergalacticspacehighway/react-native-popper#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

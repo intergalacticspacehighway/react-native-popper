@@ -27,6 +27,7 @@ export type OverlayType = 'popover' | 'tooltip';
 export type IPopoverProps = {
   mode?: OverlayType;
   defaultIsOpen?: boolean;
+  on?: 'press' | 'longPress' | 'hover';
   isOpen?: boolean;
   onOpenChange?: (value: boolean) => void;
   shouldFlip?: boolean;

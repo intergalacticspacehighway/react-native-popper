@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Pressable, Text, View, ScrollView } from 'react-native';
-import { OverlayProvider } from 'react-native-popover';
+import { OverlayProvider } from 'react-native-popper';
 import * as Examples from './examples';
 
 let ExamplesArray = Object.keys(Examples).map((key: any) => {

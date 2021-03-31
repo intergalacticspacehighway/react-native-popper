@@ -1,6 +1,6 @@
 {
-  "name": "react-native-popover-example",
-  "description": "Example app for react-native-popover",
+  "name": "react-native-popper-example",
+  "description": "Example app for react-native-popper",
   "version": "0.0.1",
   "private": true,
   "main": "index",
@@ -19,7 +19,7 @@
     "react-native": "0.63.4",
     "react-native-svg": "12.1.0",
     "react-native-unimodules": "~0.12.0",
-    "react-native-web": "~0.14.9"
+    "react-native-web": "0.15.0"
   },
   "devDependencies": {
     "@babel/core": "~7.12.10",

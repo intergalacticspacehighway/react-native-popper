@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import { Popover } from 'react-native-popover';
+import { Popover } from 'react-native-popper';
 import Svg, { Path } from 'react-native-svg';
 
 const MySVGIcon = () => {

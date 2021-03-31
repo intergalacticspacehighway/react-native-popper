@@ -1,13 +1,12 @@
 import React from 'react';
 import { Pressable, View, StyleSheet, Text, ScrollView } from 'react-native';
-import { Popover } from 'react-native-popover';
+import { Popover } from 'react-native-popper';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function IOSPopoverExample() {
   return (
     <View style={styles.wrapper}>
       <Popover
-        defaultIsOpen
         placement="bottom right"
         trigger={
           <Pressable style={{ height: 26, width: 24 }}>

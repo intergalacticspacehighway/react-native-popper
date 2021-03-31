@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover } from 'react-native-popover';
+import { Popover } from 'react-native-popper';
 import { View, Text, StyleSheet, Animated, Pressable } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
@@ -79,6 +79,7 @@ export default function ContextPopover() {
           </Pressable>
         }
       >
+        <Popover.Backdrop />
         <Popover.Content>
           <Animated.View style={[styles.popoverWrapper, animatedStyle]}>
             <OverlayView onClose={handleClose} />
