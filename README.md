@@ -125,6 +125,36 @@ function App() {
 ```
 
 Phew, That's it!
+### Examples
+- Checkout examples directory. It has a lot of examples including animations.
+```
+cd examples
+// Install dependencies
+yarn
+// web
+yarn web
+// iOS 
+yarn iOS
+// Android
+yarn android
+```
+### <a name="mode"/>Mode
+- Mode prop accepts `popover` and `tooltip` values. Defaults to `popover`.
+- When set to `popover`, it uses RN's built-in Modal which shifts accessibility focus to the first element when opened. 
+- RN's built in modal doesn't support multiple popups at once. It does but they need to be nested. If you need multiple popup support without nesting use mode="tooltip" instead.
+- To use mode="tooltip", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
+- I am still figuring out if we can make this simple.
+
+### Tradeoffs
+
+- I am still figuring out how to support fully configurable entry/exit animation configs.
+- However, I'll be adding some common animation examples which one can copy paste and tweak as needed.
+
+
+### Known issues
+
+- When on="hover" is passed and Backdrop is used, it may lead to flickers as Backdrop hijacks pointer events. To mitigate this, either set pointerEvents= "none" on backdrop or remove backdrop completely. I am looking how to handle this in a more simple way.
+
 
 ## Accessibility
 
@@ -144,37 +174,10 @@ Phew, That's it!
 - Hitting the Esc key while the popover is open will close the popover. If you set `isKeyboardDismissable` to false, it will not close.
 - Focus will be contained within the Popver.Content. If you set `trapFocus` to false, it will not be contained.
 
-### Examples
-- Checkout examples directory. It has a lot of examples including animations.
-```
-cd examples
-<!--  Install dependencies -->
-yarn
-<!-- web -->
-yarn web
-<!-- iOS -->
-yarn iOS
-<!-- Android -->
-yarn android
-```
-### <a name="mode"/>Mode
-- mode prop accepts "popover" and "tooltip" values. Defaults to popover.
-- When set to popover, it uses RN's built in Modal so accessibility focus shift to first element when openend. This doesn't happen with custom Portals. 
-- RN's built in modal doesn't support multiple popups at once. It does but they need to be nested. If you need multiple popup support without nesting use mode="tooltip" instead.
-- To use mode="tooltip", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
-- I am still figuring out if we can make this simple.
+### Android/iOS
 
+- When mode is set to `popover`, accessibility focus will be automatically shifted to first element. [Check out this demo](https://twitter.com/nishanbende/status/1373699977801703424).
 
-### Tradeoffs
-
-- I am still figuring out how to support fully configurable entry/exit animation configs.
-- However, I'll be adding some common animation examples which one can copy paste and tweak as needed.
-
-
-
-### Known issues
-
-- When on="hover" is passed and Backdrop is used, it may lead to flickers as Backdrop hijacks pointer events, so trigger will lose hover. To mitigate this, either set pointerEvents= "none" on backdrop or remove backdrop completely. I am looking how to handle this in a more simple way.
 
 
 ## Credits
