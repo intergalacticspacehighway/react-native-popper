@@ -73,7 +73,7 @@ const [isOpen, setIsOpen] = React.useState(false);
 
 | Prop                             | Type                          | Default   | Description                                                                                                                                      |
 | -------------------------------- | ----------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| trigger (Required)               | React Element                 | -         | Element or ref which will be used as a Trigger
+| trigger (Required)               | React Element   or Ref              | -         | Element or ref which will be used as a Trigger
 | on                               | "press", "longpress", "hover" | "press"   | The action type which should trigger the Popover                                                                                                                   |
 | isOpen                           | boolean                       | false     | Useful for controlled popovers                                                                                                                   |
 | onOpenChange                     | (isOpen: boolean) => void     | -         | Use this to listen change events. Also to set state for controlled popovers.                                                                     |
