@@ -100,7 +100,7 @@ const [isOpen, setIsOpen] = React.useState(false);
 
 - Pass the popover content as children here.
 
-#### Popover.Arrow
+### Popover.Arrow
 
 | Props    | Type      | Required | Default | Description                                                    |
 | -------- | --------- | -------- | ------- | -------------------------------------------------------------- |
