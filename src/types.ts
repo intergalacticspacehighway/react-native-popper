@@ -22,10 +22,11 @@ export type IArrowProps = {
 };
 
 // Tooltip is rendered in Non RN modal which won't shift accessibilityFocus
-export type OverlayType = 'popover' | 'tooltip';
+export type OverlayType = 'single' | 'multiple';
 
 export type IPopoverProps = {
-  mode?: OverlayType;
+  focusable?: boolean;
+  // mode?: OverlayType;
   defaultIsOpen?: boolean;
   on?: 'press' | 'longPress' | 'hover';
   isOpen?: boolean;
@@ -81,7 +82,7 @@ export type IScrollContentStyle = {
 };
 
 export type IOverlayProps = {
-  mode?: OverlayType;
+  focusable?: boolean;
   isOpen: boolean;
   children: any;
   onClose: any;

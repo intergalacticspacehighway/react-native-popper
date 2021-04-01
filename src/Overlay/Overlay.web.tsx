@@ -7,7 +7,7 @@ import type { IOverlayProps } from '../types';
 import { OverlayContext } from './context';
 
 export function Overlay(props: IOverlayProps): any {
-  const {
+  let {
     isOpen,
     children,
     autoFocus = true,
@@ -15,7 +15,7 @@ export function Overlay(props: IOverlayProps): any {
     trapFocus = true,
     onClose,
     isKeyboardDismissable = true,
-    mode = 'popover',
+    focusable = true,
   } = props;
 
   useKeyboardDismissable({
@@ -30,7 +30,7 @@ export function Overlay(props: IOverlayProps): any {
   let content = (
     <OverlayContext.Provider value={{ onClose }}>
       <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
-        {mode === 'popover' ? (
+        {focusable ? (
           <FocusScope
             contain={trapFocus}
             autoFocus={autoFocus}

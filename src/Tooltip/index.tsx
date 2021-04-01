@@ -1,11 +1,12 @@
 import React from 'react';
-import type { IPopoverProps } from '../types';
 import { Overlay } from '../Overlay/Overlay';
-import { useControllableState, useOn, usePopover } from '../hooks';
+import { useControllableState, useOn, useTooltip } from '../hooks';
 import { Popper } from '../Popper/Popper';
-import { OverlayBackdrop } from '../Overlay/OverlayBackdrop';
+import type { IPopoverProps } from '../types';
 
-const Popover = (props: IPopoverProps) => {
+// Tooltip's code is almost same as Popover with some exceptions. Defaults to on="hover"
+// and focusable=false and also has different ARIA attributes via useTooltip hook.
+const Tooltip = (props: IPopoverProps) => {
   let triggerRef = React.useRef<any>(null);
 
   const [isOpen, setIsOpen] = useControllableState({
@@ -35,7 +36,7 @@ const Popover = (props: IPopoverProps) => {
     // Trigger won't be changes in rerenders, so this seems safe
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const handlers = useOn({
-      on: props.on,
+      on: props.on ?? 'hover',
       onClose: handleClose,
       onOpen: handleOpen,
       ...triggerExistingProps,
@@ -47,18 +48,15 @@ const Popover = (props: IPopoverProps) => {
     });
   } else {
     console.warn(
-      `Popover: Invalid 'trigger' prop received, please pass a valid ReactElement or a Ref`
+      `Tooltip: Invalid 'trigger' prop received, please pass a valid ReactElement or a Ref`
     );
   }
 
-  const { triggerProps, contentProps } = usePopover({ isOpen });
+  const { triggerProps, contentProps } = useTooltip({ isOpen });
 
   if (triggerElem) {
     triggerElem = React.cloneElement(triggerElem, { ...triggerProps });
   }
-
-  // If trigger is hover, we shouldn't shift user's focus
-  const isFocusabe = props.on !== 'hover';
 
   return (
     <>
@@ -67,7 +65,7 @@ const Popover = (props: IPopoverProps) => {
         isOpen={isOpen}
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
-        focusable={props.focusable ?? isFocusabe}
+        focusable={false}
       >
         <Popper
           {...props}
@@ -80,8 +78,7 @@ const Popover = (props: IPopoverProps) => {
   );
 };
 
-Popover.Content = Popper.Content;
-Popover.Arrow = Popper.Arrow;
-Popover.Backdrop = OverlayBackdrop;
+Tooltip.Content = Popper.Content;
+Tooltip.Arrow = Popper.Arrow;
 
-export { Popover as Popover };
+export { Tooltip };

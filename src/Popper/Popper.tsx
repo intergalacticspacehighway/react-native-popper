@@ -12,10 +12,11 @@ import { createContext } from '../utils';
 const defaultArrowHeight = 10;
 const defaultArrowWidth = 16;
 
-type PopperContext = {} & IPopoverProps & {
-    triggerRef: any;
-    onClose: any;
-  };
+type PopperContext = IPopoverProps & {
+  triggerRef: any;
+  onClose: any;
+  contentProps?: any;
+};
 
 const [PopperProvider, usePopperContext] = createContext<PopperContext>(
   'PopperContext'
@@ -36,6 +37,7 @@ const PopperContent = ({ children }: { children: any }) => {
     placement: placementProp,
     onClose,
     shouldOverlapWithTrigger,
+    contentProps,
   } = usePopperContext('PopperContent');
   const overlayRef = React.useRef(null);
 
@@ -56,7 +58,7 @@ const PopperContent = ({ children }: { children: any }) => {
   let arrowElement: React.ReactElement | null = null;
 
   // Might have performance impact if there are a lot of siblings!
-  // Shouldn't be an issue with popovers.
+  // Shouldn't be an issue with popovers since it would have atmost 2. Arrow and Content.
   React.Children.forEach(children, (child) => {
     if (child.type.displayName === 'PopperArrow') {
       arrowElement = React.cloneElement(child, {
@@ -111,7 +113,12 @@ const PopperContent = ({ children }: { children: any }) => {
   );
 
   return (
-    <View ref={overlayRef} collapsable={false} style={overlayStyle.overlay}>
+    <View
+      ref={overlayRef}
+      collapsable={false}
+      style={overlayStyle.overlay}
+      {...contentProps}
+    >
       {arrowElement}
       <View style={containerStyle}>{restElements}</View>
     </View>
