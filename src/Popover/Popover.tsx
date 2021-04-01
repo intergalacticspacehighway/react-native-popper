@@ -70,6 +70,9 @@ const Popover = (props: IPopoverProps) => {
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
         focusable={props.focusable ?? isFocusabe}
+        animated={props.animated}
+        animationEntryDuration={props.animationEntryDuration}
+        animationExitDuration={props.animationEntryDuration}
       >
         <Popper
           {...props}

@@ -1,29 +1,57 @@
 import React from 'react';
-import { Modal } from 'react-native';
+import { Animated, Modal, StyleSheet } from 'react-native';
 import type { IOverlayProps } from '../types';
 import { OverlayContainer } from './index';
 import { OverlayContext } from './context';
+import { useAnimatedStyles } from '../hooks';
 
 // This is iOS/Android only implementation. Refer Overlay.web.tsx for Web implementation
 export function Overlay(props: IOverlayProps) {
-  const { isOpen, children, onClose, focusable = true } = props;
+  const {
+    isOpen,
+    children,
+    onClose,
+    focusable = true,
+    animated = true,
+    animationEntryDuration,
+    animationExitDuration,
+  } = props;
 
-  if (!isOpen) {
+  const { styles, isExited } = useAnimatedStyles({
+    animated,
+    animationEntryDuration,
+    animationExitDuration,
+    isOpen,
+  });
+
+  if (!isOpen && isExited) {
     return null;
   }
 
   // If focusable we render it in RN modal so it shifts accessibility focus
   const content = focusable ? (
     <Modal visible={true} transparent>
-      {children}
+      <Animated.View
+        style={[StyleSheet.absoluteFill, styles]}
+        pointerEvents="box-none"
+      >
+        <OverlayContext.Provider value={{ onClose }}>
+          {children}
+        </OverlayContext.Provider>
+      </Animated.View>
     </Modal>
   ) : (
-    <OverlayContainer>{children}</OverlayContainer>
+    <OverlayContainer>
+      <Animated.View
+        style={[StyleSheet.absoluteFill, styles]}
+        pointerEvents="box-none"
+      >
+        <OverlayContext.Provider value={{ onClose }}>
+          {children}
+        </OverlayContext.Provider>
+      </Animated.View>
+    </OverlayContainer>
   );
 
-  return (
-    <OverlayContext.Provider value={{ onClose }}>
-      {content}
-    </OverlayContext.Provider>
-  );
+  return content;
 }

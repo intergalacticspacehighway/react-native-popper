@@ -5,13 +5,13 @@ export default function App() {
   return (
     <View style={styles.wrapper}>
       <Popover
-        on="hover"
         trigger={
           <Pressable>
             <Text>Press me</Text>
           </Pressable>
         }
       >
+        <Popover.Backdrop />
         <Popover.Content>
           <Popover.Arrow color="#D1D5DB"></Popover.Arrow>
           <View style={styles.popover}>

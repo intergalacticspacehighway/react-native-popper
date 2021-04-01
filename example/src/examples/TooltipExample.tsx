@@ -7,12 +7,15 @@ export default function App() {
     <>
       <View style={styles.wrapper}>
         <Tooltip
+          on="press"
+          offset={10}
           trigger={
             <Pressable>
               <Text>Press me</Text>
             </Pressable>
           }
         >
+          <Tooltip.Backdrop />
           <Tooltip.Content>
             <View style={styles.tooltip}>
               <Text style={styles.tooltipText}>Hello from Tooltip</Text>

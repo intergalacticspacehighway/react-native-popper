@@ -37,6 +37,9 @@ export type IPopoverProps = {
   children: React.ReactNode;
   shouldOverlapWithTrigger?: boolean;
   trigger: ReactElement | RefObject<any>;
+  animated?: boolean;
+  animationEntryDuration?: number;
+  animationExitDuration?: number;
   placement?:
     | 'top'
     | 'bottom'
@@ -90,4 +93,7 @@ export type IOverlayProps = {
   autoFocus?: boolean;
   restoreFocus?: boolean;
   trapFocus?: boolean;
+  animated?: boolean;
+  animationEntryDuration?: number;
+  animationExitDuration?: number;
 };

@@ -3,6 +3,7 @@ import { Overlay } from '../Overlay/Overlay';
 import { useControllableState, useOn, useTooltip } from '../hooks';
 import { Popper } from '../Popper/Popper';
 import type { IPopoverProps } from '../types';
+import { OverlayBackdrop } from '../Overlay/OverlayBackdrop';
 
 // Tooltip's code is almost same as Popover with some exceptions. Defaults to on="hover"
 // and focusable=false and also has different ARIA attributes via useTooltip hook.
@@ -66,6 +67,9 @@ const Tooltip = (props: IPopoverProps) => {
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
         focusable={false}
+        animated={props.animated}
+        animationEntryDuration={props.animationEntryDuration}
+        animationExitDuration={props.animationExitDuration}
       >
         <Popper
           {...props}
@@ -80,5 +84,6 @@ const Tooltip = (props: IPopoverProps) => {
 
 Tooltip.Content = Popper.Content;
 Tooltip.Arrow = Popper.Arrow;
+Tooltip.Backdrop = OverlayBackdrop;
 
 export { Tooltip };

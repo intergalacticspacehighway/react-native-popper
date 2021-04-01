@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import { useKeyboardDismissable } from '../hooks';
 import { FocusScope } from '@react-native-aria/focus';
 import type { IOverlayProps } from '../types';
 import { OverlayContext } from './context';
+import { useAnimatedStyles } from '../hooks';
 
 export function Overlay(props: IOverlayProps): any {
   let {
@@ -16,20 +17,33 @@ export function Overlay(props: IOverlayProps): any {
     onClose,
     isKeyboardDismissable = true,
     focusable = true,
+    animated = true,
+    animationEntryDuration,
+    animationExitDuration,
   } = props;
+
+  const { styles, isExited } = useAnimatedStyles({
+    animated,
+    animationEntryDuration,
+    animationExitDuration,
+    isOpen,
+  });
 
   useKeyboardDismissable({
     enabled: isKeyboardDismissable,
     onClose: onClose ? onClose : () => {},
   });
 
-  if (!isOpen) {
+  if (!isOpen && isExited) {
     return null;
   }
 
   let content = (
     <OverlayContext.Provider value={{ onClose }}>
-      <View style={StyleSheet.absoluteFill} pointerEvents="box-none">
+      <Animated.View
+        style={[StyleSheet.absoluteFill, styles]}
+        pointerEvents="box-none"
+      >
         {focusable ? (
           <FocusScope
             contain={trapFocus}
@@ -41,7 +55,7 @@ export function Overlay(props: IOverlayProps): any {
         ) : (
           children
         )}
-      </View>
+      </Animated.View>
     </OverlayContext.Provider>
   );
 

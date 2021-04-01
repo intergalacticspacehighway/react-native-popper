@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Animated, Platform } from 'react-native';
 import { composeEventHandlers } from '../utils';
 
 let idCounter = 0;
@@ -281,4 +281,58 @@ const useFocus = (targetRef: any) => {
   }, [targetRef]);
 
   return { isFocused };
+};
+
+type IProps = {
+  animated: boolean;
+  animationEntryDuration?: number;
+  animationExitDuration?: number;
+  isOpen?: boolean;
+};
+
+export const useAnimatedStyles = ({
+  animated,
+  animationEntryDuration = 150,
+  animationExitDuration = 150,
+  isOpen,
+}: IProps) => {
+  // do not animate if opened by default
+  let opacity = React.useRef(new Animated.Value(isOpen ? 1 : 0));
+  const [isExited, setIsExited] = React.useState(isOpen ? false : true);
+  let prevIsOpen = React.useRef(isOpen);
+
+  React.useEffect(() => {
+    // Opened
+    if (!prevIsOpen.current && isOpen) {
+      Animated.timing(opacity.current, {
+        toValue: 1,
+        duration: animationEntryDuration,
+        useNativeDriver: true,
+      }).start(() => setIsExited(false));
+    }
+    // Closed
+    else if (prevIsOpen.current && !isOpen) {
+      Animated.timing(opacity.current, {
+        toValue: 0,
+        duration: animationExitDuration,
+        useNativeDriver: true,
+      }).start(() => setIsExited(true));
+    }
+
+    prevIsOpen.current = isOpen;
+  }, [isOpen, animationEntryDuration, animationExitDuration]);
+
+  if (!animated) {
+    return {
+      styles: {},
+      isExited,
+    };
+  }
+
+  return {
+    styles: {
+      opacity: opacity.current,
+    },
+    isExited,
+  };
 };
