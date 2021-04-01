@@ -110,7 +110,7 @@ export const usePopover = (props: { isOpen: boolean }) => {
   triggerProps['aria-expanded'] = !!isOpen;
   triggerProps['aria-haspopup'] = true;
   triggerProps['aria-controls'] = isOpen ? contentId : undefined;
-  contentProps.accessibilityRole = 'dialog';
+  contentProps.accessibilityRole = Platform.OS === 'web' ? 'dialog' : undefined;
 
   return {
     triggerProps,
@@ -133,7 +133,8 @@ export const useTooltip = (props: { isOpen: boolean }) => {
   };
 
   triggerProps['aria-describedby'] = isOpen ? contentId : undefined;
-  contentProps.accessibilityRole = 'tooltip';
+  contentProps.accessibilityRole =
+    Platform.OS === 'web' ? 'tooltip' : undefined;
 
   return {
     triggerProps,

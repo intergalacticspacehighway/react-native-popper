@@ -1,5 +1,5 @@
 import React from 'react';
-import { Animated, Modal, StyleSheet } from 'react-native';
+import { Animated, Modal, StatusBar, StyleSheet } from 'react-native';
 import type { IOverlayProps } from '../types';
 import { OverlayContainer } from './index';
 import { OverlayContext } from './context';
@@ -43,7 +43,11 @@ export function Overlay(props: IOverlayProps) {
   ) : (
     <OverlayContainer>
       <Animated.View
-        style={[StyleSheet.absoluteFill, styles]}
+        style={[
+          StyleSheet.absoluteFill,
+          styles,
+          { marginTop: StatusBar.currentHeight },
+        ]}
         pointerEvents="box-none"
       >
         <OverlayContext.Provider value={{ onClose }}>

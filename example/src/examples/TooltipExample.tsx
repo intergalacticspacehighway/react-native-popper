@@ -7,7 +7,7 @@ export default function App() {
     <>
       <View style={styles.wrapper}>
         <Tooltip
-          on="press"
+          on="longPress"
           offset={10}
           trigger={
             <Pressable>
@@ -18,7 +18,7 @@ export default function App() {
           <Tooltip.Backdrop />
           <Tooltip.Content>
             <View style={styles.tooltip}>
-              <Text style={styles.tooltipText}>Hello from Tooltip</Text>
+              <Text style={styles.tooltipText}>Hello world </Text>
             </View>
           </Tooltip.Content>
         </Tooltip>

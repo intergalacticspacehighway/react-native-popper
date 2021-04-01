@@ -7,7 +7,6 @@ export default function IOSPopoverExample() {
   return (
     <View style={styles.wrapper}>
       <Popover
-        on="hover"
         placement="bottom right"
         trigger={
           <Pressable style={{ height: 26, width: 24 }}>
@@ -15,7 +14,7 @@ export default function IOSPopoverExample() {
           </Pressable>
         }
       >
-        {/* <Popover.Backdrop style={{ backgroundColor: '#000', opacity: 0.3 }} /> */}
+        <Popover.Backdrop />
         <Popover.Content>
           <Popover.Arrow
             height={12}
