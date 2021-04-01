@@ -266,7 +266,7 @@ const useFocus = (targetRef: any) => {
       setIsFocused(false);
     };
 
-    let currentTarget = targetRef.current;
+    let currentTarget = targetRef ? targetRef.current : undefined;
     if (currentTarget) {
       currentTarget.addEventListener('focusin', focusInistener);
       currentTarget.addEventListener('focusout', focusOutListener);
