@@ -11,7 +11,7 @@ Create fully customizable popovers.
 - Handles focus trap, autofocus and focus contain on web.
 - Dismiss with Escape key on web.
 - Shifts accessibility focus to first item on Android and iOS.
-- Has "tooltip" mode which can be used to open multiple popovers on Android/iOS.
+- Has "multiple" mode which can be used to open multiple popovers on Android/iOS.
 
 ## Install
 
@@ -84,7 +84,7 @@ const [isOpen, setIsOpen] = React.useState(false);
 | offset                           | number                        | 0         | Distance between popover and trigger's main axis                                                                                                 |
 | crossOffset                      | number                        | 0         | Distance between popover and trigger's cross axis                                                                                                |
 | shouldFlip                       | boolean                       | true      | Whether the popover should flip if there's less space.                                                                                           |
-| mode                             | 'popover' \| 'tooltip'        | 'popover' | If you need to render multiple popovers at once on Android/iOS, use 'tooltip' option. Note - Accessibility focus won't be shifted in this case. Refer [mode section](#mode)  |
+| mode                             | 'single' \| 'multiple'        | 'single' | If you need to render multiple popovers at once on Android/iOS, use 'multiple' option. Note - Accessibility focus won't be shifted in this case. Refer [mode section](#mode)  |
 | isKeyboardDismissable (Web only) | boolean                       | true      | Specify whether popover can be dismissed with Escape key on web                                                                                  |
 | autoFocus (Web only)             | boolean                       | true      | Shifts focus to first focusable element on web.                                                                                                  |
 | trapFocus (Web only)             | boolean                       | true      | Traps focus into the opened popover                                                                                                              |
@@ -112,7 +112,7 @@ const [isOpen, setIsOpen] = React.useState(false);
 
 
 ### OverlayProvider
-- When using mode="tooltip", we use custom Portal to prevent shifting accessibility focus when opened. 
+- When using mode="multiple", we use custom Portal to prevent shifting accessibility focus when opened. 
 To use this Portal, we need to wrap the app with OverlayProvider.
 
 ```
@@ -139,10 +139,10 @@ yarn iOS
 yarn android
 ```
 ## <a name="mode"/>Mode
-- Mode prop accepts `popover` and `tooltip` values. Defaults to `popover`.
-- When set to `popover`, it uses RN's built-in Modal which shifts accessibility focus to the first element when opened. 
-- RN's built in modal doesn't support multiple popups at once. It does but they need to be nested. If you need multiple popup support without nesting use mode="tooltip" instead.
-- To use mode="tooltip", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
+- Mode prop accepts `single` and `multiple` values. Defaults to `single`.
+- When set to `single`, it uses RN's built-in Modal which shifts accessibility focus to the first element when opened. 
+- RN's built in modal doesn't support multiple popups at once. It does but they need to be nested. If you need multiple popup support without nesting use mode="multiple" instead.
+- To use mode="multiple", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
 - I am still figuring out if we can make this simple.
 
 ## Tradeoffs
