@@ -2,23 +2,23 @@ import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import { Popover } from 'react-native-popper';
 export default function App() {
-  const [isOpen, setIsOpen] = React.useState(false);
   return (
     <View style={styles.wrapper}>
       <Popover
-        isOpen={isOpen}
-        onOpenChange={setIsOpen}
+        on="hover"
         trigger={
           <Pressable>
             <Text>Press me</Text>
           </Pressable>
         }
-        defaultIsOpen
       >
         <Popover.Content>
           <Popover.Arrow color="#D1D5DB"></Popover.Arrow>
           <View style={styles.popover}>
             <Text>Hello from popover</Text>
+            <Pressable>
+              <Text>Hello</Text>
+            </Pressable>
           </View>
         </Popover.Content>
       </Popover>

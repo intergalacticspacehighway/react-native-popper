@@ -16,6 +16,7 @@ type PopperContext = IPopoverProps & {
   triggerRef: any;
   onClose: any;
   contentProps?: any;
+  setOverlayRef?: (overlayRef: any) => void;
 };
 
 const [PopperProvider, usePopperContext] = createContext<PopperContext>(
@@ -23,7 +24,12 @@ const [PopperProvider, usePopperContext] = createContext<PopperContext>(
 );
 
 const Popper = (
-  props: IPopoverProps & { triggerRef: any; onClose: any; contentProps: any }
+  props: IPopoverProps & {
+    triggerRef: any;
+    onClose: any;
+    contentProps: any;
+    setOverlayRef?: (overlayRef: any) => void;
+  }
 ) => {
   return <PopperProvider {...props}>{props.children}</PopperProvider>;
 };
@@ -38,6 +44,7 @@ const PopperContent = ({ children }: { children: any }) => {
     onClose,
     shouldOverlapWithTrigger,
     contentProps,
+    setOverlayRef,
   } = usePopperContext('PopperContent');
   const overlayRef = React.useRef(null);
 
@@ -56,6 +63,10 @@ const PopperContent = ({ children }: { children: any }) => {
 
   let restElements: React.ReactNode[] = [];
   let arrowElement: React.ReactElement | null = null;
+
+  React.useEffect(() => {
+    setOverlayRef && setOverlayRef(overlayRef);
+  }, [overlayRef, setOverlayRef]);
 
   // Might have performance impact if there are a lot of siblings!
   // Shouldn't be an issue with popovers since it would have atmost 2. Arrow and Content.

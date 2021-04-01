@@ -7,6 +7,7 @@ import { OverlayBackdrop } from '../Overlay/OverlayBackdrop';
 
 const Popover = (props: IPopoverProps) => {
   let triggerRef = React.useRef<any>(null);
+  let [overlayRef, setOverlayRef] = React.useState<any>({ current: null });
 
   const [isOpen, setIsOpen] = useControllableState({
     defaultValue: props.defaultIsOpen,
@@ -38,6 +39,7 @@ const Popover = (props: IPopoverProps) => {
       on: props.on,
       onClose: handleClose,
       onOpen: handleOpen,
+      overlayRef,
       ...triggerExistingProps,
     });
 
@@ -74,6 +76,7 @@ const Popover = (props: IPopoverProps) => {
           onClose={handleClose}
           triggerRef={triggerRef}
           contentProps={contentProps}
+          setOverlayRef={setOverlayRef}
         />
       </Overlay>
     </>

@@ -7,6 +7,7 @@ export default function IOSPopoverExample() {
   return (
     <View style={styles.wrapper}>
       <Popover
+        on="hover"
         placement="bottom right"
         trigger={
           <Pressable style={{ height: 26, width: 24 }}>
@@ -14,7 +15,7 @@ export default function IOSPopoverExample() {
           </Pressable>
         }
       >
-        <Popover.Backdrop style={{ backgroundColor: '#000', opacity: 0.3 }} />
+        {/* <Popover.Backdrop style={{ backgroundColor: '#000', opacity: 0.3 }} /> */}
         <Popover.Content>
           <Popover.Arrow
             height={12}
@@ -119,7 +120,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 100,
   },
-  shadow: {},
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
   boxShadow: {
     minWidth: 300,
     borderRadius: 5,
