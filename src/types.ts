@@ -40,6 +40,7 @@ export type IPopoverProps = {
   animated?: boolean;
   animationEntryDuration?: number;
   animationExitDuration?: number;
+  shouldCloseOnOutsideClick?: boolean;
   placement?:
     | 'top'
     | 'bottom'
@@ -90,10 +91,13 @@ export type IOverlayProps = {
   children: any;
   onClose: any;
   isKeyboardDismissable?: boolean;
+  shouldCloseOnOutsideClick?: boolean;
   autoFocus?: boolean;
   restoreFocus?: boolean;
   trapFocus?: boolean;
   animated?: boolean;
   animationEntryDuration?: number;
   animationExitDuration?: number;
+  overlayRef?: RefObject<any>;
+  triggerRef?: RefObject<any>;
 };

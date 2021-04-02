@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { Animated, Platform } from 'react-native';
 import { composeEventHandlers } from '../utils';
 
@@ -354,4 +354,42 @@ export const useAnimatedStyles = ({
     },
     isExited,
   };
+};
+
+type IOutsideClickListener = {
+  refs?: Array<RefObject<any> | undefined>;
+  onClose: any;
+  enabled?: boolean;
+};
+
+export const useCloseOnOutsideClick = ({
+  refs,
+  onClose,
+  enabled,
+}: IOutsideClickListener) => {
+  React.useEffect(() => {
+    if (!enabled) return;
+
+    let listener = (e: MouseEvent) => {
+      let clickedInRefs = false;
+      if (refs) {
+        refs.forEach((ref) => {
+          if (ref && ref.current && ref.current.contains(e.target)) {
+            clickedInRefs = true;
+          }
+        });
+      }
+
+      if (!clickedInRefs) onClose();
+    };
+    if (isPlatformWeb) {
+      document.addEventListener('click', listener);
+    }
+
+    return () => {
+      if (isPlatformWeb) {
+        document.removeEventListener('click', listener);
+      }
+    };
+  }, [refs, onClose, enabled]);
 };

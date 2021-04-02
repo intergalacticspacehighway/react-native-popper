@@ -73,6 +73,9 @@ const Popover = (props: IPopoverProps) => {
         animated={props.animated}
         animationEntryDuration={props.animationEntryDuration}
         animationExitDuration={props.animationEntryDuration}
+        overlayRef={overlayRef}
+        triggerRef={triggerRef}
+        shouldCloseOnOutsideClick={props.shouldCloseOnOutsideClick}
       >
         <Popper
           {...props}

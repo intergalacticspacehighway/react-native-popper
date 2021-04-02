@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Animated, StyleSheet } from 'react-native';
-import { useKeyboardDismissable } from '../hooks';
+import { useCloseOnOutsideClick, useKeyboardDismissable } from '../hooks';
 import { FocusScope } from '@react-native-aria/focus';
 import type { IOverlayProps } from '../types';
 import { OverlayContext } from './context';
@@ -16,10 +16,13 @@ export function Overlay(props: IOverlayProps): any {
     trapFocus = true,
     onClose,
     isKeyboardDismissable = true,
+    shouldCloseOnOutsideClick = true,
     focusable = true,
     animated = true,
     animationEntryDuration,
     animationExitDuration,
+    overlayRef,
+    triggerRef,
   } = props;
 
   const { styles, isExited } = useAnimatedStyles({
@@ -31,6 +34,12 @@ export function Overlay(props: IOverlayProps): any {
 
   useKeyboardDismissable({
     enabled: isKeyboardDismissable,
+    onClose: onClose ? onClose : () => {},
+  });
+
+  useCloseOnOutsideClick({
+    refs: [overlayRef, triggerRef],
+    enabled: shouldCloseOnOutsideClick,
     onClose: onClose ? onClose : () => {},
   });
 
