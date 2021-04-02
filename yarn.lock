@@ -1694,14 +1694,20 @@
   dependencies:
     "@react-aria/focus" "^3.2.3"
 
-"@react-native-aria/overlays@^0.2.8":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@react-native-aria/overlays/-/overlays-0.2.8.tgz#966200638ebb44fef3561159b1b4fc4642fa0340"
-  integrity sha512-Do0YlfaiWca2oVsEHVBsWo5Jmby5jkxdKE8YNmkSWJPA4OYrYkUbro3JeJ92vO5knTjIhEcZwasAUc1QyTbWkQ==
+"@react-native-aria/overlays@^0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@react-native-aria/overlays/-/overlays-0.2.10.tgz#490650786dcbe79caf5ef25ce847a1439907983d"
+  integrity sha512-yV/SY7B1Kc/XMRflQq3TlXvEVcnfMPNpgONI2yKNBjBr0+Ax4BiOR8bOSZnhs/EDiLnFdswXvx4YEOk63XxayA==
   dependencies:
     "@react-aria/overlays" "^3.6.0"
+    "@react-native-aria/utils" "^0.2.5"
     "@react-stately/overlays" "^3.1.1"
     "@react-types/overlays" "^3.4.0"
+
+"@react-native-aria/utils@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@react-native-aria/utils/-/utils-0.2.5.tgz#db3979cf96b1ac09f990a0e6977bf1efda567db2"
+  integrity sha512-5YDAQa3j/85i3ZAHs0p4PMIGGSvjyKSLoUNtHAfVcuinvDyxiuirO2fhohOiSH5rGNN41a036yHayMfFh+t6wA==
 
 "@react-native-community/cli-debugger-ui@^4.13.1":
   version "4.13.1"
