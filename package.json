@@ -1,6 +1,6 @@
 {
   "name": "react-native-popper",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Headless popovers",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
