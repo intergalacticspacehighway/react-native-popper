@@ -71,8 +71,13 @@ const PopperContent = ({ children }: { children: any }) => {
   // Might have performance impact if there are a lot of siblings!
   // Shouldn't be an issue with popovers since it would have atmost 2. Arrow and Content.
   React.Children.forEach(children, (child) => {
-    if (child.type.displayName === 'PopperArrow') {
+    if (
+      React.isValidElement(child) &&
+      // @ts-ignore
+      child.type.displayName === 'PopperArrow'
+    ) {
       arrowElement = React.cloneElement(child, {
+        // @ts-ignore
         arrowProps,
         actualPlacement: placement,
       });
