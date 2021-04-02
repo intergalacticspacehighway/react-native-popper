@@ -72,7 +72,7 @@ const Popover = (props: IPopoverProps) => {
         focusable={props.focusable ?? isFocusabe}
         animated={props.animated}
         animationEntryDuration={props.animationEntryDuration}
-        animationExitDuration={props.animationEntryDuration}
+        animationExitDuration={props.animationExitDuration}
         overlayRef={overlayRef}
         triggerRef={triggerRef}
         shouldCloseOnOutsideClick={props.shouldCloseOnOutsideClick}
