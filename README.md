@@ -1,4 +1,5 @@
 # react-native-popper
+
 Create fully customizable popovers and tooltips.
 
 [Playground](https://react-native-popper.netlify.app/)
@@ -7,8 +8,8 @@ Create fully customizable popovers and tooltips.
 
 [Tooltip Example](https://codesandbox.io/s/tooltip-example-wgrfd) - (CodeSandbox - as we need react-native-web 0.15+ for hover events.)
 
-
 ## Features
+
 - Includes Popover and Tooltip.
 - Fully customizable.
 - Can be controlled or uncontrolled.
@@ -18,114 +19,134 @@ Create fully customizable popovers and tooltips.
 
 ## Install
 
-```
-// yarn
+```sh
+# yarn
 yard add react-native-popper
 
-// npm
+# npm
 npm i react-native-popper
 ```
 
 ## Import
 
-import { Popover, Tooltip } from "react-native-popper"
+```js
+import { Popover, Tooltip } from 'react-native-popper'
+```
 
 ## Usage
 
 1. Uncontrolled
 
-```
-// Popover
-<Popover
-    trigger={
-        <Pressable>
-            <Text>Press me</Text>
-        </Pressable>
-    }>
-    <Popover.Backdrop />
-    <Popover.Content>
-        <Popover.Arrow />
-        <Text>Hello World</Text>
-    </Popover.Content>
-</Popover>
+Popover:
 
-// Tooltip
+```jsx
+<Popover
+  trigger={
+    <Pressable>
+      <Text>Press me</Text>
+    </Pressable>
+  }
+>
+  <Popover.Backdrop />
+  <Popover.Content>
+    <Popover.Arrow />
+    <Text>Hello World</Text>
+  </Popover.Content>
+</Popover>
+```
+
+Tooltip:
+
+```jsx
 <Tooltip
-    trigger={
-        <Pressable>
-            <Text>Press me</Text>
-        </Pressable>
-    }>
-    <Tooltip.Content>
-        <Tooltip.Arrow />
-        <Text>Hello World</Text>
-    </Tooltip.Content>
+  trigger={
+    <Pressable>
+      <Text>Press me</Text>
+    </Pressable>
+  }
+>
+  <Tooltip.Content>
+    <Tooltip.Arrow />
+    <Text>Hello World</Text>
+  </Tooltip.Content>
 </Tooltip>
 ```
 
 2. Controlled
 
-```
-const [isOpen, setIsOpen] = React.useState(false);
+Popover:
 
-// Popover
-<Popover
+```jsx
+const [isOpen, setIsOpen] = React.useState(false)
+
+return (
+  <Popover
     isOpen={isOpen}
     onOpenChange={setIsOpen}
     trigger={
-        <Pressable>
-            <Text>Press me</Text>
-        </Pressable>
-    }>
+      <Pressable>
+        <Text>Press me</Text>
+      </Pressable>
+    }
+  >
     <Popover.Backdrop />
     <Popover.Content>
-        <Popover.Arrow />
-        <Text>Hello World</Text>
+      <Popover.Arrow />
+      <Text>Hello World</Text>
     </Popover.Content>
-</Popover>
+  </Popover>
+)
+```
 
-// Tooltip
-<Tooltip
+Tooltip:
+
+```jsx
+const [isOpen, setIsOpen] = React.useState(false)
+
+return (
+  <Tooltip
     isOpen={isOpen}
     onOpenChange={setIsOpen}
     trigger={
-        <Pressable>
-            <Text>Press me</Text>
-        </Pressable>
-    }>
+      <Pressable>
+        <Text>Press me</Text>
+      </Pressable>
+    }
+  >
     <Tooltip.Content>
-        <Tooltip.Arrow />
-        <Text>Hello World</Text>
+      <Tooltip.Arrow />
+      <Text>Hello World</Text>
     </Tooltip.Content>
-</Tooltip>
+  </Tooltip>
+)
 ```
 
 ## API
 
 ### Popover or Tooltip
 
-| Prop                             | Type                          | Default   | Description                                                                                                                                      |
-| -------------------------------- | ----------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| trigger (Required)               | React Element   or Ref              | -         | Element or ref which will be used as a Trigger
-| on                               | "press", "longpress", "hover" | "press" for Popover "hover for Tooltips"   | The action type which should trigger the Popover                                                                                                                   |
-| isOpen                           | boolean                       | false     | Useful for controlled popovers                                                                                                                   |
-| onOpenChange                     | (isOpen: boolean) => void     | -         | Use this to listen change events. Also to set state for controlled popovers.                                                                     |
-| defaultIsOpen                    | boolean                       | false     | Specifies initial visibility of popover                                                                                                          |
-| placement                        | string                        | bottom    | "top", "bottom", "left", "right", "top left", "top right", "left top", "left bottom", "right top", "right bottom", "bottom left", "bottom right" |
-| shouldOverlapWithTrigger         | boolean                       | false     | Whether the popover should overlap with trigger                                                                                                  |
-| placement                        | string                        | bottom    | "top", "bottom", "left", "right", "top left", "top right", "left top", "left bottom", "right top", "right bottom", "bottom left", "bottom right" |                                                                                               |
-| offset                           | number                        | 0         | Distance between popover and trigger's main axis                                                                                                 |
-| animated                           | boolean                        | true         | Determines whether the content should animate 
-| animationEntryDuration                           | number                        | 150         | Duration of entry animation 
-| animationExitDuration                           | number                        | 150         | Duration of exit animation
-| crossOffset                      | number                        | 0         | Distance between popover and trigger's cross axis                                                                                                |
-| shouldFlip                       | boolean                       | true      | Whether the popover should flip if there's less space.                                                                                           |
-| mode                             | 'single' \| 'multiple'        | 'single' | If you need to render multiple popovers at once on Android/iOS, use 'multiple' option. Note - Accessibility focus won't be shifted in this case. Refer [mode section](#mode)  |
-| isKeyboardDismissable (Web only) | boolean                       | true      | Determines whether popover can be dismissed with Escape key on web                                                                                  |
-| shouldCloseOnOutsideClick (Web only) | boolean                       | true      | Determines whether popover can be dismissed when clicked outside of popover content and trigger.                                                                                   |
-| autoFocus (Web only)             | boolean                       | true      | Shifts focus to first focusable element on web.                                                                                                  |
-| trapFocus (Web only)             | boolean                       | true      | Traps focus into the opened popover                                                                                                              |
-| restoreFocus (Web only)          | boolean                       | true      | Restores focus to the triggered element                                                                                                          |
+| Prop                                 | Type                          | Default                                  | Description                                                                                                                                                                  |
+| ------------------------------------ | ----------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| trigger (Required)                   | React Element or Ref          | -                                        | Element or ref which will be used as a Trigger                                                                                                                               |
+| on                                   | "press", "longpress", "hover" | "press" for Popover "hover for Tooltips" | The action type which should trigger the Popover                                                                                                                             |
+| isOpen                               | boolean                       | false                                    | Useful for controlled popovers                                                                                                                                               |
+| onOpenChange                         | (isOpen: boolean) => void     | -                                        | Use this to listen change events. Also to set state for controlled popovers.                                                                                                 |
+| defaultIsOpen                        | boolean                       | false                                    | Specifies initial visibility of popover                                                                                                                                      |
+| placement                            | string                        | bottom                                   | "top", "bottom", "left", "right", "top left", "top right", "left top", "left bottom", "right top", "right bottom", "bottom left", "bottom right"                             |
+| shouldOverlapWithTrigger             | boolean                       | false                                    | Whether the popover should overlap with trigger                                                                                                                              |
+| placement                            | string                        | bottom                                   | "top", "bottom", "left", "right", "top left", "top right", "left top", "left bottom", "right top", "right bottom", "bottom left", "bottom right"                             |  |
+| offset                               | number                        | 0                                        | Distance between popover and trigger's main axis                                                                                                                             |
+| animated                             | boolean                       | true                                     | Determines whether the content should animate                                                                                                                                |
+| animationEntryDuration               | number                        | 150                                      | Duration of entry animation                                                                                                                                                  |
+| animationExitDuration                | number                        | 150                                      | Duration of exit animation                                                                                                                                                   |
+| crossOffset                          | number                        | 0                                        | Distance between popover and trigger's cross axis                                                                                                                            |
+| shouldFlip                           | boolean                       | true                                     | Whether the popover should flip if there's less space.                                                                                                                       |
+| mode                                 | 'single' \| 'multiple'        | 'single'                                 | If you need to render multiple popovers at once on Android/iOS, use 'multiple' option. Note - Accessibility focus won't be shifted in this case. Refer [mode section](#mode) |
+| isKeyboardDismissable (Web only)     | boolean                       | true                                     | Determines whether popover can be dismissed with Escape key on web                                                                                                           |
+| shouldCloseOnOutsideClick (Web only) | boolean                       | true                                     | Determines whether popover can be dismissed when clicked outside of popover content and trigger.                                                                             |
+| autoFocus (Web only)                 | boolean                       | true                                     | Shifts focus to first focusable element on web.                                                                                                                              |
+| trapFocus (Web only)                 | boolean                       | true                                     | Traps focus into the opened popover                                                                                                                                          |
+| restoreFocus (Web only)              | boolean                       | true                                     | Restores focus to the triggered element                                                                                                                                      |
 
 ### Popover.Backdrop or Tooltip.Backdrop
 
@@ -147,10 +168,10 @@ const [isOpen, setIsOpen] = React.useState(false);
 | style    | ViewStyle | No       | -       | Style will be passed to the View which is used as Arrow        |
 | children | ReactNode | No       | -       | Supply custom Arrow. Make sure the arrow is pointing upward. ▲ |
 
-
 ### OverlayProvider
-- When using mode="multiple" or Tooltip, we use custom Portal to prevent shifting accessibility focus when opened. 
-To use this Portal, we need to wrap the app with OverlayProvider.
+
+- When using mode="multiple" or Tooltip, we use custom Portal to prevent shifting accessibility focus when opened.
+  To use this Portal, we need to wrap the app with OverlayProvider.
 
 ```
 import { OverlayProvider } from 'react-native-popper';
@@ -164,40 +185,45 @@ function App() {
 Phew, That's it!
 
 ## Why Popover and Tooltip separate component?
+
 **Reason**: Different Accessibility requirements.
+
 - For Tooltips, we add aria-describedby on trigger and role="tooltip" on the Tooltip content and default "on" prop is set to "hover".
-    - On Android/iOS we use custom Portal, so it doesn't shift accessibility focus.
-- For Popovers, we add aria-controls on trigger and role="dialog" on it's content. Also, Popover comes with focus trapping options. 
-    - On Android/iOS, we use RN's build in Modal which shifts the accessibility focus to first element. Also, refer [mode section](#mode)
+  - On Android/iOS we use custom Portal, so it doesn't shift accessibility focus.
+- For Popovers, we add aria-controls on trigger and role="dialog" on it's content. Also, Popover comes with focus trapping options.
+  - On Android/iOS, we use RN's build in Modal which shifts the accessibility focus to first element. Also, refer [mode section](#mode)
 
 ## Examples
+
 - Checkout examples directory. It has a lot of examples including animations.
+
 ```
 cd examples
 // Install dependencies
 yarn
 // web
 yarn web
-// iOS 
+// iOS
 yarn iOS
 // Android
 yarn android
 ```
+
 ## <a name="mode"/>Mode
+
 - Mode prop accepts `single` and `multiple` values. Defaults to `single`.
-- When set to `single`, it uses RN's built-in Modal which shifts accessibility focus to the first element when opened. 
+- When set to `single`, it uses RN's built-in Modal which shifts accessibility focus to the first element when opened.
 - RN's built in modal doesn't support multiple popups at once unless they are nested. If you need multiple popup support without nesting use mode="multiple".
 - To use mode="multiple", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
 - I am still figuring out if we can make this simple.
 
 ## Limitations
 
-- Currently we have built in fade animation support. I am still figuring out how we can extract the layout info and use it to provide custom animation config externally. This can be useful when you want to animate depending upon popover content dimensions. 
+- Currently we have built in fade animation support. I am still figuring out how we can extract the layout info and use it to provide custom animation config externally. This can be useful when you want to animate depending upon popover content dimensions.
 
 ## Known issues
 
 - When on="hover" is passed and Backdrop is used, it may lead to flickers as Backdrop hijacks pointer events. To mitigate this, either set pointerEvents= "none" on backdrop or remove backdrop completely. I am looking how to handle this in a more simple way.
-
 
 ## Accessibility
 
@@ -220,8 +246,6 @@ yarn android
 ### Android/iOS
 
 - When mode is set to `popover`, accessibility focus will be automatically shifted to first element. [Check out this demo](https://twitter.com/nishanbende/status/1373699977801703424).
-
-
 
 ## Credits
 
