@@ -2,6 +2,8 @@ import React from 'react';
 import { Animated, Platform } from 'react-native';
 import { composeEventHandlers } from '../utils';
 
+const isPlatformWeb = Platform.OS === 'web';
+
 let idCounter = 0;
 
 const generateId = (prefix: string) => {
@@ -158,6 +160,11 @@ type IOnProps = {
 export const useOn = (props: IOnProps) => {
   let { on = 'press', onOpen } = props;
 
+  let events = useHoverInteraction(props, { enabled: on === 'hover' });
+  if (events) {
+    return events;
+  }
+
   if (on === 'press') {
     return {
       onPress: composeEventHandlers(props.onPress, () => {
@@ -174,16 +181,19 @@ export const useOn = (props: IOnProps) => {
     };
   }
 
-  if (on === 'hover') {
-    // Breaking conditional hook rule, but no one would change "on" anyways. Keep it for now
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    return useHoverInteraction(props);
-  }
-
   return {};
 };
 
-const useHoverInteraction = (props: IOnProps) => {
+const useHoverInteraction = (
+  props: IOnProps,
+  { enabled }: { enabled: boolean }
+) => {
+  // Platform won't change in between, so breaking the conditional hook rule won't be an issue
+  /* eslint-disable react-hooks/rules-of-hooks */
+  if (!isPlatformWeb) {
+    return;
+  }
+
   const { overlayRef, onOpen, onClose } = props;
   const { isHovered: isOverlayHovered } = useHover(overlayRef);
   const { isFocused: isOverlayFocused } = useFocus(overlayRef);
@@ -191,12 +201,14 @@ const useHoverInteraction = (props: IOnProps) => {
   const [isTriggerFocused, setIsTriggerFocused] = React.useState(false);
 
   React.useEffect(() => {
+    if (!enabled) return;
     if (isTriggerHovered || isTriggerFocused) {
       onOpen();
     }
-  }, [isTriggerHovered, isTriggerFocused, onOpen]);
+  }, [isTriggerHovered, isTriggerFocused, onOpen, enabled]);
 
   React.useEffect(() => {
+    if (!enabled) return;
     let timeout = setTimeout(() => {
       if (
         !isOverlayHovered &&
@@ -216,14 +228,18 @@ const useHoverInteraction = (props: IOnProps) => {
     isTriggerFocused,
     isOverlayFocused,
     onClose,
+    enabled,
   ]);
 
   React.useEffect(() => {
+    if (!enabled) return;
     if (isTriggerFocused) {
       onOpen();
     }
-  }, [isTriggerFocused, onOpen]);
+  }, [isTriggerFocused, onOpen, enabled]);
 
+  // We don't return above to prevent hooks conditional rules
+  if (!enabled) return;
   return {
     onHoverIn: composeEventHandlers(props.onHoverIn, () => {
       setIsTriggerHovered(true);
@@ -238,6 +254,8 @@ const useHoverInteraction = (props: IOnProps) => {
       setIsTriggerFocused(false);
     }),
   };
+
+  /* eslint-enable react-hooks/rules-of-hooks */
 };
 
 const useHover = (targetRef: any) => {
