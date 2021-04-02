@@ -1,17 +1,17 @@
 # react-native-popper
-## Includes Tooltip and Popover.
 Create fully customizable popovers and tooltips.
+[Playground](https://react-native-popper.netlify.app/)
+[Popover Example](https://snack.expo.io/gCAgexV36)
+[Tooltip Example](https://codesandbox.io/s/tooltip-example-wgrfd) - (CodeSandbox - as we need react-native-web 0.15+ for hover events.)
 
-- This library is built for maximum customizablity and out of the box accessibility.
 
 ## Features
-
-- Fully customizable even pointing arrows and backdrop.
+- Includes Popover and Tooltip.
+- Fully customizable.
 - Can be controlled or uncontrolled.
-- Handles focus trap, autofocus and focus contain on web.
-- Dismiss with Escape key on web.
+- Handles focus trap, autofocus and dismiss on Escape on web.
 - Shifts accessibility focus to first item on Android and iOS.
-- Has "multiple" mode which can be used to open multiple popovers on Android/iOS.
+- Has "multiple" mode which can be used to open multiple popovers.
 
 ## Install
 
