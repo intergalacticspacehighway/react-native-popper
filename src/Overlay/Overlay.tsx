@@ -13,6 +13,7 @@ export function Overlay(props: IOverlayProps) {
     onClose,
     focusable = true,
     animated = true,
+    mode = 'single',
     animationEntryDuration,
     animationExitDuration,
   } = props;
@@ -29,33 +30,34 @@ export function Overlay(props: IOverlayProps) {
   }
 
   // If focusable we render it in RN modal so it shifts accessibility focus
-  const content = focusable ? (
-    <Modal visible={true} transparent>
-      <Animated.View
-        style={[StyleSheet.absoluteFill, styles]}
-        pointerEvents="box-none"
-      >
-        <OverlayContext.Provider value={{ onClose }}>
-          {children}
-        </OverlayContext.Provider>
-      </Animated.View>
-    </Modal>
-  ) : (
-    <OverlayContainer>
-      <Animated.View
-        style={[
-          StyleSheet.absoluteFill,
-          styles,
-          { marginTop: StatusBar.currentHeight },
-        ]}
-        pointerEvents="box-none"
-      >
-        <OverlayContext.Provider value={{ onClose }}>
-          {children}
-        </OverlayContext.Provider>
-      </Animated.View>
-    </OverlayContainer>
-  );
+  const content =
+    focusable && mode === 'single' ? (
+      <Modal visible={true} transparent>
+        <Animated.View
+          style={[StyleSheet.absoluteFill, styles]}
+          pointerEvents="box-none"
+        >
+          <OverlayContext.Provider value={{ onClose }}>
+            {children}
+          </OverlayContext.Provider>
+        </Animated.View>
+      </Modal>
+    ) : (
+      <OverlayContainer>
+        <Animated.View
+          style={[
+            StyleSheet.absoluteFill,
+            styles,
+            { marginTop: StatusBar.currentHeight },
+          ]}
+          pointerEvents="box-none"
+        >
+          <OverlayContext.Provider value={{ onClose }}>
+            {children}
+          </OverlayContext.Provider>
+        </Animated.View>
+      </OverlayContainer>
+    );
 
   return content;
 }

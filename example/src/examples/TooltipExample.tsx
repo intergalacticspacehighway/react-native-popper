@@ -14,6 +14,7 @@ export default function App() {
             </Pressable>
           }
         >
+          <Tooltip.Backdrop />
           <Tooltip.Content>
             <View style={styles.tooltip}>
               <Text style={styles.tooltipText}>Hello world </Text>

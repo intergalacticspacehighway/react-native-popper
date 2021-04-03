@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
-import { Tooltip } from 'react-native-popper';
+import { Popover } from 'react-native-popper';
 
 export default function App() {
   const [visible, setVisible] = React.useState(true);
@@ -53,7 +53,8 @@ export default function App() {
 
       {['top', 'left', 'right', 'bottom'].map((p) => {
         return (
-          <Tooltip
+          <Popover
+            mode="multiple"
             isOpen={visible}
             trigger={trigger}
             key={p}
@@ -61,19 +62,20 @@ export default function App() {
             //@ts-ignore
             placement={p}
           >
-            <Tooltip.Content>
-              <Tooltip.Arrow />
-              <View style={styles.Tooltip}>
+            <Popover.Content>
+              <Popover.Arrow />
+              <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
-            </Tooltip.Content>
-          </Tooltip>
+            </Popover.Content>
+          </Popover>
         );
       })}
 
       {['top right', 'bottom right'].map((p) => {
         return (
-          <Tooltip
+          <Popover
+            mode="multiple"
             isOpen={visible}
             trigger={trigger3}
             key={p}
@@ -81,19 +83,20 @@ export default function App() {
             //@ts-ignore
             placement={p}
           >
-            <Tooltip.Content>
-              <Tooltip.Arrow />
-              <View style={styles.Tooltip}>
+            <Popover.Content>
+              <Popover.Arrow />
+              <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
-            </Tooltip.Content>
-          </Tooltip>
+            </Popover.Content>
+          </Popover>
         );
       })}
       {['right bottom', 'left bottom'].map((p) => {
         return (
           visible && (
-            <Tooltip
+            <Popover
+              mode="multiple"
               isOpen={visible}
               trigger={trigger4}
               key={p}
@@ -101,20 +104,21 @@ export default function App() {
               //@ts-ignore
               placement={p}
             >
-              <Tooltip.Content>
-                <Tooltip.Arrow />
-                <View style={styles.Tooltip}>
+              <Popover.Content>
+                <Popover.Arrow />
+                <View style={styles.Popover}>
                   <Text>{p}</Text>
                 </View>
-              </Tooltip.Content>
-            </Tooltip>
+              </Popover.Content>
+            </Popover>
           )
         );
       })}
 
       {['right top', 'left top'].map((p) => {
         return (
-          <Tooltip
+          <Popover
+            mode="multiple"
             isOpen={visible}
             trigger={trigger5}
             key={p}
@@ -122,19 +126,20 @@ export default function App() {
             //@ts-ignore
             placement={p}
           >
-            <Tooltip.Content>
-              <Tooltip.Arrow />
-              <View style={styles.Tooltip}>
+            <Popover.Content>
+              <Popover.Arrow />
+              <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
-            </Tooltip.Content>
-          </Tooltip>
+            </Popover.Content>
+          </Popover>
         );
       })}
 
       {['top left', 'bottom left'].map((p) => {
         return (
-          <Tooltip
+          <Popover
+            mode="multiple"
             isOpen={visible}
             trigger={trigger2}
             key={p}
@@ -142,19 +147,20 @@ export default function App() {
             //@ts-ignore
             placement={p}
           >
-            <Tooltip.Content>
-              <Tooltip.Arrow />
-              <View style={styles.Tooltip}>
+            <Popover.Content>
+              <Popover.Arrow />
+              <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
-            </Tooltip.Content>
-          </Tooltip>
+            </Popover.Content>
+          </Popover>
         );
       })}
 
       {['Top - overlap with trigger'].map((p) => {
         return (
-          <Tooltip
+          <Popover
+            mode="multiple"
             trigger={trigger6}
             key={p}
             onOpenChange={toggleVisible}
@@ -162,12 +168,12 @@ export default function App() {
             isOpen={visible}
             shouldOverlapWithTrigger
           >
-            <Tooltip.Content>
-              <View style={styles.Tooltip}>
+            <Popover.Content>
+              <View style={styles.Popover}>
                 <Text>{p}</Text>
               </View>
-            </Tooltip.Content>
-          </Tooltip>
+            </Popover.Content>
+          </Popover>
         );
       })}
     </>
@@ -180,7 +186,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  Tooltip: {
+  Popover: {
     padding: 10,
     borderWidth: 2,
     borderColor: 'blue',

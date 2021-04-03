@@ -4,6 +4,7 @@ import { useControllableState, useOn, useTooltip } from '../hooks';
 import { Popper } from '../Popper/Popper';
 import type { IPopoverProps } from '../types';
 import { OverlayBackdrop } from '../Overlay/OverlayBackdrop';
+import { Platform } from 'react-native';
 
 // Tooltip's code is almost same as Popover with some exceptions. Defaults to on="hover"
 // and focusable=false and also has different ARIA attributes via useTooltip hook.
@@ -25,34 +26,40 @@ const Tooltip = (props: IPopoverProps) => {
   };
 
   let triggerElem = null;
+  const isTriggerElement = React.isValidElement(props.trigger);
+  const isTriggerRef = props.trigger.hasOwnProperty('current');
 
-  // Received a trigger ref
-  if (props.trigger.hasOwnProperty('current')) {
-    // @ts-ignore
-    triggerRef = props.trigger;
-  }
-  // Received a trigger element
-  else if (React.isValidElement(props.trigger)) {
-    const triggerExistingProps = props.trigger.props;
-    // Trigger won't be changes in rerenders, so this seems safe
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const handlers = useOn({
-      on: props.on ?? 'hover',
-      onClose: handleClose,
-      onOpen: handleOpen,
-      ...triggerExistingProps,
-    });
-
-    triggerElem = React.cloneElement(props.trigger, {
-      ref: triggerRef,
-      ...handlers,
-    });
-  } else {
+  if (!isTriggerElement && !isTriggerRef) {
     console.warn(
       `Tooltip: Invalid 'trigger' prop received, please pass a valid ReactElement or a Ref`
     );
   }
 
+  // @ts-ignore - We already checked isValidElement above.
+  const triggerExistingProps = isTriggerElement ? props.trigger.props : {};
+
+  const handlers = useOn({
+    on: props.on ?? Platform.OS === 'web' ? 'hover' : 'press',
+    onClose: handleClose,
+    onOpen: handleOpen,
+    ...triggerExistingProps,
+  });
+
+  // Received a trigger ref
+  if (isTriggerRef) {
+    // @ts-ignore
+    triggerRef = props.trigger;
+  }
+  // Received a trigger element
+  else if (isTriggerElement) {
+    // @ts-ignore - We already checked isValidElement above.
+    triggerElem = React.cloneElement(props.trigger, {
+      ref: triggerRef,
+      ...handlers,
+    });
+  }
+
+  // ARIA props
   const { triggerProps, contentProps } = useTooltip({ isOpen });
 
   if (triggerElem) {
@@ -67,6 +74,7 @@ const Tooltip = (props: IPopoverProps) => {
         onClose={handleClose}
         isKeyboardDismissable={props.isKeyboardDismissable}
         focusable={false}
+        mode={props.mode}
         animated={props.animated}
         animationEntryDuration={props.animationEntryDuration}
         animationExitDuration={props.animationExitDuration}
