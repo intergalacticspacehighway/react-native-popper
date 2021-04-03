@@ -19,6 +19,7 @@ export function Overlay(props: IOverlayProps): any {
     shouldCloseOnOutsideClick = true,
     focusable = true,
     animated = true,
+    mode = 'single',
     animationEntryDuration,
     animationExitDuration,
     overlayRef,
@@ -53,7 +54,7 @@ export function Overlay(props: IOverlayProps): any {
         style={[StyleSheet.absoluteFill, styles]}
         pointerEvents="box-none"
       >
-        {focusable ? (
+        {focusable && mode === 'single' ? (
           <FocusScope
             contain={trapFocus}
             autoFocus={autoFocus}
