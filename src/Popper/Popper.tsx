@@ -6,6 +6,7 @@ import type {
   IScrollContentStyle,
   IArrowStyles,
   IPopoverArrowProps,
+  IPopoverContent,
 } from '../types';
 import { createContext } from '../utils';
 
@@ -34,7 +35,7 @@ const Popper = (
   return <PopperProvider {...props}>{props.children}</PopperProvider>;
 };
 
-const PopperContent = ({ children }: { children: any }) => {
+const PopperContent = ({ children, accessibilityLabel }: IPopoverContent) => {
   const {
     triggerRef,
     shouldFlip,
@@ -133,6 +134,7 @@ const PopperContent = ({ children }: { children: any }) => {
       ref={overlayRef}
       collapsable={false}
       style={overlayStyle.overlay}
+      accessibilityLabel={accessibilityLabel}
       {...contentProps}
     >
       {arrowElement}

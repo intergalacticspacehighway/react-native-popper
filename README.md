@@ -30,7 +30,7 @@ npm i react-native-popper
 ## Import
 
 ```js
-import { Popover, Tooltip } from 'react-native-popper'
+import { Popover, Tooltip } from 'react-native-popper';
 ```
 
 ## Usage
@@ -77,7 +77,7 @@ Tooltip:
 Popover:
 
 ```jsx
-const [isOpen, setIsOpen] = React.useState(false)
+const [isOpen, setIsOpen] = React.useState(false);
 
 return (
   <Popover
@@ -95,13 +95,13 @@ return (
       <Text>Hello World</Text>
     </Popover.Content>
   </Popover>
-)
+);
 ```
 
 Tooltip:
 
 ```jsx
-const [isOpen, setIsOpen] = React.useState(false)
+const [isOpen, setIsOpen] = React.useState(false);
 
 return (
   <Tooltip
@@ -118,7 +118,7 @@ return (
       <Text>Hello World</Text>
     </Tooltip.Content>
   </Tooltip>
-)
+);
 ```
 
 ## API
@@ -126,7 +126,7 @@ return (
 ### Popover or Tooltip
 
 | Prop                                 | Type                          | Default                                  | Description                                                                                                                                                                  |
-| ------------------------------------ | ----------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------------------------ | ----------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | trigger (Required)                   | React Element or Ref          | -                                        | Element or ref which will be used as a Trigger                                                                                                                               |
 | on                                   | "press", "longpress", "hover" | "press" for Popover "hover for Tooltips" | The action type which should trigger the Popover                                                                                                                             |
 | isOpen                               | boolean                       | false                                    | Useful for controlled popovers                                                                                                                                               |
@@ -134,7 +134,7 @@ return (
 | defaultIsOpen                        | boolean                       | false                                    | Specifies initial visibility of popover                                                                                                                                      |
 | placement                            | string                        | bottom                                   | "top", "bottom", "left", "right", "top left", "top right", "left top", "left bottom", "right top", "right bottom", "bottom left", "bottom right"                             |
 | shouldOverlapWithTrigger             | boolean                       | false                                    | Whether the popover should overlap with trigger                                                                                                                              |
-| placement                            | string                        | bottom                                   | "top", "bottom", "left", "right", "top left", "top right", "left top", "left bottom", "right top", "right bottom", "bottom left", "bottom right"                             |  |
+| placement                            | string                        | bottom                                   | "top", "bottom", "left", "right", "top left", "top right", "left top", "left bottom", "right top", "right bottom", "bottom left", "bottom right"                             |     |
 | offset                               | number                        | 0                                        | Distance between popover and trigger's main axis                                                                                                                             |
 | animated                             | boolean                       | true                                     | Determines whether the content should animate                                                                                                                                |
 | animationEntryDuration               | number                        | 150                                      | Duration of entry animation                                                                                                                                                  |
@@ -157,6 +157,7 @@ return (
 ### Popover.Content or Tooltip.Content
 
 - Pass the popover content as children here.
+- Accepts [accessibilityLabel](https://necolas.github.io/react-native-web/docs/accessibility/) prop. This will be announced by the screenreader when popup opens.
 
 ### Popover.Arrow or Tooltip.Arrow
 
@@ -168,7 +169,7 @@ return (
 | style    | ViewStyle | No       | -       | Style will be passed to the View which is used as Arrow        |
 | children | ReactNode | No       | -       | Supply custom Arrow. Make sure the arrow is pointing upward. ▲ |
 
-### OverlayProvider
+### <a name="overlayprovider"/> OverlayProvider
 
 - When using mode="multiple" or Tooltip, we use custom Portal to prevent shifting accessibility focus when opened.
   To use this Portal, we need to wrap the app with OverlayProvider.
@@ -184,7 +185,17 @@ function App() {
 
 Phew, That's it!
 
-## Why Popover and Tooltip separate component?
+## Why not always use a custom Portal instead of RN's built in Modal?
+
+- RN's built in Modal shifts accessibility focus to the first element when it opens. This is hard to achieve using a custom Portal.
+- Tooltips don't need to shift accessibility focus.
+- Thus,
+- On Web, we use ReactDOM's Portal in all cases.
+- On Android/iOS,
+  - For Popovers, defaults to RN modal (can be overriden via `mode` prop. Needs [OverlayProvider](#overlayprovider)).
+  - For Tooltips, defaults to custom Portal (Needs [OverlayProvider](#overlayprovider))
+
+## Why are Popover and Tooltip separate components?
 
 **Reason**: Different Accessibility requirements.
 
@@ -214,7 +225,7 @@ yarn android
 - Mode prop accepts `single` and `multiple` values. Defaults to `single`.
 - When set to `single`, it uses RN's built-in Modal which shifts accessibility focus to the first element when opened.
 - RN's built in modal doesn't support multiple popups at once unless they are nested. If you need multiple popup support without nesting use mode="multiple".
-- To use mode="multiple", wrap the entire app with OverlayProvider which enables custom Portal like functionality.
+- To use mode="multiple", wrap the entire app with [OverlayProvider](#overlayprovider) which enables custom Portal like functionality.
 - I am still figuring out if we can make this simple.
 
 ## Limitations

@@ -160,7 +160,10 @@ type IOnProps = {
 export const useOn = (props: IOnProps) => {
   let { on = 'press', onOpen } = props;
 
-  let events = useHoverInteraction(props, { enabled: on === 'hover' });
+  let events = useHoverInteraction(props, {
+    enabled: on === 'hover' && isPlatformWeb,
+  });
+
   if (events) {
     return events;
   }
@@ -188,15 +191,9 @@ const useHoverInteraction = (
   props: IOnProps,
   { enabled }: { enabled: boolean }
 ) => {
-  // Platform won't change in between, so breaking the conditional hook rule won't be an issue
-  /* eslint-disable react-hooks/rules-of-hooks */
-  if (!isPlatformWeb) {
-    return;
-  }
-
   const { overlayRef, onOpen, onClose } = props;
-  const { isHovered: isOverlayHovered } = useHover(overlayRef);
-  const { isFocused: isOverlayFocused } = useFocus(overlayRef);
+  const { isHovered: isOverlayHovered } = useHover(overlayRef, { enabled });
+  const { isFocused: isOverlayFocused } = useFocus(overlayRef, { enabled });
   const [isTriggerHovered, setIsTriggerHovered] = React.useState(false);
   const [isTriggerFocused, setIsTriggerFocused] = React.useState(false);
 
@@ -258,9 +255,10 @@ const useHoverInteraction = (
   /* eslint-enable react-hooks/rules-of-hooks */
 };
 
-const useHover = (targetRef: any) => {
+const useHover = (targetRef: any, { enabled }: { enabled: boolean }) => {
   const [isHovered, setIsHovered] = React.useState(false);
   React.useEffect(() => {
+    if (!enabled) return;
     if (targetRef && targetRef.current) {
       targetRef.current.onmouseover = () => {
         setIsHovered(true);
@@ -269,14 +267,15 @@ const useHover = (targetRef: any) => {
         setIsHovered(false);
       };
     }
-  }, [targetRef]);
+  }, [targetRef, enabled]);
 
   return { isHovered };
 };
 
-const useFocus = (targetRef: any) => {
+const useFocus = (targetRef: any, { enabled }: { enabled: boolean }) => {
   const [isFocused, setIsFocused] = React.useState(false);
   React.useEffect(() => {
+    if (!enabled) return;
     let focusInistener = () => {
       setIsFocused(true);
     };
@@ -297,7 +296,7 @@ const useFocus = (targetRef: any) => {
         currentTarget.removeEventListener('focusout', focusOutListener);
       }
     };
-  }, [targetRef]);
+  }, [targetRef, enabled]);
 
   return { isFocused };
 };

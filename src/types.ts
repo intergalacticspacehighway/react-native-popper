@@ -26,7 +26,7 @@ export type OverlayType = 'single' | 'multiple';
 
 export type IPopoverProps = {
   focusable?: boolean;
-  // mode?: OverlayType;
+  mode?: OverlayType;
   defaultIsOpen?: boolean;
   on?: 'press' | 'longPress' | 'hover';
   isOpen?: boolean;
@@ -71,6 +71,7 @@ export type IPopoverContentImpl = {
 
 export type IPopoverContent = {
   children: React.ReactNode;
+  accessibilityLabel?: string;
 };
 
 export type IArrowStyles = {
@@ -86,6 +87,7 @@ export type IScrollContentStyle = {
 };
 
 export type IOverlayProps = {
+  mode?: OverlayType;
   focusable?: boolean;
   isOpen: boolean;
   children: any;
