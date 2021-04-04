@@ -157,6 +157,7 @@ return (
 ### Popover.Content or Tooltip.Content
 
 - Pass the popover content as children here.
+- Accepts [accessibilityLabel](https://necolas.github.io/react-native-web/docs/accessibility/) prop. This will be announced by the screenreader when popup opens.
 
 ### Popover.Arrow or Tooltip.Arrow
 

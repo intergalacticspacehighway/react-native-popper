@@ -12,7 +12,7 @@ export default function App() {
         }
       >
         <Popover.Backdrop />
-        <Popover.Content>
+        <Popover.Content accessibilityLabel="this should be the label of this popover">
           <Popover.Arrow color="#D1D5DB"></Popover.Arrow>
           <View style={styles.popover}>
             <Text>Hello from popover</Text>

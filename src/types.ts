@@ -71,6 +71,7 @@ export type IPopoverContentImpl = {
 
 export type IPopoverContent = {
   children: React.ReactNode;
+  accessibilityLabel?: string;
 };
 
 export type IArrowStyles = {
