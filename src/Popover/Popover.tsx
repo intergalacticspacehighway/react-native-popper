@@ -57,7 +57,10 @@ const Popover = (props: IPopoverProps) => {
   }
 
   // ARIA props
-  const { triggerProps, contentProps } = usePopover({ isOpen });
+  const { triggerProps, contentProps } = usePopover({
+    isOpen,
+    disableAriaAttributes: props.disableAriaAttributes,
+  });
 
   if (triggerElem) {
     triggerElem = React.cloneElement(triggerElem, { ...triggerProps });

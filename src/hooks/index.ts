@@ -95,9 +95,13 @@ export function useControllableState<T>(props: UseControllableStateProps<T>) {
   return [value, updateValue] as [T, React.Dispatch<React.SetStateAction<T>>];
 }
 
-export const usePopover = (props: { isOpen: boolean }) => {
+export const usePopover = (props: {
+  isOpen: boolean;
+  disableAriaAttributes?: boolean;
+}) => {
   const triggerId = React.useRef(generateId('trigger')).current;
   const contentId = React.useRef(generateId('content')).current;
+
   const { isOpen } = props;
 
   let triggerProps: any = {
@@ -114,13 +118,20 @@ export const usePopover = (props: { isOpen: boolean }) => {
   triggerProps['aria-controls'] = isOpen ? contentId : undefined;
   contentProps.accessibilityRole = Platform.OS === 'web' ? 'dialog' : undefined;
 
+  if (props.disableAriaAttributes) {
+    return { triggerProps: {}, contentProps: {} };
+  }
+
   return {
     triggerProps,
     contentProps,
   };
 };
 
-export const useTooltip = (props: { isOpen: boolean }) => {
+export const useTooltip = (props: {
+  isOpen: boolean;
+  disableAriaAttributes?: boolean;
+}) => {
   const triggerId = React.useRef(generateId('trigger')).current;
   const contentId = React.useRef(generateId('content')).current;
   const { isOpen } = props;
@@ -137,6 +148,10 @@ export const useTooltip = (props: { isOpen: boolean }) => {
   triggerProps['aria-describedby'] = isOpen ? contentId : undefined;
   contentProps.accessibilityRole =
     Platform.OS === 'web' ? 'tooltip' : undefined;
+
+  if (props.disableAriaAttributes) {
+    return { triggerProps: {}, contentProps: {} };
+  }
 
   return {
     triggerProps,

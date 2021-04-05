@@ -60,7 +60,10 @@ const Tooltip = (props: IPopoverProps) => {
   }
 
   // ARIA props
-  const { triggerProps, contentProps } = useTooltip({ isOpen });
+  const { triggerProps, contentProps } = useTooltip({
+    isOpen,
+    disableAriaAttributes: props.disableAriaAttributes,
+  });
 
   if (triggerElem) {
     triggerElem = React.cloneElement(triggerElem, { ...triggerProps });

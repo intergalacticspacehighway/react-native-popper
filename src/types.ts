@@ -27,6 +27,7 @@ export type OverlayType = 'single' | 'multiple';
 export type IPopoverProps = {
   focusable?: boolean;
   mode?: OverlayType;
+  disableAriaAttributes?: boolean;
   defaultIsOpen?: boolean;
   on?: 'press' | 'longPress' | 'hover';
   isOpen?: boolean;
