@@ -1,6 +1,6 @@
 {
   "name": "react-native-popper",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Headless popovers",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -156,6 +156,6 @@
   },
   "dependencies": {
     "@react-native-aria/focus": "^0.2.4",
-    "@react-native-aria/overlays": "^0.2.10"
+    "@react-native-aria/overlays": "^0.3.1"
   }
 }
