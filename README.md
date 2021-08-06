@@ -21,7 +21,7 @@ Create fully customizable popovers and tooltips.
 
 ```sh
 # yarn
-yard add react-native-popper
+yarn add react-native-popper
 
 # npm
 npm i react-native-popper
