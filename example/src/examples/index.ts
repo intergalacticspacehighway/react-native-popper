@@ -5,3 +5,4 @@ export { default as EntryExitAnimation } from './ComplexExample';
 export { default as MultiplePopovers } from './MultiplePopovers';
 export { default as TriggerRefExample } from './TriggerRefExample';
 export { default as CustomSVGArrow } from './ArrowExample';
+export { default as MenuWithArrowKeys } from './MenuWithArrowKeys';

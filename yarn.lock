@@ -1738,10 +1738,10 @@
     "@react-aria/utils" "^3.8.0"
     clsx "^1.1.1"
 
-"@react-native-aria/focus@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@react-native-aria/focus/-/focus-0.2.4.tgz#9402eb5c7913f9ce933e1d6582007ec730680a59"
-  integrity sha512-W/6yU9r896TZ8Z9+7FdWpnAFvurabu6oBVtCCrz8fEUeLaPhUFJXLm/aZmPcF30lYED157ICkx9xJBdGihJZzw==
+"@react-native-aria/focus@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@react-native-aria/focus/-/focus-0.2.5.tgz#28ff752b28b7dfeb737147856aaf6669de3290f9"
+  integrity sha512-PUTGNL5JMCWJ2dNAehpQqLuSUUdkXcLlFjl52Dv84XcIUTuXRvDl5+jr4OW0jyUSGUS6ooqDNRW/PSza35P+tw==
   dependencies:
     "@react-aria/focus" "^3.2.3"
 
