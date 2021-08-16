@@ -1,0 +1,169 @@
+import React from 'react';
+import { Pressable, View, StyleSheet, Text, ScrollView } from 'react-native';
+import { Popover, useFocusManager } from 'react-native-popper';
+import { AntDesign } from '@expo/vector-icons';
+
+export default function MenuWithArrowKeys() {
+  return (
+    <View style={styles.wrapper}>
+      <Popover
+        placement="bottom right"
+        trigger={
+          <Pressable style={{ height: 26, width: 24 }}>
+            <AntDesign name="plus" size={26} color="black" />
+          </Pressable>
+        }
+      >
+        <Popover.Content>
+          <Popover.Arrow
+            height={12}
+            width={24}
+            color="#fff"
+            style={{ borderBottomWidth: 16 }}
+          />
+          <MyPopoverView />
+        </Popover.Content>
+      </Popover>
+    </View>
+  );
+}
+
+export function MyPopoverView() {
+  const keyboardProps = useMenuArrowKeyProps();
+
+  return (
+    <View style={[styles.boxShadow, styles.shadow]}>
+      <ScrollView>
+        <View style={[styles.row, styles.justifyBetween, styles.header]}>
+          <Pressable {...keyboardProps}>
+            <Text style={{ color: '#DC2626' }}>Cancel</Text>
+          </Pressable>
+          <Text style={{ fontWeight: 'bold', color: '#1F2937' }}>
+            New Event
+          </Text>
+          <Pressable {...keyboardProps}>
+            <Text style={{ color: '#DC2626' }}>Add</Text>
+          </Pressable>
+        </View>
+        <View style={{ height: 20, backgroundColor: '#F3F4F6' }}></View>
+        <Pressable {...keyboardProps}>
+          <View style={[styles.row, styles.justifyBetween, styles.header]}>
+            <Text style={{ color: '#1F2937' }}>Pick up groceries</Text>
+          </View>
+        </Pressable>
+        <Spacer width={'95%'} height={2} />
+        <Pressable {...keyboardProps}>
+          <View style={[styles.row, styles.justifyBetween, styles.header]}>
+            <Text style={{ color: '#1F2937' }}>Market</Text>
+          </View>
+        </Pressable>
+        <Spacer height={30} />
+        <Pressable {...keyboardProps}>
+          <View style={[styles.row, styles.justifyBetween, styles.header]}>
+            <Text style={{ color: '#1F2937' }}>All-day</Text>
+          </View>
+        </Pressable>
+        <Spacer width={'95%'} height={2} />
+        <View style={[styles.row, styles.justifyBetween, styles.header]}>
+          <Text style={{ color: '#1F2937' }}>Starts</Text>
+          <Pressable {...keyboardProps}>
+            <Text style={{ color: '#DC2626' }}>
+              Nov 14, 2018 {'  '} 6:00 PM
+            </Text>
+          </Pressable>
+        </View>
+        <Spacer width={'95%'} height={2} />
+        <View style={[styles.row, styles.justifyBetween, styles.header]}>
+          <Text style={{ color: '#1F2937' }}>Ends</Text>
+          <Pressable {...keyboardProps}>
+            <Text style={{ color: '#DC2626' }}>
+              Nov 15, 2018 {'  '} 6:00 PM
+            </Text>
+          </Pressable>
+        </View>
+        <Spacer width={'95%'} height={2} />
+        <View style={[styles.row, styles.justifyBetween, styles.header]}>
+          <Text style={{ color: '#1F2937' }}>Reschedule</Text>
+        </View>
+        <Pressable {...keyboardProps}>
+          <View style={[styles.row, styles.justifyBetween, styles.header]}>
+            <Text style={{ color: '#1F2937' }}>Mark as Complete</Text>
+          </View>
+        </Pressable>
+        <Pressable {...keyboardProps}>
+          <View style={[styles.row, styles.justifyBetween, styles.header]}>
+            <Text style={{ color: '#1F2937' }}>Remind me</Text>
+          </View>
+        </Pressable>
+      </ScrollView>
+    </View>
+  );
+}
+
+const Spacer = ({ height, width }: any) => {
+  return (
+    <View
+      style={{
+        height: height,
+        backgroundColor: '#F3F4F6',
+        width: width ?? '100%',
+        marginHorizontal: 'auto',
+      }}
+    ></View>
+  );
+};
+const styles = StyleSheet.create({
+  row: { flexDirection: 'row' },
+  justifyBetween: { justifyContent: 'space-between' },
+  wrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 100,
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  boxShadow: {
+    minWidth: 300,
+    borderRadius: 5,
+    // borderColor: '#F3F4F6',
+    // borderWidth: 1,
+    backgroundColor: '#fff',
+    maxHeight: 400,
+  },
+  header: {
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+  },
+});
+
+const useMenuArrowKeyProps = () => {
+  let focusManager = useFocusManager();
+  let onKeyDown = (e: any) => {
+    switch (e.key) {
+      case 'ArrowDown': {
+        e.preventDefault();
+        //@ts-ignore
+        focusManager.focusNext({ wrap: true });
+        break;
+      }
+
+      case 'ArrowUp': {
+        e.preventDefault();
+        //@ts-ignore
+        focusManager.focusPrevious({ wrap: true });
+        break;
+      }
+    }
+  };
+  return {
+    onKeyDown,
+  };
+};
