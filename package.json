@@ -157,5 +157,6 @@
   "dependencies": {
     "@react-native-aria/focus": "^0.2.5",
     "@react-native-aria/overlays": "^0.3.1"
-  }
+  },
+  "sideEffects": false
 }
