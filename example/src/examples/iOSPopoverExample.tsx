@@ -16,12 +16,7 @@ export default function IOSPopoverExample() {
       >
         <Popover.Backdrop />
         <Popover.Content>
-          <Popover.Arrow
-            height={12}
-            width={24}
-            color="#fff"
-            style={{ borderBottomWidth: 16 }}
-          />
+          <Popover.Arrow color="#fff" />
           <MyPopoverView />
         </Popover.Content>
       </Popover>
