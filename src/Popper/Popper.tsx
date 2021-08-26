@@ -13,6 +13,13 @@ import { createContext } from '../utils';
 const defaultArrowHeight = 15;
 const defaultArrowWidth = 15;
 
+const resetBorderWidthStyles = {
+  borderTopWidth: 0,
+  borderLeftWidth: 0,
+  borderRightWidth: 0,
+  borderBottomWidth: 0,
+};
+
 type PopperContext = IPopoverProps & {
   triggerRef: any;
   onClose: any;
@@ -169,20 +176,20 @@ const PopperArrow = ({
   );
 
   let arrowStyles = React.useMemo(
-    () => [arrowProps.style, triangleStyle, additionalStyles, rest.style],
-    [triangleStyle, additionalStyles, arrowProps.style, rest.style]
+    () => [arrowProps.style, triangleStyle, additionalStyles],
+    [triangleStyle, additionalStyles, arrowProps.style]
   );
 
   // Passed a custom Arrow, don't apply triangle style
   if (rest.children) {
     return (
-      <View style={[additionalStyles, arrowProps.style, rest.style]}>
+      <View style={[arrowStyles, resetBorderWidthStyles, rest.style]}>
         {rest.children}
       </View>
     );
   }
 
-  return <View style={arrowStyles} />;
+  return <View style={[arrowStyles, rest.style]} />;
 };
 
 const getArrowStyles = (props: IArrowStyles) => {
