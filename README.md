@@ -165,9 +165,8 @@ return (
 | -------- | --------- | -------- | ------- | -------------------------------------------------------------- |
 | height   | number    | No       | 10      | Arrow height                                                   |
 | width    | number    | No       | 16      | Arrow width                                                    |
-| color    | string    | No       | #000    | Arrow color                                                    |
 | style    | ViewStyle | No       | -       | Style will be passed to the View which is used as Arrow        |
-| children | ReactNode | No       | -       | Supply custom Arrow. Make sure the arrow is pointing upward. ▲ |
+| children | ReactNode | No       | -       | Supply custom Arrow. You pass anything square. [Refer CustomArrowExample](https://github.com/intergalacticspacehighway/react-native-popper/blob/main/example/src/examples/CustomArrowExample.tsx) |
 
 ### <a name="overlayprovider"/> OverlayProvider
 

@@ -10,8 +10,15 @@ import type {
 } from '../types';
 import { createContext } from '../utils';
 
-const defaultArrowHeight = 10;
-const defaultArrowWidth = 16;
+const defaultArrowHeight = 15;
+const defaultArrowWidth = 15;
+
+const resetBorderWidthStyles = {
+  borderTopWidth: 0,
+  borderLeftWidth: 0,
+  borderRightWidth: 0,
+  borderBottomWidth: 0,
+};
 
 type PopperContext = IPopoverProps & {
   triggerRef: any;
@@ -109,7 +116,7 @@ const PopperContent = ({ children, accessibilityLabel }: IPopoverContent) => {
 
   const containerStyle = React.useMemo(
     () =>
-      getScrollContentStyle({
+      getContainerStyle({
         placement,
         arrowHeight,
         arrowWidth,
@@ -162,93 +169,101 @@ const PopperArrow = ({
   let triangleStyle: ViewStyle = React.useMemo(
     () => ({
       position: 'absolute',
-      width: 0,
-      height: 0,
-      backgroundColor: 'transparent',
-      borderStyle: 'solid',
-      borderLeftWidth: width / 2,
-      borderRightWidth: width / 2,
-      borderBottomWidth: height,
-      borderLeftColor: 'transparent',
-      borderRightColor: 'transparent',
-      borderBottomColor: rest.color,
+      width,
+      height,
     }),
-    [width, height, rest.color]
+    [width, height]
   );
 
   let arrowStyles = React.useMemo(
-    () => [triangleStyle, additionalStyles, arrowProps.style, rest.style],
-    [triangleStyle, additionalStyles, arrowProps.style, rest.style]
+    () => [arrowProps.style, triangleStyle, additionalStyles],
+    [triangleStyle, additionalStyles, arrowProps.style]
   );
 
   // Passed a custom Arrow, don't apply triangle style
   if (rest.children) {
     return (
-      <View style={[additionalStyles, arrowProps.style, rest.style]}>
+      <View style={[arrowStyles, resetBorderWidthStyles, rest.style]}>
         {rest.children}
       </View>
     );
   }
 
-  return <View style={arrowStyles}></View>;
+  return <View style={[arrowStyles, rest.style]} />;
 };
 
 const getArrowStyles = (props: IArrowStyles) => {
   let additionalStyles: any = {
     transform: [],
-    position: 'absolute',
-    height: props.height,
-    width: props.width,
-    justifyContent: 'center',
-    alignItems: 'center',
   };
+
+  const diagonalLength = getDiagonalLength(
+    defaultArrowHeight,
+    defaultArrowHeight
+  );
 
   if (props.placement === 'top' && props.width) {
     additionalStyles.transform.push({ translateX: -props.width / 2 });
-    additionalStyles.transform.push({ rotate: '180deg' });
-    additionalStyles.bottom = 0;
+    additionalStyles.transform.push({ rotate: '45deg' });
+    additionalStyles.bottom = Math.ceil(
+      (diagonalLength - defaultArrowHeight) / 2
+    );
+    additionalStyles.borderBottomWidth = 1;
+    additionalStyles.borderRightWidth = 1;
   }
 
-  // No rotation is needed in bottom as arrow is already pointing top!
-  // additionalStyles.transform.push({ rotate: '-180deg' });
   if (props.placement === 'bottom' && props.width) {
     additionalStyles.transform.push({ translateX: -props.width / 2 });
-    additionalStyles.top = 0;
+    additionalStyles.transform.push({ rotate: '45deg' });
+    additionalStyles.top = Math.ceil((diagonalLength - defaultArrowHeight) / 2);
+    additionalStyles.borderTopWidth = 1;
+    additionalStyles.borderLeftWidth = 1;
   }
 
   if (props.placement === 'left' && props.height) {
     additionalStyles.transform.push({ translateY: -props.height / 2 });
-    additionalStyles.transform.push({ rotate: '90deg' });
-    additionalStyles.right = 0;
+    additionalStyles.transform.push({ rotate: '45deg' });
+    additionalStyles.right = Math.ceil(
+      (diagonalLength - defaultArrowHeight) / 2
+    );
+    additionalStyles.borderTopWidth = 1;
+    additionalStyles.borderRightWidth = 1;
   }
 
   if (props.placement === 'right' && props.height) {
     additionalStyles.transform.push({ translateY: -props.height / 2 });
-    additionalStyles.transform.push({ rotate: '-90deg' });
-    additionalStyles.left = 0;
+    additionalStyles.transform.push({ rotate: '45deg' });
+    additionalStyles.left = Math.ceil(
+      (diagonalLength - defaultArrowHeight) / 2
+    );
+    additionalStyles.borderBottomWidth = 1;
+    additionalStyles.borderLeftWidth = 1;
   }
 
   return additionalStyles;
 };
 
-const getScrollContentStyle = ({
-  placement,
-  arrowHeight,
-}: IScrollContentStyle) => {
+const getDiagonalLength = (height: number, width: number) => {
+  return Math.pow(height * height + width * width, 0.5);
+};
+
+const getContainerStyle = ({ placement, arrowHeight }: IScrollContentStyle) => {
+  const diagonalLength = getDiagonalLength(arrowHeight, arrowHeight) / 2;
+
   if (placement === 'top') {
-    return { marginBottom: arrowHeight };
+    return { marginBottom: diagonalLength };
   }
 
   if (placement === 'bottom') {
-    return { marginTop: arrowHeight };
+    return { marginTop: diagonalLength };
   }
 
   if (placement === 'left') {
-    return { marginRight: arrowHeight };
+    return { marginRight: diagonalLength };
   }
 
   if (placement === 'right') {
-    return { marginLeft: arrowHeight };
+    return { marginLeft: diagonalLength };
   }
 
   return {};

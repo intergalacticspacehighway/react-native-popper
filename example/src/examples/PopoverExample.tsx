@@ -13,7 +13,7 @@ export default function App() {
       >
         <Popover.Backdrop />
         <Popover.Content accessibilityLabel="this should be the label of this popover">
-          <Popover.Arrow color="#D1D5DB"></Popover.Arrow>
+          <Popover.Arrow style={{ backgroundColor: 'pink' }} />
           <View style={styles.popover}>
             <Text>Hello from popover</Text>
             <Pressable>

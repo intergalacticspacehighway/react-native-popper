@@ -1,8 +1,9 @@
+export { default as VercelLikeMenuPopover } from './VercelLikeMenuPopover';
 export { default as PopoverExample } from './PopoverExample';
 export { default as TooltipExample } from './TooltipExample';
 export { default as IOSPopoverExample } from './iOSPopoverExample';
 export { default as EntryExitAnimation } from './ComplexExample';
+export { default as CustomArrowExample } from './CustomArrowExample';
 export { default as MultiplePopovers } from './MultiplePopovers';
 export { default as TriggerRefExample } from './TriggerRefExample';
-export { default as CustomSVGArrow } from './ArrowExample';
 export { default as MenuWithArrowKeys } from './MenuWithArrowKeys';
