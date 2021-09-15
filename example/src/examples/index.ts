@@ -1,3 +1,4 @@
+export { default as PopperExample } from './PopperExample';
 export { default as VercelLikeMenuPopover } from './VercelLikeMenuPopover';
 export { default as PopoverExample } from './PopoverExample';
 export { default as TooltipExample } from './TooltipExample';

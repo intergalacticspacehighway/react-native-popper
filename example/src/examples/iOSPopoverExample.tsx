@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from 'react';
 import { Pressable, View, StyleSheet, Text, ScrollView } from 'react-native';
 import { Popover } from 'react-native-popper';
@@ -14,9 +15,18 @@ export default function IOSPopoverExample() {
           </Pressable>
         }
       >
-        <Popover.Backdrop />
+        <Popover.Backdrop style={{ backgroundColor: 'rgba(0, 0, 0, 0.1)' }} />
         <Popover.Content>
-          <Popover.Arrow color="#fff" />
+          <Popover.Arrow
+            style={[
+              {
+                backgroundColor: '#fff',
+                borderColor: 'transparent',
+                zIndex: 1,
+                borderRadius: 4,
+              },
+            ]}
+          />
           <MyPopoverView />
         </Popover.Content>
       </Popover>
@@ -26,7 +36,7 @@ export default function IOSPopoverExample() {
 
 export function MyPopoverView() {
   return (
-    <View style={[styles.boxShadow, styles.shadow]}>
+    <View style={[styles.boxShadow]}>
       <ScrollView>
         <View style={[styles.row, styles.justifyBetween, styles.header]}>
           <Pressable>

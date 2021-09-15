@@ -20,9 +20,9 @@ const resetBorderWidthStyles = {
   borderBottomWidth: 0,
 };
 
-type PopperContext = IPopoverProps & {
+type PopperContext = Omit<IPopoverProps, 'trigger'> & {
   triggerRef: any;
-  onClose: any;
+  onClose?: any;
   contentProps?: any;
   setOverlayRef?: (overlayRef: any) => void;
 };
@@ -32,17 +32,21 @@ const [PopperProvider, usePopperContext] = createContext<PopperContext>(
 );
 
 const Popper = (
-  props: IPopoverProps & {
+  props: Omit<IPopoverProps, 'trigger'> & {
     triggerRef: any;
-    onClose: any;
-    contentProps: any;
+    onClose?: any;
+    contentProps?: any;
     setOverlayRef?: (overlayRef: any) => void;
   }
 ) => {
   return <PopperProvider {...props}>{props.children}</PopperProvider>;
 };
 
-const PopperContent = ({ children, accessibilityLabel }: IPopoverContent) => {
+const PopperContent = ({
+  children,
+  accessibilityLabel,
+  ...restProps
+}: IPopoverContent) => {
   const {
     triggerRef,
     shouldFlip,
@@ -143,6 +147,7 @@ const PopperContent = ({ children, accessibilityLabel }: IPopoverContent) => {
       style={overlayStyle.overlay}
       accessibilityLabel={accessibilityLabel}
       {...contentProps}
+      {...restProps}
     >
       {arrowElement}
       <View style={containerStyle}>{restElements}</View>
