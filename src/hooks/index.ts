@@ -397,13 +397,12 @@ export const useCloseOnOutsideClick = ({
       if (!clickedInRefs) onClose();
     };
     if (isPlatformWeb) {
-      // Register at capture phase as Touchable prevents event bubbling.
-      document.addEventListener('click', listener, true);
+      document.addEventListener('click', listener);
     }
 
     return () => {
       if (isPlatformWeb) {
-        document.removeEventListener('click', listener, true);
+        document.removeEventListener('click', listener);
       }
     };
   }, [refs, onClose, enabled]);
