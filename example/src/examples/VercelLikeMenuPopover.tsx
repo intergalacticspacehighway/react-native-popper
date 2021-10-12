@@ -5,14 +5,20 @@ import { Popover } from 'react-native-popper';
 import { Entypo } from '@expo/vector-icons';
 
 export default function IOSPopoverExample() {
+  const [visible, setVisible] = React.useState(false);
   return (
     <View style={styles.body}>
       <View style={styles.wrapper}>
         <Popover
           placement="bottom left"
           offset={2}
+          isOpen={visible}
+          onRequestClose={() => setVisible(false)}
           trigger={
-            <Pressable style={styles.menuTrigger}>
+            <Pressable
+              style={styles.menuTrigger}
+              onPress={() => setVisible(true)}
+            >
               <Entypo
                 name="chevron-thin-down"
                 size={16}
@@ -21,7 +27,7 @@ export default function IOSPopoverExample() {
             </Pressable>
           }
         >
-          <Popover.Backdrop />
+          <Popover.Backdrop onPress={() => setVisible(false)} />
           <Popover.Content>
             <Popover.Arrow
               style={{

@@ -1,5 +1,5 @@
 import type { ReactElement, RefObject } from 'react';
-import type { ViewStyle } from 'react-native';
+import type { ModalProps, ViewStyle } from 'react-native';
 
 export type IPopoverArrowProps = {
   height?: number;
@@ -42,6 +42,7 @@ export type IPopoverProps = {
   animationEntryDuration?: number;
   animationExitDuration?: number;
   shouldCloseOnOutsideClick?: boolean;
+  onRequestClose?: ModalProps['onRequestClose'];
   placement?:
     | 'top'
     | 'bottom'
@@ -103,4 +104,5 @@ export type IOverlayProps = {
   animationExitDuration?: number;
   overlayRef?: RefObject<any>;
   triggerRef?: RefObject<any>;
+  onRequestClose?: ModalProps['onRequestClose'];
 };
