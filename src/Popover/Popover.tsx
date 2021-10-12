@@ -84,6 +84,7 @@ const Popover = (props: IPopoverProps) => {
         overlayRef={overlayRef}
         triggerRef={triggerRef}
         shouldCloseOnOutsideClick={props.shouldCloseOnOutsideClick}
+        onRequestClose={props.onRequestClose}
       >
         <Popper
           {...props}

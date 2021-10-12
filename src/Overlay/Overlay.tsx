@@ -1,5 +1,11 @@
-import React from 'react';
-import { Animated, Modal, StatusBar, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+  Animated,
+  BackHandler,
+  Modal,
+  StatusBar,
+  StyleSheet,
+} from 'react-native';
 import type { IOverlayProps } from '../types';
 import { OverlayContainer } from './index';
 import { OverlayContext } from './context';
@@ -16,6 +22,7 @@ export function Overlay(props: IOverlayProps) {
     mode = 'single',
     animationEntryDuration,
     animationExitDuration,
+    onRequestClose,
   } = props;
 
   const { styles, isExited } = useAnimatedStyles({
@@ -25,6 +32,21 @@ export function Overlay(props: IOverlayProps) {
     isOpen,
   });
 
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      function closePopover() {
+        if (typeof onRequestClose === 'function' && isOpen) {
+          onRequestClose();
+          return true;
+        }
+        return false;
+      }
+    );
+
+    return () => backHandler.remove();
+  }, [onRequestClose, isOpen]);
+
   if (!isOpen && isExited) {
     return null;
   }
@@ -32,7 +54,7 @@ export function Overlay(props: IOverlayProps) {
   // If focusable we render it in RN modal so it shifts accessibility focus
   const content =
     focusable && mode === 'single' ? (
-      <Modal visible={true} transparent>
+      <Modal visible={true} transparent onRequestClose={onRequestClose}>
         <Animated.View
           style={[StyleSheet.absoluteFill, styles]}
           pointerEvents="box-none"
