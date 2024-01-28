@@ -105,4 +105,5 @@ export type IOverlayProps = {
   overlayRef?: RefObject<any>;
   triggerRef?: RefObject<any>;
   onRequestClose?: ModalProps['onRequestClose'];
+  statusBarTranslucent?: ModalProps['statusBarTranslucent'];
 };

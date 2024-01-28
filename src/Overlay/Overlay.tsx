@@ -23,6 +23,7 @@ export function Overlay(props: IOverlayProps) {
     animationEntryDuration,
     animationExitDuration,
     onRequestClose,
+    statusBarTranslucent,
   } = props;
 
   const { styles, isExited } = useAnimatedStyles({
@@ -54,7 +55,12 @@ export function Overlay(props: IOverlayProps) {
   // If focusable we render it in RN modal so it shifts accessibility focus
   const content =
     focusable && mode === 'single' ? (
-      <Modal visible={true} transparent onRequestClose={onRequestClose}>
+      <Modal
+        visible={true}
+        transparent
+        statusBarTranslucent={statusBarTranslucent}
+        onRequestClose={onRequestClose}
+      >
         <Animated.View
           style={[StyleSheet.absoluteFill, styles]}
           pointerEvents="box-none"
@@ -70,7 +76,11 @@ export function Overlay(props: IOverlayProps) {
           style={[
             StyleSheet.absoluteFill,
             styles,
-            { marginTop: StatusBar.currentHeight },
+            {
+              marginTop: statusBarTranslucent
+                ? undefined
+                : StatusBar.currentHeight,
+            },
           ]}
           pointerEvents="box-none"
         >
