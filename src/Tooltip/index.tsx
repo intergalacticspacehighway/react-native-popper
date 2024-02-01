@@ -78,6 +78,7 @@ const Tooltip = (props: IPopoverProps) => {
         isKeyboardDismissable={props.isKeyboardDismissable}
         focusable={false}
         mode={props.mode}
+        statusBarTranslucent={props.statusBarTranslucent}
         animated={props.animated}
         animationEntryDuration={props.animationEntryDuration}
         animationExitDuration={props.animationExitDuration}

@@ -79,6 +79,7 @@ const Popover = (props: IPopoverProps) => {
         focusable={props.focusable ?? isFocusabe}
         animated={props.animated}
         mode={props.mode}
+        statusBarTranslucent={props.statusBarTranslucent}
         animationEntryDuration={props.animationEntryDuration}
         animationExitDuration={props.animationExitDuration}
         overlayRef={overlayRef}

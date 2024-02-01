@@ -43,6 +43,7 @@ export type IPopoverProps = {
   animationExitDuration?: number;
   shouldCloseOnOutsideClick?: boolean;
   onRequestClose?: ModalProps['onRequestClose'];
+  statusBarTranslucent?: ModalProps['statusBarTranslucent'];
   placement?:
     | 'top'
     | 'bottom'
